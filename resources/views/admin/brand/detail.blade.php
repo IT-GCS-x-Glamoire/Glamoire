@@ -114,13 +114,13 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6">
-                            <h3>Add New Product</h3>
+                            <h3>Detail Brand</h3>
                         </div>
                         <div class="col-12 col-md-6 d-flex justify-content-md-end align-items-center">
                             <nav aria-label="breadcrumb" class="breadcrumb-header" style="margin-bottom: 20px;">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="/product-admin">Product</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Add New Product</li>
+                                    <li class="breadcrumb-item"><a href="/brand-admin">Brand</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Detail Brand</li>
                                 </ol>
                             </nav>
                         </div>
@@ -139,11 +139,11 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group has-icon-left">
-                                                            <label for="first-name-icon">Product Name <span
+                                                            <label for="first-name-icon">Brand Name <span
                                                                     style="color: red">*</span></label>
                                                             <div class="position-relative">
                                                                 <input type="text" class="form-control"
-                                                                    placeholder="Enter Product Name"
+                                                                    placeholder="Enter Brand Name"
                                                                     id="first-name-icon">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-bag"></i>
@@ -151,94 +151,25 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-group has-icon-left">
-                                                            <label for="first-name-icon">Code <span
+                                                        <div class="form-group ">
+                                                            <label for="first-name-icon">Description <span
                                                                     style="color: red">*</span></label>
-                                                            <div class="position-relative">
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="Enter Code Product"
-                                                                    id="first-name-icon">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-receipt"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
 
-                                                        <label for="first-name-icon">Category <span
-                                                                style="color: red">*</span></label>
-                                                        <div class="form-group">
-                                                            <select class="choices form-select">
-                                                                <option value="square">Square</option>
-                                                                <option value="rectangle">Rectangle</option>
-                                                                <option value="rombo">Rombo</option>
-                                                                <option value="romboid">Romboid</option>
-                                                                <option value="trapeze">Trapeze</option>
-                                                                <option value="traible">Triangle</option>
-                                                                <option value="polygon">Polygon</option>
-                                                            </select>
-                                                        </div>
-
-                                                        <label for="first-name-icon">Brand <span
-                                                                style="color: red">*</span></label>
-                                                        <div class="form-group">
-                                                            <select class="choices form-select">
-                                                                <option value="square">Square</option>
-                                                                <option value="rectangle">Rectangle</option>
-                                                                <option value="rombo">Rombo</option>
-                                                                <option value="romboid">Romboid</option>
-                                                                <option value="trapeze">Trapeze</option>
-                                                                <option value="traible">Triangle</option>
-                                                                <option value="polygon">Polygon</option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="form-group has-icon-left">
-                                                            <label for="first-name-icon">Stock Quantity <span
-                                                                    style="color: red">*</span></label>
-                                                            <div class="position-relative">
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="Enter Stock Quantity"
-                                                                    id="first-name-icon">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-cart"></i>
-                                                                </div>
-                                                            </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-6">
-                                                        <div class="form-group has-icon-left">
-                                                            <label for="first-name-icon">Regular Price <span
-                                                                    style="color: red">*</span></label>
-                                                            <div class="position-relative">
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="Enter Regular Price"
-                                                                    id="first-name-icon">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-credit-card-2-front"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="form-group has-icon-left">
-                                                            <label for="first-name-icon">Sale Price <span
-                                                                    style="color: red">*</span></label>
-                                                            <div class="position-relative">
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="Enter Sale Price"
-                                                                    id="first-name-icon">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-credit-card-2-front"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
                                                         <div class="card">
-                                                            <label for="first-name-icon">Product Galery <span
+                                                            <label for="first-name-icon">Product Gallery <span
                                                                     style="color: red">*</span></label>
                                                             <div class="card-content">
                                                                 <div class="card-body">
+                                                                    <!-- Menampilkan gambar dari path yang diberikan -->
+                                                                    <img src="{{ asset('assets/images/samples/banana.jpg') }}"
+                                                                        alt="Product Image"
+                                                                        style="width: 457px; height: 444; border-radius: 8px; object-fit: cover; margin-bottom: 10px;">
+
                                                                     <!-- File uploader with multiple files upload -->
                                                                     <input type="file"
                                                                         class="multiple-files-filepond" multiple>
@@ -249,11 +180,9 @@
 
                                                     <div class="col-12 d-flex justify-content-end">
                                                         <button type="submit"
-                                                            class="btn btn-sm btn-primary me-1 mb-1"
-                                                            style="border-radius: 8px;">Submit</button>
+                                                            class="btn btn-sm btn-primary me-1 mb-1" style="border-radius: 8px;">Submit</button>
                                                         <button type="reset"
-                                                            class="btn btn-sm btn-light-secondary me-1 mb-1"
-                                                            style="border-radius: 8px;">Reset</button>
+                                                            class="btn btn-sm btn-light-secondary me-1 mb-1" style="border-radius: 8px;">Reset</button>
                                                     </div>
                                                 </div>
                                             </div>

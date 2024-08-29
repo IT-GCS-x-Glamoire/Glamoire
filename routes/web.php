@@ -28,6 +28,10 @@ Route::get('/create-product', function () {
     return view('admin.product.create');
 });
 
+Route::get('/detail-product-admin', function () {
+    return view('admin.product.detail');
+});
+
 
 // order
 Route::get('/order-list', function () {
@@ -44,12 +48,24 @@ Route::get('/brand-admin', function () {
     return view('admin.brand.index');
 });
 
+Route::get('/create-brand', function () {
+    return view('admin.brand.create');
+});
+
+Route::get('/detail-brand-admin', function () {
+    return view('admin.brand.detail');
+});
+
 Route::get('/category-product', function () {
     return view('admin.category.index');
 });
 
 Route::get('/article-admin', function () {
     return view('admin.article.index');
+});
+
+Route::get('/create-article-admin', function () {
+    return view('admin.article.create');
 });
 
 Route::get('/user', function () {

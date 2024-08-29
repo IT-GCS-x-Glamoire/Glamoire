@@ -112,7 +112,7 @@
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/product-admin">Order</a></li>
+                                    <li class="breadcrumb-item"><a href="/order-list">Order</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Detail Order</li>
                                 </ol>
                             </nav>
@@ -126,83 +126,204 @@
                     <div class="row match-height">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Order Id:</h4>
+                                <div class="card-header d-flex flex-column">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <h4 class="card-title mb-0 me-2">Order Id: #091080231</h4>
+                                        <span class="badge bg-light-success">Active</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">Transaction Date: August 28, 2024</small>
+                                        <div>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                style="border-radius: 8px;"><i class="bi bi-printer-fill"></i>
+                                                Print</button>
+                                            <button type="button" class="btn btn-primary btn-sm ms-2"
+                                                style="border-radius: 8px;"><i class="bi bi-cloud-download-fill"></i>
+                                                Save</button>
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <div class="card-content">
                                     <div class="card-body">
                                         <form class="form">
                                             <div class="row">
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Product Name</label>
-                                                        <input type="text" id="first-name-column" class="form-control"
-                                                            placeholder="First Name" name="fname-column">
-                                                    </div>
+                                                <!-- Card 1 -->
+                                                <div class="col-md-4 col-12">
+                                                    <a href="{{ url('/detail-product-admin') }}"
+                                                        style="text-decoration: none; color: inherit;">
+                                                        <div class="card"
+                                                            style="border: 1px solid #ccc; border-radius: 8px;">
+                                                            <div class="card-header d-flex align-items-center">
+                                                                <!-- Product Name and Category -->
+                                                                <div class="d-flex align-items-start">
+                                                                    <div class="me-3">
+                                                                        <img src="{{ asset('assets/images/faces/1.jpg') }}"
+                                                                            alt="Product Image"
+                                                                            style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
+                                                                    </div>
+
+                                                                    <div class="d-flex flex-column me-3">
+                                                                        <h4 class="card-title mb-0"
+                                                                            style="margin-top: 1px; font-size: 1.25rem;">
+                                                                            Customer
+                                                                        </h4>
+                                                                        <p class="card-category mb-0"
+                                                                            style="font-size: 0.875rem; color: #6c757d;">
+                                                                            Full Name :
+                                                                        </p>
+                                                                        <p class="card-category mb-0"
+                                                                            style="font-size: 0.875rem; color: #6c757d;">
+                                                                            Email :
+                                                                        </p>
+                                                                        <p class="card-category mb-0"
+                                                                            style="font-size: 0.875rem; color: #6c757d;">
+                                                                            Phone :
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-content">
+                                                                <div class="card-body">
+                                                                    <form class="form form-horizontal">
+                                                                        <div class="form-body">
+
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="last-name-column">Description</label>
-                                                        <input type="text" id="last-name-column" class="form-control"
-                                                            placeholder="Last Name" name="lname-column">
-                                                    </div>
+
+                                                <!-- Card 2 -->
+                                                <div class="col-md-4 col-12">
+                                                    <a href="{{ url('/detail-product-admin') }}"
+                                                        style="text-decoration: none; color: inherit;">
+                                                        <div class="card"
+                                                            style="border: 1px solid #ccc; border-radius: 8px;">
+                                                            <div class="card-header d-flex align-items-center">
+                                                                <div class="d-flex align-items-start">
+                                                                    <div class="me-3">
+                                                                        <img src="{{ asset('assets/images/faces/1.jpg') }}"
+                                                                            alt="Product Image"
+                                                                            style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
+                                                                    </div>
+
+                                                                    <div class="d-flex flex-column me-3">
+                                                                        <h4 class="card-title mb-0"
+                                                                            style="margin-top: 1px; font-size: 1.25rem;">
+                                                                            Order Info
+                                                                        </h4>
+                                                                        <p class="card-category mb-0"
+                                                                            style="font-size: 0.875rem; color: #6c757d;">
+                                                                            Shipping :
+                                                                        </p>
+                                                                        <p class="card-category mb-0"
+                                                                            style="font-size: 0.875rem; color: #6c757d;">
+                                                                            Payment Method :
+                                                                        </p>
+                                                                        <p class="card-category mb-0"
+                                                                            style="font-size: 0.875rem; color: #6c757d;">
+                                                                            Status :
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-content">
+                                                                <div class="card-body">
+                                                                    <form class="form form-horizontal">
+                                                                        <div class="form-body">
+
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="city-column">Category</label>
-                                                        <input type="text" id="city-column" class="form-control"
-                                                            placeholder="City" name="city-column">
-                                                    </div>
+
+                                                <!-- Card 3 -->
+                                                <div class="col-md-4 col-12">
+                                                    <a href="{{ url('/detail-product-admin') }}"
+                                                        style="text-decoration: none; color: inherit;">
+                                                        <div class="card"
+                                                            style="border: 1px solid #ccc; border-radius: 8px;">
+                                                            <div class="card-header d-flex align-items-center">
+                                                                <!-- Image -->
+                                                                <div class="d-flex align-items-start">
+                                                                    <!-- Kolom untuk Deliver to -->
+                                                                    <!-- Gambar -->
+                                                                    <div class="me-3">
+                                                                        <img src="{{ asset('assets/images/faces/1.jpg') }}"
+                                                                            alt="Product Image"
+                                                                            style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
+                                                                    </div>
+
+                                                                    <div class="d-flex flex-column me-3">
+                                                                        <h4 class="card-title mb-0"
+                                                                            style="margin-top: 1px; font-size: 1.25rem;">
+                                                                            Deliver to
+                                                                        </h4>
+                                                                        <p class="card-category mb-0"
+                                                                            style="font-size: 0.875rem; color: #6c757d;">
+                                                                            Address :
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="card-content">
+                                                                <div class="card-body">
+                                                                    <form class="form form-horizontal">
+                                                                        <div class="form-body">
+
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="country-floating">Brand Name</label>
-                                                        <input type="text" id="country-floating" class="form-control"
-                                                            name="country-floating" placeholder="Country">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="company-column">Code</label>
-                                                        <input type="text" id="company-column" class="form-control"
-                                                            name="company-column" placeholder="Company">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="email-id-column">Stock Quantity</label>
-                                                        <input type="email" id="email-id-column" class="form-control"
-                                                            name="email-id-column" placeholder="Email">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="email-id-column">Regular Price</label>
-                                                        <input type="email" id="email-id-column" class="form-control"
-                                                            name="email-id-column" placeholder="Email">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="email-id-column">Sale Price</label>
-                                                        <input type="email" id="email-id-column" class="form-control"
-                                                            name="email-id-column" placeholder="Email">
-                                                    </div>
-                                                </div>
-                                                {{-- <div class="form-group col-12">
-                                                    <div class='form-check'>
-                                                        <div class="checkbox">
-                                                            <input type="checkbox" id="checkbox5"
-                                                                class='form-check-input' checked>
-                                                            <label for="checkbox5">Remember Me</label>
+
+                                                <div class="col-12">
+
+                                                    <div class="card"
+                                                        style="border: 1px solid #ccc; border-radius: 8px;">
+                                                        <div class="card-header d-flex align-items-center">
+                                                            <!-- Product Name and Category -->
+                                                            <div class="d-flex align-items-start">
+                                                                <div class="d-flex flex-column me-3">
+                                                                    <h4 class="card-title mb-0"
+                                                                        style="margin-top: 1px; font-size: 1.25rem;">
+                                                                        Payment Info
+                                                                    </h4>
+                                                                    <p class="card-category mb-0"
+                                                                        style="font-size: 0.875rem; color: #6c757d;">
+                                                                        Nama Bank :
+                                                                    </p>
+                                                                    <p class="card-category mb-0"
+                                                                        style="font-size: 0.875rem; color: #6c757d;">
+                                                                        Payment Status :
+                                                                    </p>
+                                                                    <p class="card-category mb-0"
+                                                                        style="font-size: 0.875rem; color: #6c757d;">
+                                                                        No Invoice :
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-content">
+                                                            <div class="card-body">
+                                                                <form class="form form-horizontal">
+                                                                    <div class="form-body">
+
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div> --}}
-                                                <div class="col-12 d-flex justify-content-end">
-                                                    <button type="submit"
-                                                        class="btn btn-primary me-1 mb-1">Submit</button>
-                                                    <button type="reset"
-                                                        class="btn btn-light-secondary me-1 mb-1">Reset</button>
+
                                                 </div>
                                             </div>
                                         </form>
@@ -213,80 +334,102 @@
                     </div>
                 </section>
 
-                <section id="multiple-column-form">
-                    <div class="row match-height">
+                <section class="section">
+                    <div class="row" id="table-head">
                         <div class="col-12">
                             <div class="card">
-                               
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <form class="form">
-                                            <div class="row">
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-column">Product Name</label>
-                                                        <input type="text" id="first-name-column" class="form-control"
-                                                            placeholder="First Name" name="fname-column">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="last-name-column">Description</label>
-                                                        <input type="text" id="last-name-column" class="form-control"
-                                                            placeholder="Last Name" name="lname-column">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="city-column">Category</label>
-                                                        <input type="text" id="city-column" class="form-control"
-                                                            placeholder="City" name="city-column">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="country-floating">Brand Name</label>
-                                                        <input type="text" id="country-floating" class="form-control"
-                                                            name="country-floating" placeholder="Country">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="company-column">Code</label>
-                                                        <input type="text" id="company-column" class="form-control"
-                                                            name="company-column" placeholder="Company">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="email-id-column">Stock Quantity</label>
-                                                        <input type="email" id="email-id-column" class="form-control"
-                                                            name="email-id-column" placeholder="Email">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="email-id-column">Regular Price</label>
-                                                        <input type="email" id="email-id-column" class="form-control"
-                                                            name="email-id-column" placeholder="Email">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="email-id-column">Sale Price</label>
-                                                        <input type="email" id="email-id-column" class="form-control"
-                                                            name="email-id-column" placeholder="Email">
-                                                    </div>
-                                                </div>
-                                        
-                                            </div>
-                                        </form>
+                                <div class="card-header">
+                                    <h4 class="card-title">Products</h4>
+                                </div>
+                                <div class="card-content" style="padding: 1rem;">
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th>Product Name</th>
+                                                    <th>Brand Name</th>
+                                                    <th>Order ID</th>
+                                                    <th>Quantity</th>
+                                                    <th>Total</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-bold-500">Bedak Bubuk</td>
+                                                    <td>Implora</td>
+                                                    <td>#12313131</td>
+                                                    <td class="text-bold-500">12</td>
+                                                    <td>Rp. 200.000</td>
+                                                    <td><a href="#"><i
+                                                                class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                                data-feather="mail"></i></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-bold-500">Bedak Bubuk</td>
+                                                    <td>Implora</td>
+                                                    <td>#19191919</td>
+                                                    <td class="text-bold-500">12</td>
+                                                    <td>Rp. 200.000</td>
+                                                    <td><a href="#"><i
+                                                                class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                                data-feather="mail"></i></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-bold-500">Bedak Bubuk</td>
+                                                    <td>Implora</td>
+                                                    <td>#1010101919</td>
+                                                    <td class="text-bold-500">12</td>
+                                                    <td>Rp. 200.000</td>
+                                                    <td><a href="#"><i
+                                                                class="badge-circle badge-circle-light-secondary font-medium-1"
+                                                                data-feather="mail"></i></a></td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="4" class="text-end" style="font-weight: bold;">
+                                                        Subtotal</td>
+                                                    <td class="fw-bold">Rp. 600.000</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" class="text-end" style="font-weight: bold;">
+                                                        Tax (10%)</td>
+                                                    <td class="fw-bold">Rp. 60.000</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" class="text-end" style="font-weight: bold;">
+                                                        Discount</td>
+                                                    <td class="fw-bold">Rp. 0</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" class="text-end" style="font-weight: bold;">
+                                                        Grand Total</td>
+                                                    <td class="fw-bold">Rp. 660.000</td>
+                                                    <td></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <div class="text-end" style="margin-top: 1rem;">
+                                        <button type="button" class="btn btn-success btn-sm" style="border-radius: 8px;"><i
+                                                class="bi bi-check-circle"></i> Konfirmasi Pemesanan</button>
+                                        <button type="button" class="btn btn-warning btn-sm" style="border-radius: 8px;"><i
+                                                class="bi bi-truck"></i> Pesanan Dikirim</button>
+                                        <button type="button" class="btn btn-primary btn-sm" style="border-radius: 8px;"><i
+                                                class="bi bi-bag-check"></i> Selesaikan Pesanan</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
+
+
+
             </div>
 
             <footer>
@@ -304,8 +447,6 @@
     </div>
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-
-    <script src="assets/vendors/apexcharts/apexcharts.js"></script>
     <script src="assets/js/pages/dashboard.js"></script>
 
     <script src="assets/js/main.js"></script>

@@ -114,13 +114,13 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6">
-                            <h3>Add New Product</h3>
+                            <h3>Detail Product</h3>
                         </div>
                         <div class="col-12 col-md-6 d-flex justify-content-md-end align-items-center">
                             <nav aria-label="breadcrumb" class="breadcrumb-header" style="margin-bottom: 20px;">
                                 <ol class="breadcrumb mb-0">
                                     <li class="breadcrumb-item"><a href="/product-admin">Product</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Add New Product</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Detail Product</li>
                                 </ol>
                             </nav>
                         </div>
@@ -143,8 +143,7 @@
                                                                     style="color: red">*</span></label>
                                                             <div class="position-relative">
                                                                 <input type="text" class="form-control"
-                                                                    placeholder="Enter Product Name"
-                                                                    id="first-name-icon">
+                                                                    value="Bedak Bubuk" id="first-name-icon">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-bag"></i>
                                                                 </div>
@@ -156,8 +155,7 @@
                                                                     style="color: red">*</span></label>
                                                             <div class="position-relative">
                                                                 <input type="text" class="form-control"
-                                                                    placeholder="Enter Code Product"
-                                                                    id="first-name-icon">
+                                                                    value="B080898" id="first-name-icon">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-receipt"></i>
                                                                 </div>
@@ -197,8 +195,7 @@
                                                                     style="color: red">*</span></label>
                                                             <div class="position-relative">
                                                                 <input type="text" class="form-control"
-                                                                    placeholder="Enter Stock Quantity"
-                                                                    id="first-name-icon">
+                                                                    value="120" id="first-name-icon">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-cart"></i>
                                                                 </div>
@@ -212,8 +209,7 @@
                                                                     style="color: red">*</span></label>
                                                             <div class="position-relative">
                                                                 <input type="text" class="form-control"
-                                                                    placeholder="Enter Regular Price"
-                                                                    id="first-name-icon">
+                                                                    value="Rp. 120.000" id="first-name-icon">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-credit-card-2-front"></i>
                                                                 </div>
@@ -226,8 +222,7 @@
                                                                     style="color: red">*</span></label>
                                                             <div class="position-relative">
                                                                 <input type="text" class="form-control"
-                                                                    placeholder="Enter Sale Price"
-                                                                    id="first-name-icon">
+                                                                    value="Rp. 120.000" id="first-name-icon">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-credit-card-2-front"></i>
                                                                 </div>
@@ -235,25 +230,29 @@
                                                         </div>
 
                                                         <div class="card">
-                                                            <label for="first-name-icon">Product Galery <span
+                                                            <label for="first-name-icon">Product Gallery <span
                                                                     style="color: red">*</span></label>
                                                             <div class="card-content">
                                                                 <div class="card-body">
+                                                                    <!-- Menampilkan gambar dari path yang diberikan -->
+                                                                    <img src="{{ asset('assets/images/samples/banana.jpg') }}"
+                                                                        alt="Product Image"
+                                                                        style="width: 457px; height: 444; border-radius: 8px; object-fit: cover; margin-bottom: 10px;">
+
                                                                     <!-- File uploader with multiple files upload -->
                                                                     <input type="file"
                                                                         class="multiple-files-filepond" multiple>
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                     </div>
 
                                                     <div class="col-12 d-flex justify-content-end">
                                                         <button type="submit"
-                                                            class="btn btn-sm btn-primary me-1 mb-1"
-                                                            style="border-radius: 8px;">Submit</button>
+                                                            class="btn btn-sm btn-primary me-1 mb-1">Update</button>
                                                         <button type="reset"
-                                                            class="btn btn-sm btn-light-secondary me-1 mb-1"
-                                                            style="border-radius: 8px;">Reset</button>
+                                                            class="btn btn-sm btn-light-secondary me-1 mb-1">Reset</button>
                                                     </div>
                                                 </div>
                                             </div>

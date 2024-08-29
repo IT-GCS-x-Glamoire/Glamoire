@@ -103,276 +103,170 @@
 
         <div id="main">
             <div class="page-heading">
-                <div class="page-title">
+                <div class="page-title" style="margin-bottom: 20px;">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>All Brands</h3>
-                            <p class="text-subtitle text-muted">Multiple form layout you can use</p>
-                            <button type="submit" class="btn btn-sm btn-primary mb-3">+ Add Product</button>
-                        </div>
-
-                        <div class="col-12 col-md-6 order-md-2 order-first">
-                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                <ol class="breadcrumb">
+                            <h3>Brands</h3>
+                            <nav aria-label="breadcrumb" class="breadcrumb-header me-3">
+                                <ol class="breadcrumb mb-0">
                                     <li class="breadcrumb-item"><a href="index.html">Brand</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">All Brand</li>
                                 </ol>
                             </nav>
                         </div>
+                        <div
+                            class="col-12 col-md-6 d-flex justify-content-md-end align-items-center order-md-2 order-first">
+                            <a href="/create-brand" type="submit"
+                                class="btn btn-sm btn-dark d-flex align-items-center" style="border-radius: 8px;">
+                                <i class="bi bi-plus-circle" style="margin-right: 3px;"></i> Add Brand
+                            </a>
 
+                            
+                        </div>
                     </div>
                 </div>
 
                 <!-- Basic Horizontal form layout section start -->
                 <section id="basic-horizontal-layouts">
-
                     <div class="row match-height">
                         <!-- Form 1 -->
                         <div class="col-md-4 col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Nama Produk</h4>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <form class="form form-horizontal">
-                                            <div class="form-body">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label>Name</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-group has-icon-left">
-                                                            <div class="position-relative">
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="Name" id="first-name-icon">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-person"></i>
-                                                                </div>
+                            <a href="{{ url('/detail-brand-admin') }}" style="text-decoration: none; color: inherit;">
+                                <div class="card">
+                                    <div class="card-header d-flex align-items-center">
+                                        <!-- Image -->
+                                        <div class="me-3">
+                                            <img src="{{ asset('assets/images/samples/banana.jpg') }}"
+                                                alt="Product Image"
+                                                style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
+                                        </div>
+                                        <!-- Product Name and Category -->
+                                        <div class="d-flex flex-column">
+                                            <h4 class="card-title mb-0"
+                                                style="margin-top: -20px; font-size: 1.25rem;">
+                                                Bedak Bubuk</h4>
+                                        </div>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <form class="form form-horizontal">
+                                                <div class="form-body">
+                                                    <div class="row">
+                                                        <!-- Product Name Field -->
+                                                        <div class="col-md-12">
+                                                            <p class="card-price"
+                                                                style="font-size: 1rem; font-weight: bold; color: black; margin-top: -30px;">
+                                                                Summary
+                                                            </p>
+                                                            <div class="col-md-12 mb-3">
+                                                                <label>Deskripsi Singkat</label>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label>Email</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-group has-icon-left">
-                                                            <div class="position-relative">
-                                                                <input type="email" class="form-control"
-                                                                    placeholder="Email" id="email-icon">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-envelope"></i>
-                                                                </div>
-                                                            </div>
+                                                        <!-- Products Sold -->
+                                                        <div class="col-md-6">
+                                                            <label>Product</label>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label>Mobile</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-group has-icon-left">
-                                                            <div class="position-relative">
-                                                                <input type="number" class="form-control"
-                                                                    placeholder="Mobile">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-phone"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label>Password</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-group has-icon-left">
-                                                            <div class="position-relative">
-                                                                <input type="password" class="form-control"
-                                                                    placeholder="Password">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-lock"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12 d-flex justify-content-end">
-                                                        <button type="submit"
-                                                            class="btn btn-primary me-1 mb-1">Submit</button>
-                                                        <button type="reset"
-                                                            class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
-
                         <!-- Form 2 -->
                         <div class="col-md-4 col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Nama Produk</h4>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <form class="form form-horizontal">
-                                            <div class="form-body">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label>Name</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-group has-icon-left">
-                                                            <div class="position-relative">
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="Name" id="first-name-icon-2">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-person"></i>
-                                                                </div>
+                            <a href="{{ url('/detail-brand-admin') }}" style="text-decoration: none; color: inherit;">
+                                <div class="card">
+                                    <div class="card-header d-flex align-items-center">
+                                        <!-- Image -->
+                                        <div class="me-3">
+                                            <img src="{{ asset('assets/images/samples/banana.jpg') }}"
+                                                alt="Product Image"
+                                                style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
+                                        </div>
+                                        <!-- Product Name and Category -->
+                                        <div class="d-flex flex-column">
+                                            <h4 class="card-title mb-0"
+                                                style="margin-top: -20px; font-size: 1.25rem;">
+                                                Bedak Bubuk</h4>
+                                        </div>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <form class="form form-horizontal">
+                                                <div class="form-body">
+                                                    <div class="row">
+                                                        <!-- Product Name Field -->
+                                                        <div class="col-md-12">
+                                                            <p class="card-price"
+                                                                style="font-size: 1rem; font-weight: bold; color: black; margin-top: -30px;">
+                                                                Summary
+                                                            </p>
+                                                            <div class="col-md-12 mb-3">
+                                                                <label>Deskripsi Singkat</label>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label>Email</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-group has-icon-left">
-                                                            <div class="position-relative">
-                                                                <input type="email" class="form-control"
-                                                                    placeholder="Email" id="email-icon-2">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-envelope"></i>
-                                                                </div>
-                                                            </div>
+                                                        <!-- Products Sold -->
+                                                        <div class="col-md-6">
+                                                            <label>Product</label>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label>Mobile</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-group has-icon-left">
-                                                            <div class="position-relative">
-                                                                <input type="number" class="form-control"
-                                                                    placeholder="Mobile">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-phone"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label>Password</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-group has-icon-left">
-                                                            <div class="position-relative">
-                                                                <input type="password" class="form-control"
-                                                                    placeholder="Password">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-lock"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12 d-flex justify-content-end">
-                                                        <button type="submit"
-                                                            class="btn btn-primary me-1 mb-1">Submit</button>
-                                                        <button type="reset"
-                                                            class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </a>
 
+                        </div>
                         <!-- Form 3 -->
                         <div class="col-md-4 col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Nama Produk</h4>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <form class="form form-horizontal">
-                                            <div class="form-body">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label>Name</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-group has-icon-left">
-                                                            <div class="position-relative">
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="Name" id="first-name-icon-3">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-person"></i>
-                                                                </div>
+                            <a href="{{ url('/detail-brand-admin') }}" style="text-decoration: none; color: inherit;">
+                                <div class="card">
+                                    <div class="card-header d-flex align-items-center">
+                                        <!-- Image -->
+                                        <div class="me-3">
+                                            <img src="{{ asset('assets/images/samples/banana.jpg') }}"
+                                                alt="Product Image"
+                                                style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
+                                        </div>
+                                        <!-- Product Name and Category -->
+                                        <div class="d-flex flex-column">
+                                            <h4 class="card-title mb-0"
+                                                style="margin-top: -20px; font-size: 1.25rem;">
+                                                Bedak Bubuk</h4>
+                                        </div>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <form class="form form-horizontal">
+                                                <div class="form-body">
+                                                    <div class="row">
+                                                        <!-- Product Name Field -->
+                                                        <div class="col-md-12">
+                                                            <p class="card-price"
+                                                                style="font-size: 1rem; font-weight: bold; color: black; margin-top: -30px;">
+                                                                Summary
+                                                            </p>
+                                                            <div class="col-md-12 mb-3">
+                                                                <label>Deskripsi Singkat</label>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label>Email</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-group has-icon-left">
-                                                            <div class="position-relative">
-                                                                <input type="email" class="form-control"
-                                                                    placeholder="Email" id="email-icon-3">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-envelope"></i>
-                                                                </div>
-                                                            </div>
+                                                        <!-- Products Sold -->
+                                                        <div class="col-md-6">
+                                                            <label>Product</label>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label>Mobile</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-group has-icon-left">
-                                                            <div class="position-relative">
-                                                                <input type="number" class="form-control"
-                                                                    placeholder="Mobile">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-phone"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label>Password</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-group has-icon-left">
-                                                            <div class="position-relative">
-                                                                <input type="password" class="form-control"
-                                                                    placeholder="Password">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-lock"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12 d-flex justify-content-end">
-                                                        <button type="submit"
-                                                            class="btn btn-primary me-1 mb-1">Submit</button>
-                                                        <button type="reset"
-                                                            class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
+
                         </div>
                     </div>
-
-
-
                 </section>
             </div>
 
