@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Mazer Admin Dashboard</title>
+    <title>Order || Admin Glamoire</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -33,9 +33,7 @@
 
         <div id="main">
             <div class="page-heading">
-                <div class="page-title">
-                  
-
+                <div class="page-title">                  
                     <div class="row mb-3">
                         <div class="col-12 col-md-6 order-md-1 order-last">
                             <h3>Order Data</h3>

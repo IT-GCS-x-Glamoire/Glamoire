@@ -1,16 +1,10 @@
-{{-- {% set title = 'DataTable' %}
-{% set filename = 'table-datatable.html' %}
-
-{% extends 'layouts/master.html' %}
-{% block content %} --}}
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Mazer Admin Dashboard</title>
+    <title>Article || Admin Glamoire</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -26,10 +20,8 @@
 
 <body>
     <div id="app">
-
         @include('admin.layouts.sidebar')
         @include('admin.layouts.navbar')
-
 
         <div id="main">
             <div class="page-heading">
@@ -46,13 +38,14 @@
                         </div>
                         <div
                             class="col-12 col-md-6 d-flex justify-content-md-end align-items-center order-md-2 order-first">
-                            <a href="#" type="button" class="btn btn-sm btn-dark d-flex align-items-center"
-                                data-bs-toggle="modal" data-bs-target="#inlineForm"
+                            <a href="/category-article" type="button"
+                                class="btn btn-sm btn-dark d-flex align-items-center"
                                 style="border-radius: 8px; margin-right: 10px;">
-                                <i class="bi bi-box-arrow-in-right" style="margin-right: 3px;"></i> Category
+                                <i class="bi bi-box-arrow-in-right" style="margin-right: 3px;"></i>Category
                             </a>
-                            <a href="/create-article-admin" type="button" class="btn btn-sm btn-primary d-flex align-items-center"
-                                style="border-radius: 8px;">
+
+                            <a href="/create-article-admin" type="button"
+                                class="btn btn-sm btn-primary d-flex align-items-center" style="border-radius: 8px;">
                                 <i class="bi bi-plus-circle" style="margin-right: 3px;"></i>Add Article
                             </a>
                         </div>
@@ -70,60 +63,40 @@
                             <table class="table" id="table1">
                                 <thead>
                                     <tr>
-                                        <th>Product</th>
-                                        <th>Order ID</th>
-                                        <th>Date</th>
-                                        <th>Payment Method</th>
-                                        <th>Customer Name</th>
-                                        <th>Status</th>
-                                        <th>Amount</th>
+                                        <th>Title</th>
+                                        <th>Category</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Graiden</td>
-                                        <td>vehicula.co.uk</td>
-                                        <td>076 4820 8838</td>
-                                        <td>Offenburg</td>
-                                        <td>Offenburg</td>
-                                        <td>
-                                            <span class="badge bg-light-success">Success</span>
-                                        </td>
-                                        <td>Offenburg</td>
-                                        <td><a href="/order-detail"> <span class="badge bg-warning">View</span>
-                                            </a></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Emmanuel</td>
-                                        <td>eget.lacus.org</td>
-                                        <td>(016977) 8208</td>
-                                        <td>Saint-Remy</td>
-                                        <td>Saint-Rem</td>
-                                        <td>
-                                            <span class="badge bg-light-primary">Delivered</span>
-                                        </td>
-                                        <td>Saint-Remy</td>
-                                        <td><a href="/order-detail"> <span class="badge bg-warning">View</span>
-                                            </a></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Emmanuel</td>
-                                        <td>eget.lacus.org</td>
-                                        <td>(016977) 8208</td>
-                                        <td>Saint-Remy</td>
-                                        <td>Saint-Rem</td>
-                                        <td>
-                                            <span class="badge bg-light-danger">Canceled</span>
-                                        </td>
-                                        <td>Saint-Remy</td>
-                                        <td><a href="/order-detail"> <span class="badge bg-warning">View</span>
-                                            </a></td>
-                                    </tr>
+                                    @foreach ($articles as $item)
+                                        <tr>
+                                            <td>{{ $item->title }}</td>
+                                            <td>
+                                                <span
+                                                    class="badge bg-light-success">{{ $item->categoryArticle->name }}</span>
+                                            </td>
+                                            <td>
+                                                <a href="/review-article-admin"> <span
+                                                        class="badge bg-info">Review</span>
+                                                </a>
+                                                <a href="/edit-article-admin"> <span
+                                                        class="badge bg-warning">Edit</span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-4 px-3" id="pagination-container">
+                        <div class="mb-3">
+                            Showing {{ $articles->firstItem() }} to {{ $articles->lastItem() }} of
+                            {{ $articles->total() }} results
+                        </div>
+                        <div class="pagination-container">
+                            {{ $articles->appends(['search' => request('search')])->links('pagination::bootstrap-4') }}
                         </div>
                     </div>
                 </section>
@@ -180,18 +153,31 @@
             </footer>
         </div>
     </div>
-    {{-- {% endblock %}
-    {% block styles %} --}}
+
     <link rel="stylesheet" href="assets/vendors/simple-datatables/style.css">
-    {{-- {% endblock %}
-    {% block js %} --}}
+
+    @if (session('success'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#4A69E2', // Mengatur warna tombol OK
+                customClass: {
+                    icon: 'swal-icon-success'
+                }
+            });
+        </script>
+    @endif
+
     <script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
     <script>
         // Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
     </script>
-    {{-- {% endblock %} --}}
 
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>

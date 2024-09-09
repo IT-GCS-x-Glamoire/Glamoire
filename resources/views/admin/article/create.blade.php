@@ -27,6 +27,58 @@
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
+
+    <style>
+        .upload__img-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+
+        .upload__img-box-multiple {
+            width: 195px;
+            padding: 0 10px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .upload__img-box-single {
+            width: 450px;
+            padding: 0 10px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .upload__img-close {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            text-align: center;
+            line-height: 24px;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .upload__img-close:after {
+            content: '\2716';
+            font-size: 14px;
+            color: white;
+        }
+
+        .img-bg {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            position: relative;
+            padding-bottom: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 
 <body>
@@ -59,7 +111,9 @@
                             <div class="card">
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical">
+                                        <form class="form form-vertical" action="{{ route('store-article') }}"
+                                            method="POST" enctype="multipart/form-data">
+                                            @csrf
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-6">
@@ -68,7 +122,8 @@
                                                                     style="color: red">*</span></label>
                                                             <div class="position-relative">
                                                                 <input type="text" class="form-control"
-                                                                    placeholder="Title Article" id="first-name-icon">
+                                                                    name="title" placeholder="Title Article"
+                                                                    id="first-name-icon">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-bag"></i>
                                                                 </div>
@@ -78,16 +133,38 @@
                                                         <div class="form-group">
                                                             <label for="brand-select">Category Name<span
                                                                     style="color: red">*</span></label>
-                                                            <select class="choices form-select" id="brand-select">
-                                                                <option value="square">Square</option>
-                                                                <option value="rectangle">Rectangle</option>
-                                                                <option value="rombo">Rombo</option>
-                                                                <option value="romboid">Romboid</option>
-                                                                <option value="trapeze">Trapeze</option>
-                                                                <option value="traible">Triangle</option>
-                                                                <option value="polygon">Polygon</option>
+                                                            <select class="choices form-select"
+                                                                name="category_article_id">
+                                                                @foreach ($categories as $category)
+                                                                    <option value="{{ $category->id }}">
+                                                                        {{ $category->name }}</option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
+
+                                                        <div class="card">
+                                                            <label for="first-name-icon">Product Thumbnail <span
+                                                                    style="color: red">*</span></label>
+
+                                                            <div class="image-upload-wrap" id="single-image-upload-wrap"
+                                                                style="border: 2px dashed #ddd; border-radius: 4px; padding: 20px; width: 100%; box-sizing: border-box; position: relative; background: #f8f8f8; margin-bottom: 15px; height: auto;">
+                                                                <input type="file" name="image"
+                                                                    class="file-upload-input"
+                                                                    onchange="readURLSingle(this);" accept="image/*"
+                                                                    style="position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
+                                                                <div class="drag-text"
+                                                                    style="text-align: center; color: #888;">
+                                                                    <p>Drag and drop a file or select to add Image</p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="file-upload-content"
+                                                                id="single-file-upload-content"
+                                                                style="display: flex; flex-wrap: wrap;">
+                                                                <!-- Gambar yang diunggah akan ditambahkan di sini -->
+                                                            </div>
+                                                        </div>
+
                                                     </div>
 
                                                     <div class="col-12">
@@ -100,9 +177,8 @@
                                                                     </div>
                                                                 </div> --}}
 
-                                                                <div class="card-body p-0">
-                                                                    <div id="summernote"></div>
-                                                                </div>
+                                                                <textarea id="summernote" name="content"></textarea>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -110,9 +186,11 @@
 
                                                     <div class="col-12 d-flex justify-content-end">
                                                         <button type="submit"
-                                                            class="btn btn-sm btn-primary me-1 mb-1" style="border-radius: 8px;">Submit</button>
+                                                            class="btn btn-sm btn-primary me-1 mb-1"
+                                                            style="border-radius: 8px;">Submit</button>
                                                         <button type="reset"
-                                                            class="btn btn-sm btn-light-secondary me-1 mb-1" style="border-radius: 8px;">Reset</button>
+                                                            class="btn btn-sm btn-light-secondary me-1 mb-1"
+                                                            style="border-radius: 8px;">Reset</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -148,18 +226,6 @@
     <script src="assets/js/main.js"></script>
     <script src="assets/vendors/choices.js/choices.min.js"></script>
 
-    <!-- filepond validation -->
-    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-
-    <!-- image editor -->
-    <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js">
-    </script>
-    <script src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-filter/dist/filepond-plugin-image-filter.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
-
     <!-- toastify -->
     <script src="assets/vendors/toastify/toastify.js"></script>
 
@@ -168,9 +234,6 @@
 
     <!-- summernote -->
     <script src="assets/vendors/summernote/summernote-lite.min.js"></script>
-
-    <!-- filepond -->
-    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 
     <script>
         ClassicEditor
@@ -201,196 +264,45 @@
         });
     </script>
 
+    {{-- Upload Single Image --}}
     <script>
-        // register desired plugins...
-        FilePond.registerPlugin(
-            FilePondPluginFileValidateSize,
-            FilePondPluginFileValidateType,
-            FilePondPluginImageCrop,
-            FilePondPluginImagePreview,
-            FilePondPluginImageFilter,
-            FilePondPluginImageExifOrientation,
-            FilePondPluginImageResize,
-        );
+        // Fungsi untuk mengunggah satu gambar
+        function readURLSingle(input) {
+            const singleUploadContent = document.getElementById('single-file-upload-content');
+            singleUploadContent.innerHTML = ''; // Kosongkan konten jika sudah ada gambar sebelumnya
 
-        // Filepond: Basic
-        FilePond.create(document.querySelector('.basic-filepond'), {
-            allowImagePreview: false,
-            allowMultiple: false,
-            allowFileEncode: false,
-            required: false
-        });
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
 
-        // Filepond: Multiple Files with Preview
-        FilePond.create(document.querySelector('.multiple-files-filepond'), {
-            allowImagePreview: true,
-            allowMultiple: true,
-            allowFileEncode: false,
-            required: false,
-            imagePreviewMaxHeight: 250, // Maximum height for preview images
-        });
+                if (!file.type.match('image.*')) return; // Hanya file gambar
 
-        // Example of handling image preview for a specific FilePond instance
-        FilePond.create(document.querySelector('.image-preview-filepond'), {
-            allowImagePreview: true,
-            allowImageFilter: false,
-            allowImageExifOrientation: false,
-            allowImageCrop: false,
-            acceptedFileTypes: ['image/png', 'image/jpg', 'image/jpeg'],
-            imagePreviewMaxHeight: 150, // Maximum height for preview images
-        });
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Buat elemen gambar
+                    const imgBox = document.createElement('div');
+                    imgBox.classList.add('upload__img-box-single');
 
+                    const imgBg = document.createElement('div');
+                    imgBg.classList.add('img-bg');
+                    imgBg.style.backgroundImage = `url(${e.target.result})`;
 
-        // Filepond: With Validation
-        FilePond.create(document.querySelector('.with-validation-filepond'), {
-            allowImagePreview: false,
-            allowMultiple: true,
-            allowFileEncode: false,
-            required: true,
-            acceptedFileTypes: ['image/png'],
-            fileValidateTypeDetectType: (source, type) => new Promise((resolve, reject) => {
-                // Do custom type detection here and return with promise
-                resolve(type);
-            })
-        });
-
-        // Filepond: ImgBB with server property
-        FilePond.create(document.querySelector('.imgbb-filepond'), {
-            allowImagePreview: false,
-            server: {
-                process: (fieldName, file, metadata, load, error, progress, abort) => {
-                    // We ignore the metadata property and only send the file
-
-                    const formData = new FormData();
-                    formData.append(fieldName, file, file.name);
-
-                    const request = new XMLHttpRequest();
-                    // you can change it by your client api key
-                    request.open('POST', 'https://api.imgbb.com/1/upload?key=762894e2014f83c023b233b2f10395e2');
-
-                    request.upload.onprogress = (e) => {
-                        progress(e.lengthComputable, e.loaded, e.total);
+                    // Tambahkan tombol close
+                    const imgClose = document.createElement('div');
+                    imgClose.classList.add('upload__img-close');
+                    imgClose.onclick = function() {
+                        singleUploadContent.innerHTML = ''; // Hapus gambar jika tombol close diklik
+                        input.value = ''; // Reset input file
                     };
 
-                    request.onload = function() {
-                        if (request.status >= 200 && request.status < 300) {
-                            load(request.responseText);
-                        } else {
-                            error('oh no');
-                        }
-                    };
-
-                    request.onreadystatechange = function() {
-                        if (this.readyState == 4) {
-                            if (this.status == 200) {
-                                let response = JSON.parse(this.responseText);
-
-                                Toastify({
-                                    text: "Success uploading to imgbb! see console f12",
-                                    duration: 3000,
-                                    close: true,
-                                    gravity: "bottom",
-                                    position: "right",
-                                    backgroundColor: "#4fbe87",
-                                }).showToast();
-
-                                console.log(response);
-                            } else {
-                                Toastify({
-                                    text: "Failed uploading to imgbb! see console f12",
-                                    duration: 3000,
-                                    close: true,
-                                    gravity: "bottom",
-                                    position: "right",
-                                    backgroundColor: "#ff0000",
-                                }).showToast();
-
-                                console.log("Error", this.statusText);
-                            }
-                        }
-                    };
-
-                    request.send(formData);
-                }
+                    imgBg.appendChild(imgClose);
+                    imgBox.appendChild(imgBg);
+                    singleUploadContent.appendChild(imgBox);
+                };
+                reader.readAsDataURL(file);
             }
-        });
-
-        // // Filepond: Image Preview
-        // FilePond.create(document.querySelector('.image-preview-filepond'), {
-        //     allowImagePreview: true,
-        //     allowImageFilter: false,
-        //     allowImageExifOrientation: false,
-        //     allowImageCrop: false,
-        //     acceptedFileTypes: ['image/png', 'image/jpg', 'image/jpeg'],
-        //     fileValidateTypeDetectType: (source, type) => new Promise((resolve, reject) => {
-        //         // Do custom type detection here and return with promise
-        //         resolve(type);
-        //     })
-        // });
-
-        // Filepond: Image Crop
-        FilePond.create(document.querySelector('.image-crop-filepond'), {
-            allowImagePreview: true,
-            allowImageFilter: false,
-            allowImageExifOrientation: false,
-            allowImageCrop: true,
-            acceptedFileTypes: ['image/png', 'image/jpg', 'image/jpeg'],
-            fileValidateTypeDetectType: (source, type) => new Promise((resolve, reject) => {
-                // Do custom type detection here and return with promise
-                resolve(type);
-            })
-        });
-
-        // Filepond: Image Exif Orientation
-        FilePond.create(document.querySelector('.image-exif-filepond'), {
-            allowImagePreview: true,
-            allowImageFilter: false,
-            allowImageExifOrientation: true,
-            allowImageCrop: false,
-            acceptedFileTypes: ['image/png', 'image/jpg', 'image/jpeg'],
-            fileValidateTypeDetectType: (source, type) => new Promise((resolve, reject) => {
-                // Do custom type detection here and return with promise
-                resolve(type);
-            })
-        });
-
-        // Filepond: Image Filter
-        FilePond.create(document.querySelector('.image-filter-filepond'), {
-            allowImagePreview: true,
-            allowImageFilter: true,
-            allowImageExifOrientation: false,
-            allowImageCrop: false,
-            imageFilterColorMatrix: [
-                0.299, 0.587, 0.114, 0, 0,
-                0.299, 0.587, 0.114, 0, 0,
-                0.299, 0.587, 0.114, 0, 0,
-                0.000, 0.000, 0.000, 1, 0
-            ],
-            acceptedFileTypes: ['image/png', 'image/jpg', 'image/jpeg'],
-            fileValidateTypeDetectType: (source, type) => new Promise((resolve, reject) => {
-                // Do custom type detection here and return with promise
-                resolve(type);
-            })
-        });
-
-        // Filepond: Image Resize
-        FilePond.create(document.querySelector('.image-resize-filepond'), {
-            allowImagePreview: true,
-            allowImageFilter: false,
-            allowImageExifOrientation: false,
-            allowImageCrop: false,
-            allowImageResize: true,
-            imageResizeTargetWidth: 200,
-            imageResizeTargetHeight: 200,
-            imageResizeMode: 'cover',
-            imageResizeUpscale: true,
-            acceptedFileTypes: ['image/png', 'image/jpg', 'image/jpeg'],
-            fileValidateTypeDetectType: (source, type) => new Promise((resolve, reject) => {
-                // Do custom type detection here and return with promise
-                resolve(type);
-            })
-        });
+        }
     </script>
+
 </body>
 
 </html>

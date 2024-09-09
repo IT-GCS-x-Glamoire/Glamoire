@@ -39,7 +39,7 @@
                         </li>
                     </ul>
                     <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a href="#" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
                             <div class="user-menu d-flex">
                                 <div class="user-name text-end me-3">
                                     <h6 class="mb-0 text-gray-600">John Ducky</h6>
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="user-img d-flex align-items-center">
                                     <div class="avatar avatar-md">
-                                        <img src="assets/images/faces/1.jpg">
+                                        <img src="{{ asset('assets/images/faces/1.jpg') }}">
                                     </div>
                                 </div>
                             </div>

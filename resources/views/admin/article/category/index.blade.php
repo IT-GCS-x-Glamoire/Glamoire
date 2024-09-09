@@ -1,16 +1,10 @@
-{{-- {% set title = 'DataTable' %}
-{% set filename = 'table-datatable.html' %}
-
-{% extends 'layouts/master.html' %}
-{% block content %} --}}
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category Product || Admin Glamoire</title>
+    <title>Category Article || Admin Glamoire</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -35,17 +29,23 @@
                 <div class="page-title" style="margin-bottom: 20px;">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>All Category</h3>
+                            <h3>All Category Article</h3>
                             <nav aria-label="breadcrumb" class="breadcrumb-header me-3">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Category</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">All Category</li>
+                                    <li class="breadcrumb-item"><a href="index.html">Category Article</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">All Category Article</li>
                                 </ol>
                             </nav>
                         </div>
                         <div
                             class="col-12 col-md-6 d-flex justify-content-md-end align-items-center order-md-2 order-first">
-                            <a href="#" type="button" class="btn btn-sm btn-dark d-flex align-items-center"
+                            <a href="/article-admin" type="button"
+                                class="btn btn-sm btn-dark d-flex align-items-center"
+                                style="border-radius: 8px; margin-right: 10px;">
+                                <i class="bi bi-box-arrow-in-right" style="margin-right: 3px;"></i>All Article
+                            </a>
+
+                            <a href="#" type="button" class="btn btn-sm btn-primary d-flex align-items-center"
                                 data-bs-toggle="modal" data-bs-target="#inlineForm" style="border-radius: 8px;">
                                 <i class="bi bi-plus-circle" style="margin-right: 3px;"></i> Add Category
                             </a>
@@ -68,7 +68,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($categoryProduct as $item)
+                                    @foreach ($categoryArticle as $item)
                                         <tr>
                                             <td>{{ $item->name }}</td>
                                             <td>
@@ -142,7 +142,7 @@
 
     <link rel="stylesheet" href="assets/vendors/simple-datatables/style.css">
     <script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
-    
+
     <script>
         // Simple Datatable
         let table1 = document.querySelector('#table1');
@@ -161,14 +161,17 @@
                 let name = $('#name').val();
                 let _token = $('input[name="_token"]').val();
 
+                console.log("Submitting form with name: " + name); // Debugging line
+
                 $.ajax({
-                    url: "{{ route('create-category-product') }}",
+                    url: "{{ route('create-category-article') }}",
                     type: "POST",
                     data: {
                         name: name,
                         _token: _token
                     },
                     success: function(response) {
+                        console.log(response); // Debugging line
                         if (response.success) {
                             $('#inlineForm').modal('hide');
 
@@ -178,7 +181,7 @@
                             // Tampilkan SweetAlert sukses
                             Swal.fire({
                                 title: 'Success!',
-                                text: 'Category has been successfully created.',
+                                text: 'Category Article has been successfully created.',
                                 icon: 'success',
                                 confirmButtonText: 'OK',
                                 confirmButtonColor: '#4A69E2', // Mengatur warna tombol OK
@@ -191,7 +194,21 @@
                             setTimeout(function() {
                                 location.reload();
                             }, 1500);
+                        } else {
+                            Swal.fire(
+                                'Error!',
+                                'There was an issue creating the category.',
+                                'error'
+                            );
                         }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText); // Debugging line
+                        Swal.fire(
+                            'Error!',
+                            'An error occurred while creating the category.',
+                            'error'
+                        );
                     }
                 });
             });
@@ -210,7 +227,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: `/category-product/${id}`,
+                            url: `/category-article/${id}`,
                             type: 'DELETE',
                             data: {
                                 _token: '{{ csrf_token() }}'
@@ -219,7 +236,7 @@
                                 if (response.success) {
                                     Swal.fire(
                                         'Deleted!',
-                                        'Category has been deleted.',
+                                        'Category Article has been deleted.',
                                         'success'
                                     );
 
@@ -234,6 +251,14 @@
                                         'error'
                                     );
                                 }
+                            },
+                            error: function(xhr) {
+                                console.log(xhr.responseText); // Debugging line
+                                Swal.fire(
+                                    'Error!',
+                                    'An error occurred while deleting the category.',
+                                    'error'
+                                );
                             }
                         });
                     }

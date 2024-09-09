@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Mazer Admin Dashboard</title>
+    <title>Brand || Admin Glamoire</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -21,85 +21,7 @@
 <body>
     <div id="app">
         @include('admin.layouts.sidebar')
-
-        <div id="main" class='layout-navbar'>
-            <header class='mb-2'>
-                <nav class="navbar navbar-expand navbar-light ">
-                    <div class="container-fluid">
-                        <a href="#" class="burger-btn d-block">
-                            <i class="bi bi-justify fs-3"></i>
-                        </a>
-
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                                <li class="nav-item dropdown me-1">
-                                    <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <i class='bi bi-envelope bi-sub fs-4 text-gray-600'></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                        <li>
-                                            <h6 class="dropdown-header">Mail</h6>
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">No new mail</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item dropdown me-3">
-                                    <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <i class='bi bi-bell bi-sub fs-4 text-gray-600'></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                        <li>
-                                            <h6 class="dropdown-header">Notifications</h6>
-                                        </li>
-                                        <li><a class="dropdown-item">No notification available</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="dropdown">
-                                <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <div class="user-menu d-flex">
-                                        <div class="user-name text-end me-3">
-                                            <h6 class="mb-0 text-gray-600">John Ducky</h6>
-                                            <p class="mb-0 text-sm text-gray-600">Administrator</p>
-                                        </div>
-                                        <div class="user-img d-flex align-items-center">
-                                            <div class="avatar avatar-md">
-                                                <img src="assets/images/faces/1.jpg">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                    <li>
-                                        <h6 class="dropdown-header">Hello, John!</h6>
-                                    </li>
-                                    <li><a class="dropdown-item" href="#"><i
-                                                class="icon-mid bi bi-person me-2"></i> My
-                                            Profile</a></li>
-                                    <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-gear me-2"></i>
-                                            Settings</a></li>
-                                    <li><a class="dropdown-item" href="#"><i
-                                                class="icon-mid bi bi-wallet me-2"></i>
-                                            Wallet</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#"><i
-                                                class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </header>
-        </div>
+        @include('admin.layouts.navbar')
 
         <div id="main">
             <div class="page-heading">
@@ -116,12 +38,25 @@
                         </div>
                         <div
                             class="col-12 col-md-6 d-flex justify-content-md-end align-items-center order-md-2 order-first">
+                            <div class="me-3">
+                                <div class="form-group position-relative mb-0 has-icon-left">
+                                    <form action="{{ url('/brands') }}" method="GET" class="d-flex me-3">
+                                        <input type="text" name="search" id="search" class="form-control"
+                                            placeholder="Search Brand.." value="{{ request('search') }}">
+                                        <div class="form-control-icon">
+                                            <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
+                                                <use
+                                                    xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#search" />
+                                            </svg>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
                             <a href="/create-brand" type="submit"
-                                class="btn btn-sm btn-dark d-flex align-items-center" style="border-radius: 8px;">
+                                class="btn btn-sm btn-primary d-flex align-items-center" style="border-radius: 8px;">
                                 <i class="bi bi-plus-circle" style="margin-right: 3px;"></i> Add Brand
                             </a>
-
-                            
                         </div>
                     </div>
                 </div>
@@ -130,144 +65,72 @@
                 <section id="basic-horizontal-layouts">
                     <div class="row match-height">
                         <!-- Form 1 -->
-                        <div class="col-md-4 col-12">
-                            <a href="{{ url('/detail-brand-admin') }}" style="text-decoration: none; color: inherit;">
-                                <div class="card">
-                                    <div class="card-header d-flex align-items-center">
-                                        <!-- Image -->
-                                        <div class="me-3">
-                                            <img src="{{ asset('assets/images/samples/banana.jpg') }}"
-                                                alt="Product Image"
-                                                style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
-                                        </div>
-                                        <!-- Product Name and Category -->
-                                        <div class="d-flex flex-column">
+                        @foreach ($brands as $brand)
+                            <div class="col-md-4 col-12">
+                                <a href="{{ url('/detail-brand/' . $brand->id) }}"
+                                    style="text-decoration: none; color: inherit; display: block;">
+                                    <div class="card">
+                                        <div class="card-header d-flex align-items-center">
+                                            <!-- Image -->
+                                            <div class="me-3">
+                                                <img src="{{ asset($brand->brand_logo) }}" alt="{{ $brand->name }}"
+                                                    style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
+                                            </div>
+                                            <!-- Product Name and Category -->
                                             <h4 class="card-title mb-0"
-                                                style="margin-top: -20px; font-size: 1.25rem;">
-                                                Bedak Bubuk</h4>
+                                                style="margin-top: 1px; font-size: 1.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                {{ Str::limit($brand->name, 20, '...') }}
+                                            </h4>
                                         </div>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="card-body">
-                                            <form class="form form-horizontal">
+                                        <div class="card-content">
+                                            <div class="card-body">
                                                 <div class="form-body">
                                                     <div class="row">
-                                                        <!-- Product Name Field -->
-                                                        <div class="col-md-12">
-                                                            <p class="card-price"
-                                                                style="font-size: 1rem; font-weight: bold; color: black; margin-top: -30px;">
-                                                                Summary
-                                                            </p>
-                                                            <div class="col-md-12 mb-3">
-                                                                <label>Deskripsi Singkat</label>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Products Sold -->
-                                                        <div class="col-md-6">
-                                                            <label>Product</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <!-- Form 2 -->
-                        <div class="col-md-4 col-12">
-                            <a href="{{ url('/detail-brand-admin') }}" style="text-decoration: none; color: inherit;">
-                                <div class="card">
-                                    <div class="card-header d-flex align-items-center">
-                                        <!-- Image -->
-                                        <div class="me-3">
-                                            <img src="{{ asset('assets/images/samples/banana.jpg') }}"
-                                                alt="Product Image"
-                                                style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
-                                        </div>
-                                        <!-- Product Name and Category -->
-                                        <div class="d-flex flex-column">
-                                            <h4 class="card-title mb-0"
-                                                style="margin-top: -20px; font-size: 1.25rem;">
-                                                Bedak Bubuk</h4>
-                                        </div>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="card-body">
-                                            <form class="form form-horizontal">
-                                                <div class="form-body">
-                                                    <div class="row">
-                                                        <!-- Product Name Field -->
-                                                        <div class="col-md-12">
-                                                            <p class="card-price"
-                                                                style="font-size: 1rem; font-weight: bold; color: black; margin-top: -30px;">
-                                                                Summary
-                                                            </p>
-                                                            <div class="col-md-12 mb-3">
-                                                                <label>Deskripsi Singkat</label>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Products Sold -->
-                                                        <div class="col-md-6">
-                                                            <label>Product</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
+                                                        <!-- brand Name Field -->
+                                                        <div
+                                                            class="col-md-12 d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                {{-- <label>Products Sold:
+                                                               100</label><br> --}}
+                                                                <p class="card-price"
+                                                                    style="font-size: 1rem; font-weight: bold; color: black; margin-top: -35px;">
+                                                                    Summary
+                                                                </p>
+                                                                <p class="card-price" style="color: black; ">
+                                                                    {{ $brand->description }} </p>
 
-                        </div>
-                        <!-- Form 3 -->
-                        <div class="col-md-4 col-12">
-                            <a href="{{ url('/detail-brand-admin') }}" style="text-decoration: none; color: inherit;">
-                                <div class="card">
-                                    <div class="card-header d-flex align-items-center">
-                                        <!-- Image -->
-                                        <div class="me-3">
-                                            <img src="{{ asset('assets/images/samples/banana.jpg') }}"
-                                                alt="Product Image"
-                                                style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
-                                        </div>
-                                        <!-- Product Name and Category -->
-                                        <div class="d-flex flex-column">
-                                            <h4 class="card-title mb-0"
-                                                style="margin-top: -20px; font-size: 1.25rem;">
-                                                Bedak Bubuk</h4>
-                                        </div>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="card-body">
-                                            <form class="form form-horizontal">
-                                                <div class="form-body">
-                                                    <div class="row">
-                                                        <!-- Product Name Field -->
-                                                        <div class="col-md-12">
-                                                            <p class="card-price"
-                                                                style="font-size: 1rem; font-weight: bold; color: black; margin-top: -30px;">
-                                                                Summary
-                                                            </p>
-                                                            <div class="col-md-12 mb-3">
-                                                                <label>Deskripsi Singkat</label>
+                                                                <label>Product</label>
+                                                            </div>
+                                                            <div class="ms-auto">
+
+                                                                <a href="#" class="text-danger">
+                                                                    <i class="bi bi-trash"
+                                                                        style="font-size: 1.25rem;"></i>
+                                                                </a>
                                                             </div>
                                                         </div>
-                                                        <!-- Products Sold -->
-                                                        <div class="col-md-6">
-                                                            <label>Product</label>
-                                                        </div>
+
                                                     </div>
                                                 </div>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
-
+                                </a>
+                            </div>
+                        @endforeach
+                        <div class="d-flex justify-content-between mt-4 px-3">
+                            <div class="mb-3">
+                                Showing {{ $brands->firstItem() }} to {{ $brands->lastItem() }} of
+                                {{ $brands->total() }} results
+                            </div>
+                            <div class="pagination-container">
+                                {{ $brands->appends(['search' => request('search')])->links('pagination::bootstrap-4') }}
+                            </div>
                         </div>
+
                     </div>
                 </section>
+
             </div>
 
             <footer>
@@ -283,13 +146,114 @@
             </footer>
         </div>
     </div>
+
+    <!-- Include jQuery (if not included already) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Handle input in search box
+            $('#search').on('keyup', function() {
+                let query = $(this).val();
+
+                // If the search box is empty, navigate to the first page
+                if (query.length === 0) {
+                    // Reload the page without search query and pagination parameters
+                    let currentUrl = new URL(window.location.href);
+                    currentUrl.searchParams.delete('search');
+                    currentUrl.searchParams.delete('page');
+                    window.location.href = currentUrl.href;
+                    return;
+                }
+
+                // Make AJAX request for search
+                $.ajax({
+                    url: '/search-brands',
+                    method: 'GET',
+                    data: {
+                        search: query
+                    },
+                    success: function(data) {
+                        // Clear the current content
+                        $('.row.match-height').empty();
+                        $('.d-flex.justify-content-between').empty();
+
+                        // Add new results
+                        $.each(data.brands, function(index, brand) {
+                            $('.row.match-height').append(`
+            <div class="col-md-4 col-12">
+                <a href="/detail-brand/${brand.id}" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center">
+                            <div class="me-3">
+                                <img src="${brand.brand_logo}" alt="${brand.name}" style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
+                            </div>
+                            <div class="d-flex flex-column">
+                                <h4 class="card-title mb-0" style="margin-top: -20px; font-size: 1.25rem;">${brand.name}</h4>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="form-body">
+                                    <div class="row">
+                                         <div class="col-md-12 d-flex justify-content-between align-items-center">
+                                             <div>
+                                                 <p class="card-price" style="font-size: 1rem; font-weight: bold; color: black; margin-top: -35px;">
+                                                     Summary
+                                                 </p>
+                                                 <p class="card-price" style="color: black;">${brand.description}</p>
+                                                 <label>Product</label>
+                                             </div>
+                                             <div class="ms-auto">
+                                                 <a href="#" class="text-danger">
+                                                     <i class="bi bi-trash" style="font-size: 1.25rem;"></i>
+                                                 </a>
+                                             </div>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        `);
+                        });
+
+                        // Add pagination
+                        $('.d-flex.justify-content-between').append(data.pagination);
+                    }
+
+                });
+            });
+        });
+    </script>
+
+
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="assets/vendors/apexcharts/apexcharts.js"></script>
     <script src="assets/js/pages/dashboard.js"></script>
 
     <script src="assets/js/main.js"></script>
+
+
+    @if (session('success'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#4A69E2', // Mengatur warna tombol OK
+                customClass: {
+                    icon: 'swal-icon-success'
+                }
+            });
+        </script>
+    @endif
+
 </body>
 
 </html>
