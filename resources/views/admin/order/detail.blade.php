@@ -21,85 +21,7 @@
 <body>
     <div id="app">
         @include('admin.layouts.sidebar')
-
-        <div id="main" class='layout-navbar'>
-            <header class='mb-2'>
-                <nav class="navbar navbar-expand navbar-light ">
-                    <div class="container-fluid">
-                        <a href="#" class="burger-btn d-block">
-                            <i class="bi bi-justify fs-3"></i>
-                        </a>
-
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                                <li class="nav-item dropdown me-1">
-                                    <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <i class='bi bi-envelope bi-sub fs-4 text-gray-600'></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                        <li>
-                                            <h6 class="dropdown-header">Mail</h6>
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">No new mail</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item dropdown me-3">
-                                    <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <i class='bi bi-bell bi-sub fs-4 text-gray-600'></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                        <li>
-                                            <h6 class="dropdown-header">Notifications</h6>
-                                        </li>
-                                        <li><a class="dropdown-item">No notification available</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="dropdown">
-                                <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <div class="user-menu d-flex">
-                                        <div class="user-name text-end me-3">
-                                            <h6 class="mb-0 text-gray-600">John Ducky</h6>
-                                            <p class="mb-0 text-sm text-gray-600">Administrator</p>
-                                        </div>
-                                        <div class="user-img d-flex align-items-center">
-                                            <div class="avatar avatar-md">
-                                                <img src="assets/images/faces/1.jpg">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                    <li>
-                                        <h6 class="dropdown-header">Hello, John!</h6>
-                                    </li>
-                                    <li><a class="dropdown-item" href="#"><i
-                                                class="icon-mid bi bi-person me-2"></i> My
-                                            Profile</a></li>
-                                    <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-gear me-2"></i>
-                                            Settings</a></li>
-                                    <li><a class="dropdown-item" href="#"><i
-                                                class="icon-mid bi bi-wallet me-2"></i>
-                                            Wallet</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#"><i
-                                                class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </header>
-        </div>
+        @include('admin.layouts.navbar')
 
         <div id="main">
             <div class="page-heading">
@@ -134,9 +56,15 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <small class="text-muted">Transaction Date: August 28, 2024</small>
                                         <div>
-                                            <button type="button" class="btn btn-primary btn-sm"
+                                            {{-- <button type="button" class="btn btn-primary btn-sm"
                                                 style="border-radius: 8px;"><i class="bi bi-printer-fill"></i>
-                                                Print</button>
+                                                Print</button> --}}
+
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                style="border-radius: 8px;">
+                                                <i class="bi bi-printer-fill"></i> Print
+                                            </button>
+
                                             <button type="button" class="btn btn-primary btn-sm ms-2"
                                                 style="border-radius: 8px;"><i class="bi bi-cloud-download-fill"></i>
                                                 Save</button>
@@ -414,20 +342,21 @@
                                         </table>
                                     </div>
                                     <div class="text-end" style="margin-top: 1rem;">
-                                        <button type="button" class="btn btn-success btn-sm" style="border-radius: 8px;"><i
-                                                class="bi bi-check-circle"></i> Konfirmasi Pemesanan</button>
-                                        <button type="button" class="btn btn-warning btn-sm" style="border-radius: 8px;"><i
-                                                class="bi bi-truck"></i> Pesanan Dikirim</button>
-                                        <button type="button" class="btn btn-primary btn-sm" style="border-radius: 8px;"><i
-                                                class="bi bi-bag-check"></i> Selesaikan Pesanan</button>
+                                        <button type="button" class="btn btn-success btn-sm"
+                                            style="border-radius: 8px;"><i class="bi bi-check-circle"></i> Konfirmasi
+                                            Pemesanan</button>
+                                        <button type="button" class="btn btn-warning btn-sm"
+                                            style="border-radius: 8px;"><i class="bi bi-truck"></i> Pesanan
+                                            Dikirim</button>
+                                        <button type="button" class="btn btn-primary btn-sm"
+                                            style="border-radius: 8px;"><i class="bi bi-bag-check"></i> Selesaikan
+                                            Pesanan</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-
-
 
             </div>
 
@@ -449,6 +378,127 @@
     <script src="assets/js/pages/dashboard.js"></script>
 
     <script src="assets/js/main.js"></script>
+
+    <script>
+        function generateInvoiceHTML() {
+            return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Invoice</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                margin: 0;
+                padding: 0;
+            }
+            .invoice-container {
+                width: 838px;
+                height: 869px;
+                margin: 0 auto;
+                padding: 20px;
+                box-sizing: border-box;
+                overflow: auto;
+            }
+            .invoice-header {
+                text-align: right;
+                margin-bottom: 20px;
+            }
+            .invoice-title {
+                font-size: 24px;
+                font-weight: bold;
+            }
+            .invoice-details {
+                margin-bottom: 20px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            .total {
+                text-align: right;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="invoice-container">
+            <div class="invoice-header">
+                <div class="invoice-title">INVOICE</div>
+                <div>INV/07082024/IND/1908101011</div>
+            </div>
+            <div class="invoice-details">
+                <strong>Diterbitkan Atas Nama:</strong>
+                <p>Penjual: Glamoire</p>
+                <strong>Untuk:</strong>
+                <p>Pembeli: Muhammad Helmi<br>
+                Tanggal Pembelian: 10 Agustus 2024<br>
+                Alamat Pengiriman: Suko, Sukodono, Sidoarjo</p>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Info Produk</th>
+                        <th>Jumlah</th>
+                        <th>Harga Satuan</th>
+                        <th>Total Harga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mirelle Beauty Glossy Day Cream</td>
+                        <td>1</td>
+                        <td>Rp12.000</td>
+                        <td>Rp12.000</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="total">
+                <p>Total Harga (1 Barang): Rp12.000</p>
+                <p>Total Ongkos Kirim: Rp6.000</p>
+                <p>Diskon Voucher: -Rp5.000</p>
+                <p>Biaya Asuransi Pengiriman: Rp1.000</p>
+                <p><strong>Total Belanja: Rp14.000</strong></p>
+                <p>Biaya Jasa Aplikasi: Rp1.000</p>
+                <p><strong>Total Tagihan: Rp15.000</strong></p>
+            </div>
+            <div>
+                <p>Metode Pembayaran: BCA Virtual Account</p>
+            </div>
+            <div>
+                <small>Invoice ini sah dan diproses oleh komputer</small><br>
+                <small>Silakan hubungi Admin Glamoire apabila kamu membutuhkan bantuan.</small><br>
+                <small>Terakhir diupdate: 10 Agustus 2024 14:32 WIB</small>
+            </div>
+        </div>
+    </body>
+    </html>
+  `;
+        }
+
+        // Function to open the invoice in a new window and print
+        function printInvoice() {
+            const invoiceWindow = window.open('', '_blank');
+            invoiceWindow.document.write(generateInvoiceHTML());
+            invoiceWindow.document.close();
+            invoiceWindow.print();
+        }
+
+        // Add event listener to the print button
+        document.querySelector('.btn-primary i.bi-printer-fill').parentElement.addEventListener('click', printInvoice);
+    </script>
 </body>
 
 </html>

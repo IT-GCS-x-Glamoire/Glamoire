@@ -9,12 +9,19 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    // CATEGORY PRODUCT
+    // // CATEGORY PRODUCT
+    // public function indexCategoryProduct()
+    // {
+    //     $categoryProduct = CategoryProduct::all(); // Mengambil semua data kategori
+    //     return view('admin.category.index', compact('categoryProduct'));
+    // }
+
     public function indexCategoryProduct()
     {
-        $categoryProduct = CategoryProduct::all(); // Mengambil semua data kategori
+        $categoryProduct = CategoryProduct::withCount('products')->get(); // Mengambil semua kategori dengan hitung produk
         return view('admin.category.index', compact('categoryProduct'));
     }
+
 
     public function createCategoryProduct(Request $request)
     {

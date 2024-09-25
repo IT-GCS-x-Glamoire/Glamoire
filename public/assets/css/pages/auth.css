@@ -1,1 +1,117 @@
-body{background-color:#fff}#auth{height:100vh;overflow-x:hidden}#auth #auth-right{height:100%;background:url(../../images/bg/4853433.jpg),linear-gradient(90deg,#2d499d,#3f5491)}#auth #auth-left{padding:5rem 8rem}#auth #auth-left .auth-title{font-size:4rem;margin-bottom:1rem}#auth #auth-left .auth-subtitle{font-size:1.7rem;line-height:2.5rem;color:#a8aebb}#auth #auth-left .auth-logo{margin-bottom:7rem}#auth #auth-left .auth-logo img{height:2rem}@media screen and (max-width:767px){#auth #auth-left{padding:5rem}}
+/* body {
+    background-color: #fff
+}
+
+#auth {
+    height: 100vh;
+    overflow-x: hidden
+}
+
+#auth #auth-right {
+    height: 100%;
+    background: url(../../images/bg/4853433.jpg), linear-gradient(90deg, #2d499d, #3f5491)
+}
+
+#auth #auth-left {
+    padding: 5rem 8rem
+}
+
+#auth #auth-left .auth-title {
+    font-size: 4rem;
+    margin-bottom: 1rem
+}
+
+#auth #auth-left .auth-subtitle {
+    font-size: 1.7rem;
+    line-height: 2.5rem;
+    color: #a8aebb
+}
+
+#auth #auth-left .auth-logo {
+    margin-bottom: 7rem
+}
+
+#auth #auth-left .auth-logo img {
+    height: 2rem
+}
+
+@media screen and (max-width:767px) {
+    #auth #auth-left {
+        padding: 5rem
+    }
+} */
+
+
+body {
+    background-color: #fff;
+}
+
+#auth {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    /* Posisikan form di tengah horizontal */
+    align-items: center;
+    /* Posisikan form di tengah vertical */
+    /* background: url('/assets/images/bg/bg-login-dark.png') no-repeat center center; */
+    background: url('/assets/images/bg/bg-login-light.png') no-repeat center center;
+    background-size: cover;
+}
+
+#auth .auth-container {
+    background-color: rgba(255, 255, 255, 0.923);
+    /* Menambahkan background putih transparan untuk form */
+    max-width: 500px; /* Mengatur ukuran maksimum form */
+
+    padding: 3rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.auth-subtitle {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: rgba(59, 58, 58, 0.998);
+    text-align: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.form-control {
+    padding: 1.2rem;
+    font-size: 1.1rem;
+}
+
+.form-control-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 15px;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+@media screen and (max-width:767px) {
+    #auth {
+        padding: 2rem;
+    }
+
+    #auth .auth-container {
+        padding: 2rem;
+    }
+}

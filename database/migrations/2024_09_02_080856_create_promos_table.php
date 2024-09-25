@@ -24,15 +24,13 @@ return new class extends Migration
             $table->foreign('brand_id')->references('id')->on('brands')->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedBigInteger('product_id')->nullable();
             $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete()->cascadeOnUpdate();            
-            $table->string('image');
-            $table->string('min_transaction');
-            $table->string('max_transaction');
-            $table->text('description');
-            $table->string('syarat_ketentuan');
-            $table->string('promo_code');
-            $table->string('image_promo')->nullable();
-            $table->string('image_voucher')->nullable();
-            $table->string('image_ongkir')->nullable();
+            $table->string('min_transaction')->nullable();
+            $table->string('max_transaction')->nullable();
+            $table->text('description')->nullable();
+            $table->string('terms_conditions')->nullable();
+            $table->bigInteger('sale_price')->nullable();
+            $table->string('promo_code')->nullable();
+            $table->string('image')->nullable();         
             $table->timestamps();
         });
     }

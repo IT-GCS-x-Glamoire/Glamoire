@@ -12,11 +12,55 @@
     <link rel="stylesheet" href="assets/css/bootstrap.css">
 
     <link rel="stylesheet" href="assets/vendors/iconly/bold.css">
+    <link rel="stylesheet" href="assets/vendors/sweetalert2/sweetalert2.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
     <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
+
+    <style>
+        .product-item-container {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            /* Allows items to wrap on smaller screens */
+        }
+
+        .product-item-container img {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .product-item-container {
+                flex-direction: column;
+                /* Stack items vertically on smaller screens */
+                align-items: flex-start;
+            }
+
+            .product-item-container img {
+                margin-bottom: 10px;
+                width: 80px;
+                height: 80px;
+                /* Reduce image size on smaller screens */
+            }
+        }
+
+        .action-buttons a {
+            display: block;
+            /* Set to block so each link appears on a new line */
+            margin-bottom: 5px;
+            /* Add some space between the buttons */
+        }
+    </style>
 </head>
 
 <body>
@@ -32,28 +76,14 @@
                             <h3>All Products</h3>
                             <nav aria-label="breadcrumb" class="breadcrumb-header me-3">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Product</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('index-product-admin') }}">Product</a>
+                                    </li>
                                     <li class="breadcrumb-item active" aria-current="page">All Product</li>
                                 </ol>
                             </nav>
                         </div>
                         <div
                             class="col-12 col-md-6 d-flex justify-content-md-end align-items-center order-md-2 order-first">
-                            <div class="me-3">
-                                <div class="form-group position-relative mb-0 has-icon-left">
-                                    <form id="search-form" class="d-flex me-3">
-                                        <input type="text" name="search" id="search" class="form-control"
-                                            placeholder="Search Product.." value="{{ request('search') }}">
-                                        <div class="form-control-icon">
-                                            <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                <use
-                                                    xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#search" />
-                                            </svg>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
                             <a href="{{ route('create-product-admin') }}" type="submit"
                                 class="btn btn-sm btn-primary d-flex align-items-center" style="border-radius: 8px;">
                                 <i class="bi bi-plus-circle" style="margin-right: 3px;"></i> Add Product
@@ -62,83 +92,78 @@
                     </div>
                 </div>
 
-                <!-- Basic Horizontal form layout section start -->
-                <section id="basic-horizontal-layouts">
-                    <div class="row match-height" id="product-list">
-                        @foreach ($products as $item)
-                            <div class="col-md-4 col-12" id="product-item-{{ $item->id }}">
-                                <a href="{{ url('/detail-product-admin/' . $item->id) }}"
-                                    style="text-decoration: none; color: inherit;">
-                                    <div class="card">
-                                        <div class="card-header d-flex align-items-center">
-                                            <div class="me-3">
-                                                <img src="{{ asset($item->main_image) }}" alt="Product Image"
-                                                    style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
-                                            </div>
-                                            <div class="d-flex flex-column w-100">
-                                                <div class="d-flex align-items-center">
-                                                    <h4 class="card-title mb-0"
-                                                        style="margin-top: 1px; font-size: 1.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                        {{ Str::limit($item->product_name, 20, '...') }}
-                                                    </h4>
-                                                </div>
-                                                <p class="card-category mb-0"
-                                                    style="font-size: 0.875rem; color: #6c757d;">
-                                                    {{ $item->categoryProduct->name ?? 'N/A' }}
-                                                </p>
-                                                <p class="card-price mt-1"
-                                                    style="font-size: 1rem; font-weight: bold; color: black;">
-                                                    Rp. {{ number_format($item->regular_price, 0, ',', '.') }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="card-content">
-                                            <div class="card-body">
-                                                <form class="form form-horizontal">
-                                                    <div class="form-body">
-                                                        <div class="row">
-                                                            <!-- Product Name Field -->
-                                                            <div class="col-md-12">
-                                                                <p class="card-price"
-                                                                    style="font-size: 1rem; font-weight: bold; color: black; margin-top: -30px;">
-                                                                    {{ $item->brand->name }}
-                                                                </p>
-                                                                <div class="col-md-12 mb-3">
-                                                                    {{-- <p>Description: {{ $item->description }}</p> --}}
-                                                                    <p>Description :
-                                                                        {{ Str::limit($item->description, 100, '...') }}
-                                                                    </p>
+                <section class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>List Product</h4>
+                        </div>
+                        <div class="card-body">
+                            <table class="table" id="table1">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Product Sales</th>
+                                        <th>Stock Quantity</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($products as $item)
+                                        <tr id="product-item-{{ $item->id }}">
+                                            <td>
+                                                <div class="product-item-container">
+                                                    <!-- Image -->
+                                                    <img src="{{ asset($item->main_image) }}" class="lazyload"
+                                                        alt="Product Image"
+                                                        onclick="openImageInNewTab('{{ asset($item->main_image) }}')">
 
-                                                                </div>
-                                                            </div>
-                                                            <!-- Products Sold and Current Stock -->
+                                                    <!-- Product Details -->
+                                                    <div>
+                                                        <strong style="font-size: 5mm;">
+                                                            {{ $item->brand ? $item->brand->name : 'No Brand' }} -
+                                                            {{ Str::limit($item->product_name, 20, '...') }}
+                                                        </strong><br>
+                                                        <span style="font-size: 3.6mm;">Code Product :
+                                                            {{ $item->product_code ? $item->product_code : 'No Code' }}</span><br>
+                                                        <span style="font-size: 3.6mm;">Category :
+                                                            {{ $item->categoryProduct ? $item->categoryProduct->name : 'No Category' }}
+                                                        </span><br>
+                                                        <!-- Display color_text if it exists -->
+                                                        @if ($item->color_text)
+                                                            <span style="font-size: 3.6mm;">
+                                                               Color : {{ $item->color_text }}
+                                                            </span><br>
+                                                        @endif
+
+                                                        <!-- Display color if it exists -->
+                                                        @if ($item->color)
                                                             <div
-                                                                class="col-md-12 d-flex justify-content-between align-items-center">
-                                                                <div>
-                                                                    <label>Products Sold:
-                                                                        {{ $item->sold_quantity }}</label><br>
-                                                                    <label>Current Stock:
-                                                                        {{ $item->stock_quantity }}</label>
-                                                                </div>                                                           
-
-                                                                <div class="ms-auto">
-                                                                    <a href="javascript:void(0);"
-                                                                        class="text-danger delete-product"
-                                                                        data-id="{{ $item->id }}">
-                                                                        <i class="bi bi-trash"
-                                                                            style="font-size: 1.25rem;"></i>
-                                                                    </a>
-                                                                </div>
+                                                                style="width: 20px; height: 20px; border-radius: 50%; background-color: {{ $item->color }}; margin-top: 5px;">
                                                             </div>
-                                                        </div>
+                                                        @endif
+
                                                     </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
+                                                </div>
+                                            </td>
+
+                                            <td>{{ $item->stock_quantity }}</td>
+                                            <td>{{ $item->stock_quantity }}</td>
+                                            <td>Rp. {{ number_format($item->regular_price, 0, ',', '.') }}</td>
+
+                                            <td class="action-buttons">
+                                                <a href="{{ url('detail-product-admin/' . $item->id) }}"><span class="badge bg-info">
+                                                    View</span></a>
+                                                <a href="{{ url('edit-product-admin/' . $item->id) }}"><span class="badge bg-warning">Edit</span></a>
+                                                <a href="javascript:void(0);" class="delete-product"
+                                                    data-id="{{ $item->id }}"><span class="badge bg-danger">Delete</span></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="d-flex justify-content-between mt-4 px-3" id="pagination-container">
                         <div class="mb-3">
@@ -167,137 +192,90 @@
         </div>
     </div>
 
+    <link rel="stylesheet" href="assets/vendors/simple-datatables/style.css">
+    <script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
+
     <!-- Include jQuery (if not included already) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#search').on('keyup', function() {
-                let query = $(this).val();
-
-                if (query.length === 0) {
-                    // Reload the page without search query and pagination parameters
-                    let currentUrl = new URL(window.location.href);
-                    currentUrl.searchParams.delete('search');
-                    currentUrl.searchParams.delete('page');
-                    window.location.href = currentUrl.href;
-                    return;
-                }
-
-                $.ajax({
-                    url: '/search-products',
-                    method: 'GET',
-                    data: {
-                        search: query
-                    },
-                    success: function(data) {
-                        $('#product-list').empty();
-                        $('#pagination-container').empty();
-
-                        $.each(data.products, function(index, product) {
-                            $('#product-list').append(`
-                                <div class="col-md-4 col-12">
-                                    <a href="/detail-product-admin/${product.id}" style="text-decoration: none; color: inherit;">
-                                        <div class="card">
-                                            <div class="card-header d-flex align-items-center">
-                                                <div class="me-3">
-                                                    <img src="${product.image}" alt="Product Image" style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
-                                                </div>
-                                                <div class="d-flex flex-column w-100">
-                                                    <div class="d-flex align-items-center">
-                                                        <h4 class="card-title mb-0" style="margin-top: 1px; font-size: 1.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${product.product_name}</h4>
-                                                    </div>
-                                                     <p class="card-category mb-0" style="font-size: 0.875rem; color: #6c757d;">
-                                                        {{ $item->categoryProduct->name ?? 'N/A' }}
-                                                    </p>
-                                                    <p class="card-price mt-1" style="font-size: 1rem; font-weight: bold; color: black;">
-                                                    Rp. {{ number_format($item->regular_price, 0, ',', '.') }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="card-content">
-                                                <div class="card-body">
-                                                    <div class="form-body">
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <p class="card-price" style="font-size: 1rem; font-weight: bold; color: black; margin-top: -30px;">
-                                                                    ${product.brand.name}
-                                                                </p>
-                                                                <div class="col-md-12 mb-3">
-                                                                    <p>Description: ${product.description}</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12 d-flex justify-content-between align-items-center">
-                                                                <div>
-                                                                    <label>Products Sold: ${product.sold_quantity}</label><br>
-                                                                    <label>Current Stock: ${product.stock_quantity}</label>
-                                                                </div>
-                                                                <div class="ms-auto">
-                                                                    <a href="#" class="text-danger">
-                                                                        <i class="bi bi-trash" style="font-size: 1.25rem;"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            `);
-                        });
-
-                        $('#pagination-container').html(data.pagination);
-                    }
-                });
-            });
-        });
-    </script>
-
-    <script>
+        // Fungsi untuk membuka gambar di tab baru
+        function openImageInNewTab(url) {
+            window.open(url, '_blank');
+        }
         document.addEventListener('DOMContentLoaded', function() {
-            // Handle click event for delete button
-            document.querySelectorAll('.delete-product').forEach(function(element) {
-                element.addEventListener('click', function() {
-                    var productId = this.getAttribute('data-id');
+            // Initialize Simple DataTable
+            let table1 = document.querySelector('#table1');
+            let dataTable = new simpleDatatables.DataTable(table1);
 
-                    if (confirm('Are you sure you want to delete this product?')) {
-                        // Send AJAX request to delete product
-                        fetch(`/delete-product/${productId}`, {
-                                method: 'DELETE',
-                                headers: {
-                                    'X-CSRF-TOKEN': document.querySelector(
-                                        'meta[name="csrf-token"]').getAttribute('content')
-                                }
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    // Remove the product from the page
-                                    document.querySelector(`#product-item-${productId}`)
-                                        .remove();
-                                    alert(data.message);
-                                } else {
-                                    alert(data.message);
-                                }
-                            })
-                            .catch(error => console.error('Error:', error));
-                    }
-                });
+            // Use event delegation for delete button
+            table1.addEventListener('click', function(event) {
+                if (event.target.closest('.delete-product')) {
+                    let productId = event.target.closest('.delete-product').getAttribute('data-id');
+
+                    // SweetAlert2 confirmation dialog
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: 'You won\'t be able to revert this!',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Send AJAX request to delete product
+                            fetch(`/delete-product/${productId}`, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'X-CSRF-TOKEN': document.querySelector(
+                                            'meta[name="csrf-token"]').getAttribute(
+                                            'content')
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        // Remove the product from the page
+                                        document.querySelector(`#product-item-${productId}`)
+                                            .remove();
+                                        Swal.fire({
+                                            title: 'Deleted!',
+                                            text: data.message,
+                                            icon: 'success',
+                                            timer: 1800, // Auto-close alert after 2 seconds
+                                            timerProgressBar: true, // Show progress bar
+                                            showConfirmButton: true // Show OK button
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            title: 'Error!',
+                                            text: data.message,
+                                            icon: 'error',
+                                            timer: 1800, // Auto-close alert after 2 seconds
+                                            timerProgressBar: true, // Show progress bar
+                                            showConfirmButton: true // Show OK button
+                                        });
+                                    }
+                                })
+                                .catch(error => console.error('Error:', error));
+                        }
+                    });
+                }
             });
         });
     </script>
-
 
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="assets/vendors/apexcharts/apexcharts.js"></script>
     <script src="assets/js/pages/dashboard.js"></script>
 
     <script src="assets/js/main.js"></script>
-
     @if (session('success'))
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
@@ -309,11 +287,15 @@
                 confirmButtonColor: '#4A69E2', // Mengatur warna tombol OK
                 customClass: {
                     icon: 'swal-icon-success'
+                },
+                timer: 1800, // Mengatur waktu tampilan SweetAlert dalam milidetik (1000 ms = 1 detik)
+                timerProgressBar: true, // Menampilkan progress bar timer
+                didClose: () => {
+                    // Optional: this can be used to trigger any action after the alert is closed
                 }
             });
         </script>
     @endif
-
 </body>
 
 </html>

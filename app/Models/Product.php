@@ -28,4 +28,14 @@ class Product extends Model
     {
         return $value ? json_decode($value, true) : [];
     }
+
+    public function promos()
+    {
+        return $this->belongsToMany(Promo::class, 'promo_products', 'product_id', 'promo_id');
+    }
+
+    public function variations()
+    {
+        return $this->hasMany(ProductVariations::class);
+    }
 }

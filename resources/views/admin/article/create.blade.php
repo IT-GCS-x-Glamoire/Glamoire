@@ -17,10 +17,6 @@
 
 
     <link rel="stylesheet" href="assets/vendors/toastify/toastify.css">
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-        rel="stylesheet">
-
     <link rel="stylesheet" href="assets/vendors/iconly/bold.css">
 
     <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
@@ -229,19 +225,8 @@
     <!-- toastify -->
     <script src="assets/vendors/toastify/toastify.js"></script>
 
-    <!-- ckeditor -->
-    <script src="assets/vendors/ckeditor/ckeditor.js"></script>
-
     <!-- summernote -->
     <script src="assets/vendors/summernote/summernote-lite.min.js"></script>
-
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
 
     <script>
         $('#summernote').summernote({
