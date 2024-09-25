@@ -12,7 +12,7 @@ class Article extends Model
 
     public function categoryArticle()
     {
-        return $this->belongsTo(CategoryArticle::class, 'category_product_id');
+        return $this->belongsTo(CategoryArticle::class, 'category_article_id');
     }
     
 }

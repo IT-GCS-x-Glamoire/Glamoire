@@ -18,74 +18,124 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-icons/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/detailproduct.css') }}">
 
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/x-icon">
+
+    {{-- <style>
+        .upload__img-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .upload__img-box-single {
+            position: relative;
+            width: 457px;
+            height: 444px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .upload__img-box-multiple {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .img-bg-single,
+        .img-bg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .upload__img-close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            padding: 2px;
+            cursor: pointer;
+        }
+    </style> --}}
 
     <style>
         .upload__img-wrap {
             display: flex;
             flex-wrap: wrap;
-            margin: 0 -10px;
+            gap: 10px;
         }
 
-        .upload__img-box-multiple {
-            width: 180px;
-            padding: 0 10px;
-            margin-bottom: 12px;
+        .upload__img-box-single,
+        .upload__video-box {
             position: relative;
-        }
-
-        .upload__img-box-single {
-            width: 457px;
-            /* Sesuaikan lebar */
-            padding: 0 10px;
-            margin-bottom: 12px;
-            position: relative;
-        }
-
-        .img-bg-single {
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-            position: relative;
-            width: 457px;
-            /* Lebar gambar */
-            height: 444px;
-            /* Tinggi gambar */
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .upload__img-close {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background-color: rgba(0, 0, 0, 0.5);
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            text-align: center;
-            line-height: 24px;
-            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
             cursor: pointer;
         }
 
-        .upload__img-close:after {
-            content: '\2716';
-            font-size: 14px;
-            color: white;
+        .upload__img-box-single {
+            width: 100%;
+            max-width: 457px;
+            height: auto;
+            aspect-ratio: 457 / 444;
+            /* Maintain aspect ratio */
         }
 
-        .img-bg {
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
+        .upload__img-box-multiple {
             position: relative;
-            padding-bottom: 100%;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            width: 100%;
+            max-width: 180px;
+            height: auto;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .upload__video-box {
+            width: 100%;
+            max-width: 457px;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            /* Maintain aspect ratio for video */
+        }
+
+        .img-bg-single,
+        .img-bg,
+        .video-bg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .video-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Make sure the video covers the container */
+        }
+
+        .upload__img-close,
+        .upload__video-close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            padding: 2px;
+            cursor: pointer;
         }
     </style>
+
 
 </head>
 
@@ -115,21 +165,23 @@
 
                 <!-- Basic Horizontal form layout section start -->
                 <section id="multiple-column-form">
-                    <div class="row match-height">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <form class="form form-vertical">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-body">
                                             <div class="form-body">
                                                 <div class="row">
-                                                    <div class="col-md-6 col-sm-12">
+                                                    <!-- Kolom Kiri -->
+                                                    <div class="col-md-6 col-12">
                                                         <div class="form-group has-icon-left">
                                                             <label for="product-name">Product Name</label>
                                                             <div class="position-relative">
                                                                 <input type="text" class="form-control"
                                                                     id="product-name"
-                                                                    value="{{ $product->product_name }}">
+                                                                    value="{{ $product->product_name }}"
+                                                                    name="product_name" disabled>
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-bag"></i>
                                                                 </div>
@@ -137,23 +189,38 @@
                                                         </div>
 
                                                         <div class="form-group has-icon-left">
-                                                            <label for="product-code">Code </label>
+                                                            <label for="product-code">Product Code</label>
                                                             <div class="position-relative">
                                                                 <input type="text" class="form-control"
                                                                     id="product-code"
-                                                                    value="{{ $product->product_code }}">
+                                                                    value="{{ $product->product_code }}"
+                                                                    name="product_code" disabled>
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-upc"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-group has-icon-left">
-                                                            <label for="category-product">Category Product </label>
+                                                        <div class="mb-3">
+                                                            <label for="first-name-icon">Description</label>
                                                             <div class="position-relative">
-                                                                <input type="text" class="form-control"
-                                                                    id="category-product"
-                                                                    value="{{ $product->categoryProduct->name }}">
+                                                                <textarea class="form-control" name="description" id="description" cols="30" rows="20" disabled>{{ $product->description }}</textarea>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group has-icon-left">
+                                                            <label for="category-product">Category Product</label>
+                                                            <div class="position-relative">
+                                                                <select class="form-control" id="category-product"
+                                                                    name="category_product_id" disabled>
+                                                                    <option value="">Select Category</option>
+                                                                    @foreach ($categories as $category)
+                                                                        <option value="{{ $category->id }}"
+                                                                            {{ $product->categoryProduct && $product->categoryProduct->id == $category->id ? 'selected' : '' }}>
+                                                                            {{ $category->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-bookmark"></i>
                                                                 </div>
@@ -163,9 +230,16 @@
                                                         <div class="form-group has-icon-left">
                                                             <label for="brand-name">Brand</label>
                                                             <div class="position-relative">
-                                                                <input type="text" class="form-control"
-                                                                    id="brand-name"
-                                                                    value="{{ $product->brand->name }}">
+                                                                <select class="form-control" id="brand-name"
+                                                                    name="brand_id" disabled>
+                                                                    <option value="">Select Brand</option>
+                                                                    @foreach ($brands as $brand)
+                                                                        <option value="{{ $brand->id }}"
+                                                                            {{ $product->brand && $product->brand->id == $brand->id ? 'selected' : '' }}>
+                                                                            {{ $brand->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-file-earmark-medical"></i>
                                                                 </div>
@@ -173,102 +247,132 @@
                                                         </div>
 
                                                         <div class="form-group has-icon-left">
-                                                            <label for="stock-quantity">Stock Quantity </label>
+                                                            <label for="stock-quantity">Stock Quantity</label>
                                                             <div class="position-relative">
-                                                                <input type="text" class="form-control"
-                                                                    id="stock-quantity"
-                                                                    value="{{ $product->stock_quantity }}">
+                                                                <input type="number" class="form-control"
+                                                                    id="stock-quantity" name="stock_quantity"
+                                                                    value="{{ old('stock_quantity', $product->stock_quantity) }}"
+                                                                    disabled>
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-cart"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
 
-                                                    <div class="col-md-6 col-sm-12">
                                                         <div class="form-group has-icon-left">
-                                                            <label for="regular-price">Regular Price </label>
+                                                            <label for="product-unit">Product Unit</label>
                                                             <div class="position-relative">
                                                                 <input type="text" class="form-control"
-                                                                    id="regular-price"
-                                                                    value="{{ $product->regular_price }}">
+                                                                    id="product-unit" value="{{ $product->unit }}"
+                                                                    name="product_unit" disabled>
+                                                                <div class="form-control-icon">
+                                                                    <i class="bi bi-upc"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group has-icon-left">
+                                                            <label for="regular-price">Regular Price</label>
+                                                            <div class="position-relative">
+                                                                <input type="text" class="form-control"
+                                                                    id="regular-price" name="regular_price"
+                                                                    value="Rp. {{ number_format($product->regular_price, 0, ',', '.') }}"
+                                                                    disabled>
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-credit-card-2-front"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-group has-icon-left">
-                                                            <label for="sale-price">Sale Price </label>
+                                                        {{-- <div class="form-group mb-3">
+                                                            <label for="product-color">Product Color</label>
                                                             <div class="position-relative">
-                                                                <input type="text" class="form-control"
-                                                                    id="sale-price"
-                                                                    value="{{ $product->sale_price }}">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-credit-card-2-front"></i>
-                                                                </div>
+                                                                <input type="color" class="form-control"
+                                                                    id="product-color" name="color"
+                                                                    value="{{ $product->color }}" disabled>
                                                             </div>
-                                                        </div>
+                                                        </div> --}}
 
-                                                        <div class="col-md-6 col-sm-12">
-                                                            <label for="product-image">Main Image</label>
-                                                            <div class="card-content">
-                                                                <div class="card-body">
-                                                                    @if (!empty($product->main_image))
-                                                                        <div class="upload__img-wrap">
-                                                                            <div class="upload__img-box-single">
-                                                                                <div class="img-bg-single"
-                                                                                    style="background-image: url('{{ asset($product->main_image) }}');"
-                                                                                    onclick="openImageInNewTab('{{ asset($product->main_image) }}')">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    @else
-                                                                        <p>No image available</p>
-                                                                    @endif
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <label for="product-gallery">Product Gallery</label>
-                                                        <div class="card-content">
-                                                            <div class="card-body">
-                                                                @if (!empty($product->images) && is_array($product->images))
-                                                                    <div class="upload__img-wrap">
-                                                                        @foreach ($product->images as $image)
-                                                                            <div class="upload__img-box-multiple">
-                                                                                <div class="img-bg"
-                                                                                    style="background-image: url('{{ asset($image) }}');"
-                                                                                    onclick="openImageInNewTab('{{ asset($image) }}')">
-                                                                                </div>
-                                                                                <div class="upload__img-close"
-                                                                                    onclick="removeImage('{{ $image }}')">
-                                                                                </div>
-                                                                            </div>
-                                                                        @endforeach
-                                                                    </div>
-                                                                @else
-                                                                    <p>No images available</p>
+                                                        <div class="form-group mb-3">
+                                                            <label for="product-color">Product Color</label>
+                                                            <div class="position-relative">
+                                                                @if ($product->color_text)
+                                                                    <!-- Input teks untuk color_text -->
+                                                                    <input type="text" class="form-control" id="product-color-text" name="color_text"
+                                                                        value="{{ $product->color_text }}" disabled>
+                                                                @elseif ($product->color)
+                                                                    <!-- Input warna untuk color -->
+                                                                    <input type="color" class="form-control" id="product-color" name="color"
+                                                                        value="{{ $product->color }}" disabled>
                                                                 @endif
                                                             </div>
                                                         </div>
-
+                                                        
                                                     </div>
 
-                                                    <div class="col-12 d-flex justify-content-end">
-                                                        <button type="submit"
-                                                            class="btn btn-sm btn-primary me-1 mb-1"
-                                                            style="border-radius: 8px;">Update</button>
+                                                    <!-- Kolom Kanan -->
+                                                    <div class="col-md-6 col-12">
+                                                        <!-- Main Image Upload with Drag and Drop -->
+                                                        <label for="main-image" class="mb-3">Product
+                                                            Thumbnail</label>
+                                                        <div class="file-upload-content mb-4"
+                                                            id="single-file-upload-content">
+                                                            @if (!empty($product->main_image))
+                                                                <div class="upload__img-wrap">
+                                                                    <div class="upload__img-box-single">
+                                                                        <div class="img-bg-single"
+                                                                            style="background-image: url('{{ asset($product->main_image) }}');"
+                                                                            onclick="openImageInNewTab('{{ asset($product->main_image) }}')">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+
+                                                        <!-- Gallery -->
+                                                        <label for="product-gallery" class="mb-3 mt-4">Product
+                                                            Gallery</label>
+                                                        <div class="file-upload-content upload__img-wrap"
+                                                            id="file-upload-content">
+                                                            @if (!empty($product->images) && is_array($product->images))
+                                                                @foreach ($product->images as $image)
+                                                                    <div class="upload__img-box-multiple">
+                                                                        <div class="img-bg"
+                                                                            style="background-image: url('{{ asset($image) }}');"
+                                                                            onclick="openImageInNewTab('{{ asset($image) }}')">
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            @endif
+                                                        </div>
+
+                                                        <label for="video-upload" class="mb-3 mt-4">Product
+                                                            Video</label>
+                                                        <div class="file-upload-content mb-4"
+                                                            id="video-file-upload-content">
+                                                            @if (!empty($product->video))
+                                                                <div class="upload__video-box">
+                                                                    <video class="video-bg" controls>
+                                                                        <source src="{{ asset($product->video) }}"
+                                                                            type="video/mp4">
+                                                                        Your browser does not support the video tag.
+                                                                    </video>
+
+                                                                </div>
+                                                            @endif
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
+
+
             </div>
 
             <footer>
@@ -286,13 +390,9 @@
     </div>
 
     <script>
-        function openImageInNewTab(imageUrl) {
-            window.open(imageUrl, '_blank');
-        }
-
-        function removeImage(imagePath) {
-            alert('Image removed: ' + imagePath);
-            // Logika penghapusan gambar
+        // Fungsi untuk membuka gambar di tab baru
+        function openImageInNewTab(url) {
+            window.open(url, '_blank');
         }
     </script>
 

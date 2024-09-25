@@ -45,7 +45,7 @@
                         </div>
                         <div
                             class="col-12 col-md-6 d-flex justify-content-md-end align-items-center order-md-2 order-first">
-                            <a href="#" type="button" class="btn btn-sm btn-dark d-flex align-items-center"
+                            <a href="#" type="button" class="btn btn-sm btn-primary d-flex align-items-center"
                                 data-bs-toggle="modal" data-bs-target="#inlineForm" style="border-radius: 8px;">
                                 <i class="bi bi-plus-circle" style="margin-right: 3px;"></i> Add Category
                             </a>
@@ -73,12 +73,11 @@
                                             <td>{{ $item->name }}</td>
                                             <td>
                                                 <!-- Jika Anda memiliki data total produk -->
-                                                <span
-                                                    class="badge bg-light-success">{{ $item->products_count ?? '0' }}</span>
+                                                <span class="badge bg-light-success">{{ $item->products_count }}</span>
                                             </td>
                                             <td>
                                                 <a href="/order-detail" class="btn btn-sm btn-warning">
-                                                    <i class="bi bi-eye" style="margin-right: 3px"></i>View </a>
+                                                    <i class="bi bi-pencil" style="margin-right: 3px"></i>Edit </a>
                                                 <button class="btn btn-sm btn-danger delete-category"
                                                     data-id="{{ $item->id }}"> <i class="bi bi-trash"
                                                         style="margin-right: 3px"></i>Delete</button>
@@ -92,6 +91,7 @@
                 </section>
 
             </div>
+
 
             <!-- Modal -->
             <form id="categoryForm">
@@ -142,7 +142,7 @@
 
     <link rel="stylesheet" href="assets/vendors/simple-datatables/style.css">
     <script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
-    
+
     <script>
         // Simple Datatable
         let table1 = document.querySelector('#table1');

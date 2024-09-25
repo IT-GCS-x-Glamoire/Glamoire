@@ -27,6 +27,58 @@
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
+
+    <style>
+        .upload__img-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+
+        .upload__img-box-multiple {
+            width: 195px;
+            padding: 0 10px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .upload__img-box-single {
+            width: 450px;
+            padding: 0 10px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .upload__img-close {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            text-align: center;
+            line-height: 24px;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .upload__img-close:after {
+            content: '\2716';
+            font-size: 14px;
+            color: white;
+        }
+
+        .img-bg {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            position: relative;
+            padding-bottom: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 
 <body>
@@ -44,7 +96,7 @@
                         <div class="col-12 col-md-6 d-flex justify-content-md-end align-items-center">
                             <nav aria-label="breadcrumb" class="breadcrumb-header" style="margin-bottom: 20px;">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="{{ route('index-promo') }}">Promo</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('index-promo-ongkir') }}">Promo Ongkir</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Add Promo Free Ongkir</li>
                                 </ol>
                             </nav>
@@ -59,14 +111,16 @@
                             <div class="card">
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form action="{{ route('store-product-admin') }}" class="form form-vertical"
+                                        <form action="{{ route('store-promo-ongkir') }}" class="form form-vertical"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
+                                            <input type="hidden" name="type" value="promo ongkir">
+
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group has-icon-left">
-                                                            <label for="first-name-icon">Promo Name <span
+                                                            <label for="first-name-icon">Voucher Name <span
                                                                     style="color: red">*</span></label>
                                                             <div class="position-relative">
                                                                 <input type="text"
@@ -88,27 +142,65 @@
                                                                     style="color: red">*</span></label>
                                                             <div class="position-relative">
                                                                 <input type="date"
-                                                                    class="form-control {{ $errors->has('diskon') ? 'is-invalid' : '' }}"
+                                                                    class="form-control {{ $errors->has('start_date') ? 'is-invalid' : '' }}"
                                                                     placeholder="Enter Code Product"
-                                                                    id="first-name-icon" name="diskon">
+                                                                    id="first-name-icon" name="start_date">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-receipt"></i>
                                                                 </div>
                                                             </div>
-                                                            @if ($errors->has('diskon'))
+                                                            @if ($errors->has('start_date'))
                                                                 <p style="color: red">
-                                                                    {{ $errors->first('diskon') }}</p>
+                                                                    {{ $errors->first('start_date') }}</p>
                                                             @endif
                                                         </div>
 
-
                                                         <div class="form-group has-icon-left">
-                                                            <label for="first-name-icon">Stock Quantity <span
+                                                            <label for="first-name-icon">Minimum Transaction <span
                                                                     style="color: red">*</span></label>
                                                             <div class="position-relative">
                                                                 <input type="text" class="form-control"
-                                                                    placeholder="Enter Stock Quantity"
-                                                                    id="first-name-icon" name="stock_quantity">
+                                                                    placeholder="Enter Minimum Transaction"
+                                                                    id="first-name-icon" name="min_transaction">
+                                                                <div class="form-control-icon">
+                                                                    <i class="bi bi-cart"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group has-icon-left">
+                                                            <label for="first-name-icon">Kode Promo<span
+                                                                    style="color: red">*</span></label>
+                                                            <div class="position-relative">
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="Enter Promo Code"
+                                                                    id="first-name-icon" name="promo_code">
+                                                                <div class="form-control-icon">
+                                                                    <i class="bi bi-cart"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="first-name-icon">Description <span
+                                                                    style="color: red">*</span></label>
+                                                            <div class="position-relative">
+                                                                <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description"
+                                                                    id="description" cols="30" rows="10"></textarea>
+                                                            </div>
+                                                            @if ($errors->has('description'))
+                                                                <p style="color: red">
+                                                                    {{ $errors->first('description') }}</p>
+                                                            @endif
+                                                        </div>
+
+                                                        <div class="form-group has-icon-left">
+                                                            <label for="first-name-icon">Syarat & Ketentuan<span
+                                                                    style="color: red">*</span></label>
+                                                            <div class="position-relative">
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="Enter Terms & Conditions"
+                                                                    id="first-name-icon" name="terms_conditions">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-cart"></i>
                                                                 </div>
@@ -135,65 +227,44 @@
                                                             @endif
                                                         </div>
 
-
                                                         <div class="form-group has-icon-left">
                                                             <label for="first-name-icon">End Date <span
                                                                     style="color: red">*</span></label>
                                                             <div class="position-relative">
                                                                 <input type="date"
-                                                                    class="form-control {{ $errors->has('diskon') ? 'is-invalid' : '' }}"
-                                                                    placeholder="Enter Code Product"
-                                                                    id="first-name-icon" name="diskon">
+                                                                    class="form-control {{ $errors->has('end_date') ? 'is-invalid' : '' }}"
+                                                                    id="first-name-icon" name="end_date">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-receipt"></i>
                                                                 </div>
                                                             </div>
-                                                            @if ($errors->has('diskon'))
+                                                            @if ($errors->has('end_date'))
                                                                 <p style="color: red">
-                                                                    {{ $errors->first('diskon') }}</p>
+                                                                    {{ $errors->first('end_date') }}</p>
                                                             @endif
                                                         </div>
 
                                                         <div class="card">
-                                                            <label for="first-name-icon">Product Galery <span
+                                                            <label for="first-name-icon">Banner Promo Ongkir<span
                                                                     style="color: red">*</span></label>
-                                                            {{-- <div class="card-content">
-                                                                <div class="card-body">
-                                                                    <!-- File uploader with multiple files upload -->
-                                                                    <input type="file" class="form-control" name="image" required>
-                                                                </div>
-                                                            </div> --}}
-
-                                                            <div class="image-upload-wrap" id="image-upload-wrap">
+                                                            <div class="image-upload-wrap"
+                                                                id="single-image-upload-wrap"
+                                                                style="border: 2px dashed #ddd; border-radius: 4px; padding: 20px; width: 100%; box-sizing: border-box; position: relative; background: #f8f8f8; margin-bottom: 15px; height: auto;">
                                                                 <input type="file" name="image"
                                                                     class="file-upload-input"
-                                                                    onchange="readURL(this, '');" accept="image/*">
-
-                                                                <div class="drag-text">
-                                                                    <p>Drag and drop a file or select add
-                                                                        Image</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="file-upload-content" id="file-upload-content"
-                                                                style="display:none;">
-                                                                <div class="image-file-name" id="image-file-name"
-                                                                    style="text-align: center; margin-top: 10px;">
-                                                                </div>
-                                                                <img class="file-upload-image" id="file-upload-image"
-                                                                    src="#" alt="your image"
-                                                                    style="max-width: 100%; max-height: 100%;" />
-                                                                <div class="image-title-wrap"
-                                                                    style="display: flex; justify-content: space-between; align-items: center;">
-                                                                    <button type="button"
-                                                                        onclick="removeUpload(this, '')"
-                                                                        class="btn btn-danger btn-sm"
-                                                                        style="border: none; background: none;">
-                                                                        <i class="fa-solid fa-trash"
-                                                                            style="font-size: 1.5rem; color: black;"></i>
-                                                                    </button>
+                                                                    onchange="readURLSingle(this);" accept="image/*"
+                                                                    style="position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
+                                                                <div class="drag-text"
+                                                                    style="text-align: center; color: #888;">
+                                                                    <p>Drag and drop a file or select to add Image</p>
                                                                 </div>
                                                             </div>
 
+                                                            <div class="file-upload-content"
+                                                                id="single-file-upload-content"
+                                                                style="display: flex; flex-wrap: wrap;">
+                                                                <!-- Gambar yang diunggah akan ditambahkan di sini -->
+                                                            </div>
                                                         </div>
                                                     </div>
 
@@ -231,77 +302,46 @@
     </div>
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-
-    <script src="assets/vendors/apexcharts/apexcharts.js"></script>
     <script src="assets/js/pages/dashboard.js"></script>
-
-    <script src="assets/vendors/choices.js/choices.min.js"></script>
-
-    <!-- filepond validation -->
-    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-
-    <!-- image editor -->
-    <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js">
-    </script>
-    <script src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-filter/dist/filepond-plugin-image-filter.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
-
     <!-- toastify -->
     <script src="assets/vendors/toastify/toastify.js"></script>
 
-    <!-- filepond -->
-    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
     <script>
-        // register plugins for image preview and multiple uploads
-        FilePond.registerPlugin(
-            FilePondPluginImagePreview,
-            FilePondPluginFileValidateType
-        );
+        // Fungsi untuk mengunggah satu gambar
+        function readURLSingle(input) {
+            const singleUploadContent = document.getElementById('single-file-upload-content');
+            singleUploadContent.innerHTML = ''; // Kosongkan konten jika sudah ada gambar sebelumnya
 
-        // Filepond: Multiple Files with Image Preview
-        FilePond.create(document.querySelector('.multiple-files-filepond'), {
-            allowImagePreview: true,
-            allowMultiple: true,
-            acceptedFileTypes: ['image/png', 'image/jpg', 'image/jpeg'],
-        });
-    </script>
-
-
-    <script>
-        function readURL(input, id) {
             if (input.files && input.files[0]) {
-                var reader = new FileReader();
+                const file = input.files[0];
+
+                if (!file.type.match('image.*')) return; // Hanya file gambar
+
+                const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('file-upload-content' + id).style.display = 'block';
-                    document.getElementById('image-upload-wrap' + id).style.display = 'none';
-                    document.getElementById('file-upload-image' + id).src = e.target.result;
-                    document.getElementById('image-file-name' + id).innerHTML = input.files[0].name;
+                    // Buat elemen gambar
+                    const imgBox = document.createElement('div');
+                    imgBox.classList.add('upload__img-box-single');
+
+                    const imgBg = document.createElement('div');
+                    imgBg.classList.add('img-bg');
+                    imgBg.style.backgroundImage = `url(${e.target.result})`;
+
+                    // Tambahkan tombol close
+                    const imgClose = document.createElement('div');
+                    imgClose.classList.add('upload__img-close');
+                    imgClose.onclick = function() {
+                        singleUploadContent.innerHTML = ''; // Hapus gambar jika tombol close diklik
+                        input.value = ''; // Reset input file
+                    };
+
+                    imgBg.appendChild(imgClose);
+                    imgBox.appendChild(imgBg);
+                    singleUploadContent.appendChild(imgBox);
                 };
-                reader.readAsDataURL(input.files[0]);
-            } else {
-                removeUpload(input, id);
+                reader.readAsDataURL(file);
             }
         }
-
-        function removeUpload(input, id) {
-            document.getElementById('file-upload-content' + id).style.display = 'none';
-            document.getElementById('image-upload-wrap' + id).style.display = 'block';
-            input.value = '';
-        }
-
-
-        // Menonaktifkan aksi default dari tombol "Upload Proof Image"
-        document.getElementById('uploadProofButton').addEventListener('click', function(e) {
-            e.preventDefault();
-        });
-
-        // Menangani klik tombol "Submit" di luar divisi upload gambar
-        document.getElementById('submitButton').addEventListener('click', function() {
-            submitForm();
-        });
     </script>
 
     <script src="assets/js/main.js"></script>

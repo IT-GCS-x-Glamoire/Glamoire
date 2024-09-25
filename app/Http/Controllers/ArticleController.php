@@ -11,7 +11,7 @@ class ArticleController extends Controller
 {
     public function indexArticleAdmin()
     {
-        
+
         $articles = Article::with(['categoryArticle'])->paginate(9); // Eager load kategori dan brand
 
         return view('admin.article.index', [
@@ -25,6 +25,17 @@ class ArticleController extends Controller
 
         return view('admin.article.create', [
             'categories' => $categories,
+        ]);
+    }
+
+    public function reviewArticle($id)
+    {
+        $article = Article::find($id);
+        $categoryArticle = CategoryArticle::all();
+
+        return view('admin.article.review', [
+            'article' => $article,
+            'categoryArticle' => $categoryArticle,
         ]);
     }
 

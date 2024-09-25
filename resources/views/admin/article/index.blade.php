@@ -77,11 +77,13 @@
                                                     class="badge bg-light-success">{{ $item->categoryArticle->name }}</span>
                                             </td>
                                             <td>
-                                                <a href="/review-article-admin"> <span
-                                                        class="badge bg-info">Review</span>
+                                                <a href="{{ url('/review-article-admin/' . $item->id) }}"> <span
+                                                        class="badge bg-info"><i class="bi bi-box-arrow-in-up-right" style="margin-right: 3px;"></i>Review</span>
                                                 </a>
+                                                {{-- <a href="{{ url('/detail-brand/' . $brand->id) }}" --}}
+
                                                 <a href="/edit-article-admin"> <span
-                                                        class="badge bg-warning">Edit</span>
+                                                        class="badge bg-warning"><i class="bi bi-pencil" style="margin-right: 3px;"></i>Edit</span>
                                                 </a>
                                             </td>
                                         </tr>
