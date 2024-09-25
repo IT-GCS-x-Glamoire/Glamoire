@@ -30,6 +30,321 @@
         "Liberation Mono", "Courier New", monospace;
 }
 
+.hover-red:hover {
+    color: red;
+}
+
+.active > .categories {
+    border-top:#183018;
+    border-bottom:#183018;
+    background-color:#183018;
+    color:#ffffff;
+    text-color:#ffffff;
+    font-color:#ffffff;
+}
+
+.aclonica-regular {
+    font-family: "Aclonica", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.poppins-regular {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+@media (max-width: 1200px) {
+    legend {
+        font-size: calc(1.275rem + 0.3vw);
+    }
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.mySwiperShow {
+    height: 80%;
+    width: 100%;
+}
+
+.mySwiperProduct {
+    height: 20%;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.example-product.active {
+    border: 2px solid #343a40; /* Bootstrap's border-dark color */
+}
+
+.modal .btn-close {
+    z-index: 1051; /* Ensures the close button is above the image */
+}
+
+.modal-fullscreen {
+    width: 100vw;
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    .swiper-button-next,
+    .swiper-button-prev,
+    .payment-method {
+        display: none;
+    }
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    background-color: #183018; /* Ubah warna latar belakang */
+    color: white; /* Ubah warna teks */
+    border-radius: 50%; /* Buat menjadi lingkaran */
+    width: 35px; /* Lebar tombol */
+    height: 35px; /* Tinggi tombol */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background-color: #183018; /* Ubah warna latar saat dihover */
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 10px; /* Ubah ukuran ikon */
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.g-recaptcha {
+    transform: scale(0.9); /* Scale for better fit on smaller screens */
+    transform-origin: 0 0; /* Ensures scaling happens from top-left corner */
+}
+
+
+/* SCROLLBAR */
+/* Membuat desain minimalis untuk scrollbar */
+.minimal-scrollbar::-webkit-scrollbar {
+width: 4px; /* Lebar scrollbar */
+}
+
+.minimal-scrollbar::-webkit-scrollbar-track {
+background: transparent; /* Background transparan atau warna sesuai */
+}
+
+.minimal-scrollbar::-webkit-scrollbar-thumb {
+background-color: rgba(0, 0, 0, 0.3); /* Warna thumb scroll yang halus */
+border-radius: 10px; /* Radius agar bulat */
+}
+
+.minimal-scrollbar::-webkit-scrollbar-thumb:hover {
+background-color: rgba(0, 0, 0, 0.5); /* Warna thumb scroll saat hover */
+}
+
+/* Untuk Firefox */
+.minimal-scrollbar {
+scrollbar-width: thin;
+scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+}
+/* END SCROLLBAR */
+
+@media (max-width: 768px) {
+    .g-recaptcha {
+        transform: scale(0.8); /* Further scale down for tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .g-recaptcha {
+        transform: scale(0.7); /* Further scale down for mobile phones */
+    }
+}
+
+.container,
+.container-fluid,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+  
+  /* Bottom Navbar untuk mobile */
+  .bottom-navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #183018;
+    z-index: 1000;
+    border-top: 1px solid #ccc;
+  }
+  
+  .bottom-navbar a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
+  .bottom-navbar svg {
+    fill: #ffffff;
+  }
+  
+  .bottom-navbar a:hover {
+    color: #8dbf4f;
+  }
+  
+  @media (min-width: 992px) {
+    /* Sembunyikan bottom navbar di layar lebih besar */
+    .bottom-navbar {
+      display: none;
+    }
+  }
+  
+  
+@media (min-width: 768px) {
+    /* Hide bottom navbar for larger screens */
+    .bottom-navbar {
+        display: none;
+    }
+}
+  
+
+.tabbable .nav-tabs {
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+}
+.tabbable .nav-tabs .nav-link {
+    white-space: nowrap;
+}
+
+.custom-shadow {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15); /* Bayangan seragam di semua sisi */
+    border-radius: 4px; /* Sesuaikan sudut membulat sesuai kebutuhan */
+}
+
+.image-container {
+    overflow: hidden; /* Menyembunyikan bagian gambar yang di-zoom keluar dari kontainer */
+    position: relative;
+    display: inline-block; /* Membuat kontainer sesuai dengan ukuran gambar */
+}
+
+.zoomable-image {
+    transition: transform 0.3s ease; /* Menambahkan animasi transisi untuk efek halus */
+    width: 100%;
+    height: auto;
+}
+
+.image-container:hover .zoomable-image {
+    transform: scale(1.5); /* Zoom gambar sebesar 1.5 kali ukuran asli */
+}
+
+.image-container:hover .zoomable-image:hover {
+    transform-origin: center center; /* Default: zoom di tengah gambar */
+}
+
+.image-container:hover .zoomable-image:hover {
+    cursor: zoom-in; /* Menunjukkan cursor berubah menjadi zoom-in */
+}
+
+.track{
+    position: relative;
+    background-color: #ddd;
+    height: 7px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 60px;
+    margin-top: 30px
+}
+.track .step{
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    width: 25%;
+    margin-top: -18px;
+    text-align: center;
+    position: relative
+}
+.track .step.active:before{
+    background: #FF5722
+}
+.track .step::before{
+    height: 7px;
+    position: absolute;
+    content: "";
+    width: 100%;
+    left: 0;
+    top: 18px
+}
+.track .step.active .icon{
+    background: #ee5435;
+    color: #fff
+}
+.track .icon{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    border-radius: 100%;
+    background: #ddd
+}
+.track .step.active .text{
+    font-weight: 400;
+    color: #000
+}
+.track .text{
+    display: block;
+    margin-top: 7px
+}
+
+/* Akun dropdown on hover */
+.list-inline-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.dropdown-menu.akun {
+    max-width: 100vw; /* Ensures the dropdown doesn't exceed the screen width */
+    top: 10px;
+    right: 0; /* Align the dropdown to the right edge of the container */
+    left: auto; /* Prevents it from overflowing to the left */
+}
+
+/* Dropdown Shop on hover */
+.dropdown-shop.dropdown:hover .dropdown-menu {
+    display:block;
+}
+
+.dropdown-menu.shop-right {
+    max-width: 100vw; /* Ensures the dropdown doesn't exceed the screen width */
+    top: 15px;
+    right: auto; /* Align the dropdown to the right edge of the container */
+    left: 0; /* Prevents it from overflowing to the left */
+}
+
 *,
 *::before,
 *::after {
@@ -58,13 +373,14 @@ section {
 
 body {
     margin: 0;
-    font-family: "Poppins", sans-serif;
+    padding: 0;
     font-size: 1rem;
+    font-family: "Poppins", sans-serif;
     font-weight: 400;
+    font-style: normal;
     line-height: 1.5;
     color: #6f6f6f;
     text-align: left;
-    background-color: #fff;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -619,19 +935,6 @@ pre code {
 .pre-scrollable {
     max-height: 340px;
     overflow-y: scroll;
-}
-
-.container,
-.container-fluid,
-.container-sm,
-.container-md,
-.container-lg,
-.container-xl {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
 }
 
 @media (min-width: 576px) {
@@ -4301,7 +4604,7 @@ input[type="button"].btn-block {
 
 .navbar-nav {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding-left: 0;
     margin-bottom: 0;
     list-style: none;
@@ -9970,10 +10273,11 @@ a.text-dark:focus {
 .back-to-top {
     position: fixed;
     display: none;
+    border-radius: 50%;
     right: 30px;
-    bottom: 30px;
+    bottom: 48px;
     z-index: 11;
-    animation: action 1s infinite alternate;
+    /* animation: action 1s infinite alternate; */
 }
 
 @keyframes action {
@@ -9983,4 +10287,4 @@ a.text-dark:focus {
     100% {
         transform: translateY(-15px);
     }
-}
+
