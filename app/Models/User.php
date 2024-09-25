@@ -2,24 +2,40 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    // Tipe primary key adalah string karena UUID
+    protected $keyType = 'string';
+
+    // Nonaktifkan auto-increment karena UUID tidak menggunakan auto-increment
+    public $incrementing = false;
+
+    // Mengisi UUID secara otomatis saat model dibuat
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
+        });
+    }
+
     protected $fillable = [
-        'name',
+        'fullname',
         'email',
         'password',
+        'handphone',
+        'gender',
+        'date',
+        'role',
     ];
 
     /**
@@ -44,4 +60,21 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Relasi dengan model User
+    public function shippingAddress()
+    {
+        return $this->hasMany(Shipping_address::class);
+    }
+
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
+
 }
