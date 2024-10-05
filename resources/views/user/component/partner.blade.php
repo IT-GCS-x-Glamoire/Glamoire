@@ -2,27 +2,29 @@
 
 @section('content')
 <div class="grid md:px-20 lg:px-24 xl:px-24  2xl:px-96 py-2">
-  <div class="container-fluid py-2 py-md-3">
-    <div class="d-flex gap-2">
-      <a href="/home" class="text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Home</a>
-      <p class="text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
-      <a href="#" class="text-black text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Bussiness Partner</a>
+  <div class="container-fluid">
+    <div class="shadow-sm border border-black rounded-md py-2 py-md-3 my-1 my-md-3">
+      <div class="d-flex gap-2 pl-2">
+        <a href="/" class="text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Beranda</a>
+        <p class="text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
+        <a href="#" class="text-black text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Mitra Bisnis</a>
+      </div>
     </div>
   </div>
 
   <div class="container-fluid mb-2 mb-md-4">
-    <div class="grid col-12 gap-2 mb-4 mb-md-4">
-      <h1 class="text-black font-semibold text-[16px] md:text-[24px] lg:text-[32px] xl:text-[40px]">Grow your Business with us. </h1>
-      <p class=" text-[9px] md:text-[13px] lg:text-[15px] xl:text-[17px]">Glamoire has become the best incubator of the beauty and personal care industry in Indonesia, therefore, we are ready to help grow your business!</p>
+    <div class="grid gap-2 mt-1 mt-md-2 mb-2 mb-md-4">
+      <h1 class="text-black font-semibold text-[16px] md:text-[20px] lg:text-[24px] xl:text-[28px]">Kembangkan Brand Anda bersama kami.</h1>
+      <p class="text-[7px] md:text-[10px] lg:text-[13px] xl:text-[16px]">Glamoire telah menjadi inkubator industri kecantikan dan perawatan pribadi terbaik di Indonesia, oleh karena itu, kami siap membantu mengembangkan brand Anda!</p>
     </div>  
     
     <div class="grid md:flex mx-3 mx-md-32">
       <div class="col-12 col-md-4">
         <div class="position-sticky" style="top: 4rem">
-          <div class="grid border p-3 p-lg-4 gap-1 gap-md-3">
-            <h1 class="text-black font-semibold text-[12px] md:text-[12px] lg:text-[14px] xl:text-[24px]">Ready to grow your business ?</h1>
+          <div class="grid border rounded-md p-3 p-lg-4 gap-1 gap-md-3 bg-[#183018]">
+            <h1 class="text-white font-semibold text-[12px] md:text-[12px] lg:text-[14px] xl:text-[24px]">Siap mengembangkan bisnis Anda?</h1>
             <img src="images/l-1.png" alt="glamoire">
-            <p class="text-[10px] md:text-[8px] lg:text-[10px] xl:text-[16px]">Please fill out this form, our team will contact you shortly.</p>
+            <p class="text-white text-[10px] md:text-[8px] lg:text-[10px] xl:text-[16px]">Silakan isi formulir ini, tim kami akan segera menghubungi Anda.</p>
           </div>
         </div>
       </div>
@@ -33,34 +35,34 @@
           @csrf
           <div class="grid gap-1 gap-md-4">
             <div class="col-12">
-              <label for="name" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Fullname</label>
-              <input type="text" class="form-control rounded-md text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" id="partner_fullname" name="partner_fullname" placeholder="Enter your fullname" required>
+              <label for="name" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Nama Lengkap</label>
+              <input type="text" class="form-control rounded-md text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" id="partner_fullname" name="partner_fullname" placeholder="Masukkan Nama Pengirim" required>
             </div>
             <div class="col-12">
               <label for="handphone" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Handphone</label>
               <div class="input-group">
                 <span class="input-group-text text-red-700 text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" id="basic-addon1">+62</span>
-                <input type="number" class="form-control rounded-end text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" id="partner_handphone" name="partner_handphone" placeholder="Enter your phone number" pattern="[0]{1}[8]{1}[0-9]{9,10}" required>
+                <input type="number" class="form-control rounded-end text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" id="partner_handphone" name="partner_handphone" placeholder="Kontak Pengirim" pattern="[0]{1}[8]{1}[0-9]{9,10}" required>
               </div>
             </div>
             <div class="col-12">
               <label for="email" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Email</label>
-              <input type="email" class="form-control rounded-md text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" id="partner_email" name="partner_email" placeholder="Enter your email" required>
+              <input type="email" class="form-control rounded-md text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" id="partner_email" name="partner_email" placeholder="Masukkan Alamat Email" required>
             </div>
             <div class="col-12">
-              <label for="company" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Company Name</label>
-              <input type="text" class="form-control rounded-md text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" id="company" name="company" placeholder="Enter your company name" required>
+              <label for="company" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Nama Perusahaan/Brand</label>
+              <input type="text" class="form-control rounded-md text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" id="company" name="company" placeholder="Masukkan Nama PT/CV/Brand" required>
             </div>
             <!-- DESCRIPTION -->
             <div class="col-12">
-              <label for="description" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Description</label>
-              <textarea class="form-control rounded-lg text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" id="description" name="description" rows="3" placeholder="Type description here" required></textarea>
+              <label for="description" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Deskripsi</label>
+              <textarea class="form-control rounded-lg text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" id="description" name="description" rows="3" placeholder="Jelaskan singkat mengenai anda" required></textarea>
             </div>
             <!-- COMPANY PROFILE -->
             <div class="col-12">
-              <label for="company_profile" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Company Profile / Catalog Deck</label>
+              <label for="company_profile" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Profil Perusahaan/Brand</label>
               <input type="file" class="form-control  text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" aria-label="file" name="file_company" required>
-              <div class="invalid-feedback text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">PDF Format with 5MB maximum size</div>
+              <div class="invalid-feedback text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Maksimal Ukuran 2MB Type File PDF</div>
             </div>
             <!-- BPOM -->
             <div class="col-12 flex gap-1 gap-md-6">
@@ -70,56 +72,56 @@
               <div class="col-6">
                 <div class="form-check form-check-inline">
                   <input class="form-check-input text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" type="radio" name="bpom" id="bpom_yes" value="yes" required>
-                  <label class="form-check-label text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" for="bpom">Yes</label>
+                  <label class="form-check-label text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" for="bpom">Ada</label>
                 </div>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" type="radio" name="bpom" id="bpom_no" value="no" required>
-                  <label class="form-check-label text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" for="bpom">No</label>
+                  <label class="form-check-label text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" for="bpom">Tidak</label>
                 </div>
               </div>
             </div>
             <!-- BPOM CERTIFICATE -->
             <div class="col-12">
-              <label for="formFileSm" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">BPOM Certificate</label>
+              <label for="formFileSm" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Sertifikat BPOM</label>
               <input type="file" class="form-control  text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" aria-label="file" name="file_bpom" required>
-              <div class="invalid-feedback text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">PDF Format with 5MB maximum size</div>
+              <div class="invalid-feedback text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Maksimal Ukuran 2MB Type File PDF</div>
             </div>
             <!-- ANY DISTRIBUTOR -->
             <div class="col-12 flex gap-1 gap-md-6">
               <div class="col-6 p-0">
-                <label for="Distributor" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Any official  distributor in Indonesia ?</label>
+                <label for="Distributor" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Ada distributor resmi di Indonesia ?</label>
               </div>
               <div class="col-6">
                 <div class="form-check form-check-inline">
                   <input class="form-check-input text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" type="radio" name="distributor" id="distributor_yes" value="yes" required>
-                  <label class="form-check-label text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" for="genderMale">Yes</label>
+                  <label class="form-check-label text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" for="genderMale">Ada</label>
                 </div>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" type="radio" name="distributor" id="distributor_no" value="no" required>
-                  <label class="form-check-label text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" for="genderFemale">No</label>
+                  <label class="form-check-label text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" for="genderFemale">Tidak</label>
                 </div>
               </div>
             </div>
             <!-- RECEIVE EMAIL -->
             <div class="col-12 flex gap-1 gap-md-6">
               <div class="col-6 p-0">
-                <label for="Receive Email" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Have you reached Glamoire via email before ?</label>
+                <label for="Receive Email" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Apakah Anda pernah menghubungi Glamoire melalui email sebelumnya?</label>
               </div>
               <div class="col-6">
                 <div class="form-check form-check-inline">
                   <input class="form-check-input text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" type="radio" name="receive_email" id="receive_email_yes" value="yes" required>
-                  <label class="form-check-label text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" for="genderMale">Yes</label>
+                  <label class="form-check-label text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" for="genderMale">Pernah</label>
                 </div>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" type="radio" name="receive_email" id="receive_email_no" value="no" required>
-                  <label class="form-check-label text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" for="genderFemale">No</label>
+                  <label class="form-check-label text-[6px] md:text-[8px] lg:text-[10px] xl:text-[12px]" for="genderFemale">Belum</label>
                 </div>
               </div>
             </div>
             <!-- CATEGORY PRODUCT -->
             <div class="col-12">
-              <label for="category_product" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Category Product</label>
-              <input type="text" class="form-control rounded-md text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" id="category_product" name="category_product" placeholder="Write your category product">
+              <label for="category_product" class="form-label text-black text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Kategori Produkmu</label>
+              <input type="text" class="form-control rounded-md text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" id="category_product" name="category_product" placeholder="Skincare / Alat Make Up dan lain sebagainya">
             </div>
 
             <!-- reCAPTCHA -->
@@ -133,7 +135,7 @@
             
             <!-- BUTTON SUBMIT -->
             <div class="col-12">
-              <button class="btn btn-primary w-full rounded-sm text-white text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" type="submit"  style="background-color: #183018">Submit</button>
+              <button class="btn btn-primary w-full rounded-sm text-white text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" type="submit"  style="background-color: #183018">Kirim</button>
             </div>
           </div>
         </form>
@@ -146,11 +148,17 @@
 
 @if(session('send_success'))
   <script>
-    Swal.fire({
-      title: "Success",
-      text: "Horee.. Form Anda Akan Kami Review, Tunggu Email Balasan Dari Kami",
+    Toast.fire({
       icon: "success",
-    });
+      text: "Form anda akan kami review, tunggu email balasan dari kami yaa.",
+      title: "Berhasil",
+      willOpen: () => {
+        const title = document.querySelector('.swal2-title');
+        const content = document.querySelector('.swal2-html-container');
+        if (title) title.style.color = '#ffffff'; // Ubah warna judul
+        if (content) content.style.color = '#ffffff'; // Ubah warna konten
+      }
+    })
 </script>  
 @endif
 

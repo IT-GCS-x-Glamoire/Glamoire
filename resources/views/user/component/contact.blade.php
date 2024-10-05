@@ -3,13 +3,11 @@
 @section('content')
 <div class="md:px-20 lg:px-24 xl:px-24 py-2 py-md-3 mb-4">
   <div class="container-fluid">
-    <div class="row py-2 py-md-3">
-      <div class="col-12">
-        <div class="d-flex gap-2">
-          <a href="/home" class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Home</a>
-          <p class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
-          <a href="/cart" class="text-black text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Contact Us</a>
-        </div>
+    <div class="shadow-sm border border-black rounded-md py-2 py-md-3 my-1 my-md-3">
+      <div class="d-flex gap-2 pl-2">
+        <a href="/" class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Beranda</a>
+        <p class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
+        <a href="#" class="text-decoration-none text-black text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Kontak Kami</a>
       </div>
     </div>
   </div>
@@ -30,15 +28,15 @@
                 <label for="description" class="form-label text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Pertanyaan</label>
                 <textarea class="form-control rounded-lg text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" name="question" id="contact_description" rows="3" placeholder="Apa yang ada tanyakan?" required></textarea>
 
-                <button class="mt-2 py-2 w-full rounded-md text-white bg-[#183018] text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" type="submit" id="question-btn">Kirim Pertanyaan</button>
+                <button class="mt-2 py-2 w-full rounded-md text-white bg-[#183018] text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" type="submit" id="question-btn">Kirim Pertanyaan Kamu</button>
             </div>
           </div>
         </form>
       </div>
       <div class="col-lg-5">
-        <h5 class="font-weight-semi-bold mb-3">Get In Touch</h5>
-        <p class="text-[12px] md:text-[14px] lg:text-[14px] xl:text-[16px]">
-          We'd love to hear from you! Whether you have a question about our products, need assistance with your order, or just want to share your thoughts, we're here to help.
+        <h5 class="font-weight-semi-bold mb-3">Hubungi Kami</h5>
+        <p class="text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] text-justify">
+          Kami ingin mendengar dari Anda! Apakah Anda memiliki pertanyaan tentang produk kami, memerlukan bantuan dengan pesanan Anda, atau hanya ingin membagikan pemikiran Anda, kami siap membantu.
         </p>
         <div class="d-flex flex-column mt-4">
           <p class="mb-2 text-[12px] md:text-[14px] lg:text-[14px] xl:text-[16px]">
@@ -84,26 +82,52 @@
         },
         success: function (response) {
             if (response.success) {
-                Swal.fire({
-                    title: "Success",
-                    text: response.message,
-                    icon: "success",
+                Toast.fire({
+                  icon: "success",
+                  text: response.message,
+                  title: "Berhasil",
+                  willOpen: () => {
+                    const title = document.querySelector('.swal2-title');
+                    const content = document.querySelector('.swal2-html-container');
+                    if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                    if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                  }
                 }).then(function () {
-                    window.refresh(); // Redirect setelah berlangganan sukses
+                  window.refresh(); // Redirect ke halaman utama atau halaman lain
                 });
             } else {
-                let errors = response.errors;
-                let errorMessages = response.message;
-                for (const key in errors) {
-                    if (errors.hasOwnProperty(key)) {
-                        errorMessages += errors[key][0] + "<br>";
-                    }
+              let errors = response.errors;
+              let errorMessages = response.message;
+              for (const key in errors) {
+                  if (errors.hasOwnProperty(key)) {
+                      errorMessages += errors[key][0] + "<br>";
+                  }
+              }
+              Toast.fire({
+                icon: "error",
+                text: errorMessahes,
+                title: "Oops..",
+                willOpen: () => {
+                  const title = document.querySelector('.swal2-title');
+                  const content = document.querySelector('.swal2-html-container');
+                  if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                  if (content) content.style.color = '#ffffff'; // Ubah warna konten
                 }
-                Swal.fire("Error", errorMessages, "error");
+              });
             }
         },
         error: function (response) {
-            Swal.fire("Error", "Maaf, Coba Lagi", "error");
+          Toast.fire({
+            icon: "error",
+            text: "Maaf Coba Lagi",
+            title: "Oops..",
+            willOpen: () => {
+              const title = document.querySelector('.swal2-title');
+              const content = document.querySelector('.swal2-html-container');
+              if (title) title.style.color = '#ffffff'; // Ubah warna judul
+              if (content) content.style.color = '#ffffff'; // Ubah warna konten
+            }
+          });
         },
     });
   });

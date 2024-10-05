@@ -7,40 +7,39 @@
   <div class="p-1 p-md-3 p-lg-4 p-xl-4">
     <div class="mb-2 mb-md-4 mb-lg-6 mb-xl-8">
       <div class="d-flex gap-2">
-        <a href="/home" class="text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Home</a>
+        <a href="/" class="text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Beranda</a>
         <p class="text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
-        <a href="#" class="text-black text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]">About</a>
+        <a href="#" class="text-black text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Tentang</a>
       </div>
     </div>  
     
     <div class="grid gap-1 gap-md-3 p-0 col-8 col-md-6">
-      <div class="max-w-[120px] md:max-w-[200px] lg:max-w-[480px]">
-        <p class="text-[#CE8B50] text-[14px] md:text-[24px] lg:text-[50px] xl:text-[54px] aclonica-regular" style="line-height: 1.1;">Discover Your True Beauty with Glamoire</p>
-      </div>
-
+      <p class="text-[#CE8B50] text-[10px] md:text-[20px] lg:text-[40px] xl:text-[54px] aclonica-regular" style="line-height: 1.1;">Temukan Kecantikan Sejati Anda dengan Glamoire</p>
       <div>
-        <p class="text-[5px] md:text-[8px] lg:text-[12px] xl:text-[14px]">Explore our wide range of luxurious cosmetics designed to enhance your natural beauty. From bold lipsticks to radiant foundations, each product is crafted to bring out the best version of you.</p>
+        <p class="text-[5px] md:text-[8px] lg:text-[12px] xl:text-[14px]">
+        Jelajahi berbagai kosmetik mewah kami yang dirancang untuk meningkatkan kecantikan alami Anda. Dari lipstik yang berani hingga alas bedak yang bercahaya, setiap produk dibuat untuk menonjolkan versi terbaik dari Anda.
+        </p>
       </div>
       
       <div class="col">
         <div class="row">
-          <div class="col-md-4 col-4 grid p-0">
+          <div class="col-md-3 col-4 grid p-0">
+            <p class="text-black font-semibold text-[6px] md:text-[12px] lg:text-[18px] xl:text-[24px]">19+</p>
+            <p class="text-[5px] md:text-[7px] lg:text-[12px] xl:text-[14px]">Brand</p>
+          </div>
+          <div class="col-md-3 col-4 grid p-0">
             <p class="text-black font-semibold text-[6px] md:text-[12px] lg:text-[18px] xl:text-[24px]">200+</p>
-            <p class="text-[5px] md:text-[7px] lg:text-[12px] xl:text-[14px]">International Brand</p>
+            <p class="text-[5px] md:text-[7px] lg:text-[12px] xl:text-[14px]">Pengguna Aktif</p>
           </div>
-          <div class="col-md-4 col-4 grid p-0">
-            <p class="text-black font-semibold text-[6px] md:text-[12px] lg:text-[18px] xl:text-[24px]">30,000+</p>
-            <p class="text-[5px] md:text-[7px] lg:text-[12px] xl:text-[14px]">Happy Customers</p>
-          </div>
-          <div class="col-md-4 col-12 grid p-0 mt-1 mt-md-0">
-            <p class="text-black font-semibold text-[6px] md:text-[12px] lg:text-[18px] xl:text-[24px]">2,000+</p>
-            <p class="text-[5px] md:text-[7px] lg:text-[12px] xl:text-[14px]">High-Quality Products</p>
+          <div class="col-md-6 col-12 grid p-0 mt-1 mt-md-0">
+            <p class="text-black font-semibold text-[6px] md:text-[12px] lg:text-[18px] xl:text-[24px]">100+</p>
+            <p class="text-[5px] md:text-[7px] lg:text-[12px] xl:text-[14px]">Produk Berkualitas</p>
           </div>
         </div>
       </div>
 
       <div>
-        <a href="/shop" class="btn rounded-md w-1/2 w-md-1/4 text-white text-[6px] md:text-[7px] lg:text-[8px] xl:text-[14px]" style="background-color: #183018">Shop Now</a>
+        <a href="/shop" class="btn rounded-md w-1/2 w-md-1/4 text-white text-[6px] md:text-[7px] lg:text-[8px] xl:text-[14px]" style="background-color: #183018">Belanja Sekarang</a>
       </div>
 
     </div>

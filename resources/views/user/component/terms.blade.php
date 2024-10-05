@@ -1,12 +1,14 @@
 @extends('user.layouts.master')
 
 @section('content')
-<section class="py-8 md:px-20 lg:px-24 xl:px-24">
-  <div class="container-fluid mb-2 mb-md-4">
-    <div class="d-flex gap-2">
-      <a href="/home" class="text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Home</a>
-      <p class="text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
-      <a href="#" class="text-black text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Terms & Condition</a>
+<section class="mb-2 mb-md-4 md:px-20 lg:px-24 xl:px-24">
+  <div class="container-fluid">
+    <div class="shadow-sm border border-black rounded-md py-2 py-md-3 my-1 my-md-3">
+      <div class="d-flex gap-2 pl-2">
+        <a href="/" class="text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Beranda</a>
+        <p class="text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
+        <a href="#" class="text-black text-[7px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Syarat & Ketentuan</a>
+      </div>
     </div>
   </div>
 

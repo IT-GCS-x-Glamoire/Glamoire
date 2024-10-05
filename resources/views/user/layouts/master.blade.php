@@ -6,19 +6,20 @@
 
   <body>
     @include('user.layouts.navbar')
+
     <!-- Modal Login -->
     <div class="modal fade" id="login" tabindex="-1" aria-labelledby="login" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="background-color: #183018">
           <div class="modal-header border-none">
             <button type="button" class="btn-close" style="filter: invert(1);" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="container-fluid">
-              <div class="d-flex justify-content-center align-items-center">
+              <div class="d-flex justify-content-center align-items-center p-0 p-md-2">
                 <img src="images/l-1.png" alt="logo glamoire" class="w-3/4 w-md-full">
               </div>
 
-              <form method="POST" action="{{ route('login')}}" class="mb-2 px-4">
+              <form method="POST" action="" class="mb-2 px-0 px-md-4">
                 @csrf
                 <div>
                     <label for="exampleFormControlInput1" class="form-label text-white font-light text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]">Email </label>
@@ -43,8 +44,8 @@
                 </div>
               </form>
 
-              <div class="grid px-4">
-                <a href="#" class="text-white py-2 text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]">Lupa Password ?</a>
+              <div class="grid px-0 px-md-4">
+                <a href="#" class="ml-1 text-white text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]" data-bs-toggle="modal" data-bs-target="#forgot" data-bs-dismiss="modal">Lupa Password ?</a>
                 <p class="text-white text-center py-4 font-light text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]">Belum Punya Akun ? 
                   <a href="#" class="ml-1 text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]" data-bs-toggle="modal" data-bs-target="#register" data-bs-dismiss="modal">Daftar Sekarang</a>
                 </p>
@@ -56,7 +57,7 @@
 
     <!-- Modal Sign Up -->
     <div class="modal fade" id="register" tabindex="-1" aria-labelledby="register" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="background-color: #183018">
           <div class="modal-header border-none">
             <button type="button" class="btn-close" style="filter: invert(1);" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -67,7 +68,7 @@
                 <img src="images/l-1.png" alt="logo glamoire" class="w-1/4">
               </div>
               
-              <form class="px-4 grid" id="register-form">
+              <form class="px-0 px-md-4 grid" id="register-form">
                 @csrf
                 <div class="col-12 mb-2">
                   <div>
@@ -116,24 +117,65 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-12">
-                  <!-- Button with improved hover effect -->
-                  <button 
-                    class="btn btn-light w-full rounded-lg text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]" 
-                    type="submit" 
-                    id="register">
-                    Buat Akun
-                  </button>
-                  <div class="grid">
-                    <p class="text-white text-center py-4 font-light text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]">Sudah Memiliki Akun ? 
-                      <a href="#" class="ml-1 text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]" data-bs-toggle="modal" data-bs-target="#login" data-bs-dismiss="modal">Masuk Sekarang</a>
-                    </p>
-                  </div>
-                </div>
               </form>
+              <div class="col-12">
+                <!-- Button with improved hover effect -->
+                <button 
+                  class="btn btn-light w-full rounded-lg text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]" 
+                  type="submit" 
+                  id="register">
+                  Buat Akun
+                </button>
+                <div class="grid">
+                  <p class="text-white text-center py-4 font-light text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]">Sudah Memiliki Akun ? 
+                    <a href="#" class="ml-1 text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]" data-bs-toggle="modal" data-bs-target="#login" data-bs-dismiss="modal">Masuk Sekarang</a>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Forgot Password -->
+    <div class="modal fade" id="forgot" tabindex="-1" aria-labelledby="forgot" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #183018">
+          <div class="modal-header border-none">
+            <button type="button" class="btn-close" style="filter: invert(1);" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="container-fluid">
+              <div class="d-flex justify-content-center align-items-center text-center">
+                <img src="images/l-1.png" alt="logo glamoire" class="w-1/3">
+              </div>
+              <form class="px-4 grid" id="forgot-password-form">
+                @csrf
+                <div class="col-12">
+                    <h1 class="text-white text-sm mb-3 text-center pt-4">Lupa Kata Sandi</h1>
+                    <p class="text-white text-xs mb-3 text-justify">Gunakan email anda untuk mengatur ulang kata sandi, kami akan mengirimkan link untuk mengubah kata sandi anda</p>
+                    <div class="relative flex items-center mb-2">
+                        <i class="fas fa-envelope text-gray-400 absolute left-3"></i> <!-- Ikon Email -->
+                        <input type="email" class="form-control pl-10 pr-10 rounded-md text-sm" id="forgot_password_email" placeholder="Masukkan email" required>
+                        <div class="spinner-border text-[#183018] absolute right-3" role="status" style="width:15px; height:15px;display:none;"> <!-- Spinner -->
+                            <span class="visually-hidden"></span>
+                        </div>
+                    </div>
+  
+                    <div id="validationEmailForgot" class="text-xs mb-2" style="display: none;">
+                    </div>
+                    <button class="py-2 w-full rounded-md text-[#183018] bg-white text-sm" type="submit" id="forgot-btn" disabled>Dapatkan Link</button>
+                  </div>
+                  <div class="col-12">
+                    <div class="text-center text-sm">
+                        <p class="text-white py-4">Sudah Ingat Akunmu? 
+                        <a href="#" class="text-white ml-1" data-bs-toggle="modal" data-bs-target="#login" data-bs-dismiss="modal">Masuk</a>
+                        </p>
+                    </div>
+                  </div>
+              </form>
+          </div>
         </div>
       </div>
     </div>
@@ -142,24 +184,16 @@
       @yield('content')
     </div>
 
-    @if (!Request::is('cart') && !Request::is('checkout') && !Request::is('account') && !Request::is('shop') && !Request::is('detail') && !Request::routeIs('detail.product') )
+    @if (!Request::is('cart') && !Request::is('checkout') && !Request::is('account') && !Request::is('shop') && !Request::is('detail') && !Request::routeIs('detail.product') && !Request::routeIs('buy.now'))
       @include('user.layouts.footer')
     @endif
 
     <!-- JavaScript Libraries -->
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-    <!-- Contact Javascript File -->
-    <!-- <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script> -->
-
-    <!-- Template Javascript -->
-    <!-- <script src="js/main.js"></script> -->
     <script src="{{ asset('js/main.js') }}"></script>
 
     <!-- UNTUK MENGATUR JUMLAH CARD MENGGUNAKAN SWIPERJS PADA HALAMAN HOME -->
@@ -230,6 +264,45 @@
     </script>
     <!--  -->
 
+    <!-- UNTUK MENGATUR REVIEW PRODUK -->
+    <script>
+      var swiper = new Swiper(".mySwiperReview", {
+        slidesPerView: 2,
+        spaceBetween: 5,
+        cssMode: true,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+
+
+      var swiper = new Swiper(".mySwiperCarousel", {
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+          delay: 2000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        breakpoint: {
+          320: {
+            navigation: false,
+          }
+        }
+      });
+    </script>
+    <!--  -->
+
+     
+
     <!-- UNTUK MENGATUR SWIPER CARD PADA HALAMAN DETAIL PRODUCT -->
     <script>
       var swiper = new Swiper(".mySwiperProduct", {
@@ -275,32 +348,6 @@
 
     </script>
 
-
-    <!-- UNTUK MENGATUR NAVIGASI FOOTER -->
-    <script>
-      // Function to handle resize event
-      function handleResize() {
-        const ulElement = document.getElementById('footer-navigasi');
-        if (window.innerWidth >= 1024) {
-          ulElement.classList.remove('d-flex');
-        } else {
-          ulElement.classList.add('d-flex');
-        }
-      }
-
-      // Check if current route is not /cart
-      if (window.location.pathname !== '/cart') {
-        // Add event listener for window resize
-        window.addEventListener('resize', handleResize);
-
-        // Run the function on page load to handle the initial screen size
-        (function() {
-          handleResize();
-        })();
-      }
-
-    </script>
-
     <!-- UNTUK MENGATUR SAAT CARD DIKLIK DI DETAIL HALAMAN -->
     <script>
       document.querySelectorAll('.example-product').forEach(slide => {
@@ -310,14 +357,6 @@
             // Add 'active' class to the clicked slide
             this.classList.add('active');
         });
-      });
-    </script>
-
-    <!-- MENGATUR POP-UP PROMO  -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        var myModal = new bootstrap.Modal(document.getElementById('promoModal'));
-        myModal.show();
       });
     </script>
 
@@ -336,7 +375,7 @@
       });
     </script>
 
-    <!-- ADD TO CART 7 ADD TO WHISLIST -->
+    <!-- ADD TO CART & ADD TO WHISLIST -->
     <script>
       // Function for adding to cart
       function addToCart(produkId) {
@@ -348,25 +387,51 @@
                 product_id: produkId,
             },
             success: function (response) {
-                if (response.success) {
-                    Swal.fire({
-                        title: "Success",
-                        text: response.message,
-                        icon: "success",
-                    });
-                } else {
-                    let errors = response.errors;
-                    let errorMessages = response.message;
-                    for (const key in errors) {
-                        if (errors.hasOwnProperty(key)) {
-                            errorMessages += errors[key][0] + "<br>";
-                        }
+              if (response.success) {
+                Toast.fire({
+                  icon: "success",
+                  text: response.message,
+                  title: "Berhasil",
+                  willOpen: () => {
+                    const title = document.querySelector('.swal2-title');
+                    const content = document.querySelector('.swal2-html-container');
+                    if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                    if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                  }
+                });
+              } else {
+                let errors = response.errors;
+                let errorMessages = response.message;
+                for (const key in errors) {
+                    if (errors.hasOwnProperty(key)) {
+                        errorMessages += errors[key][0] + "<br>";
                     }
-                    Swal.fire("Error", errorMessages, "error");
                 }
+                Toast.fire({
+                  icon: "error",
+                  text: errorMessages,
+                  title: "Error",
+                  willOpen: () => {
+                    const title = document.querySelector('.swal2-title');
+                    const content = document.querySelector('.swal2-html-container');
+                    if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                    if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                  }
+                });
+              }
             },
             error: function (response) {
-                Swal.fire("Error", "Kesalahan Sistem", "error");
+              Toast.fire({
+                icon: "error",
+                text: "Kesalahan Sistem",
+                title: "Error",
+                willOpen: () => {
+                  const title = document.querySelector('.swal2-title');
+                  const content = document.querySelector('.swal2-html-container');
+                  if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                  if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                }
+              });
             },
         });
       }
@@ -374,7 +439,7 @@
       // Function for adding to wishlist
       function addToWishlist(produkId) {        
         $.ajax({
-            url: "{{ route('add.to.whislist') }}", // Route register di Laravel
+            url: "{{ route('add.to.wishlist') }}", // Route register di Laravel
             type: "POST",
             data: {
                 _token: "{{ csrf_token() }}", // Token CSRF untuk Laravel
@@ -382,13 +447,19 @@
             },
             success: function (response) {
                 if (response.success) {
-                    Swal.fire({
-                        title: "Success",
-                        text: response.message,
-                        icon: "success",
-                    }).then(function () {
-                        window.location.reload(); // Redirect ke halaman utama atau halaman lain
-                    });
+                  Toast.fire({
+                    icon: "success",
+                    text: response.message,
+                    title: "Berhasil",
+                    willOpen: () => {
+                      const title = document.querySelector('.swal2-title');
+                      const content = document.querySelector('.swal2-html-container');
+                      if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                      if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                    }
+                  }).then(function () {
+                    window.location.reload(); // Redirect ke halaman utama atau halaman lain
+                  });
                 } else {
                     let errors = response.errors;
                     let errorMessages = response.message;
@@ -397,11 +468,11 @@
                             errorMessages += errors[key][0] + "<br>";
                         }
                     }
-                    Swal.fire("Error", errorMessages, "error");
+                    Toast.fire("Error", errorMessages, "error");
                 }
             },
             error: function (response) {
-                Swal.fire("Error", "Kesalahan Sistem", "error");
+                Toast.fire("Error", "Kesalahan Sistem", "error");
             },
         });
       }
@@ -416,12 +487,18 @@
             },
             success: function (response) {
                 if (response.success) {
-                    Swal.fire({
-                        title: "Success",
-                        text: response.message,
-                        icon: "success",
+                    Toast.fire({
+                      icon: "success",
+                      text: response.message,
+                      title: "Berhasil",
+                      willOpen: () => {
+                        const title = document.querySelector('.swal2-title');
+                        const content = document.querySelector('.swal2-html-container');
+                        if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                        if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                      }
                     }).then(function () {
-                        window.location.reload(); // Redirect ke halaman utama atau halaman lain
+                      window.location.reload(); // Redirect ke halaman utama atau halaman lain
                     });
                 } else {
                     let errors = response.errors;
@@ -431,14 +508,48 @@
                             errorMessages += errors[key][0] + "<br>";
                         }
                     }
-                    Swal.fire("Error", errorMessages, "error");
+                    Toast.fire({
+                      icon: "error",
+                      text: response.message,
+                      title: "Oops..",
+                      willOpen: () => {
+                        const title = document.querySelector('.swal2-title');
+                        const content = document.querySelector('.swal2-html-container');
+                        if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                        if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                      }
+                    });
                 }
             },
             error: function (response) {
-                Swal.fire("Error", "Kesalahan Sistem", "error");
-            },
+              Toast.fire({
+                icon: "error",
+                text: "Kesalahan Sistem",
+                title: "Oops..",
+                willOpen: () => {
+                  const title = document.querySelector('.swal2-title');
+                  const content = document.querySelector('.swal2-html-container');
+                  if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                  if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                }
+              });
+          },
         });
       }
+    </script>
+
+    <!-- STYLE POP-UP -->
+    <script>
+      const style = document.createElement('style');
+      style.innerHTML = `
+          .toast-title {
+              color: #ffffff !important; /* Mengatur warna judul */
+          }
+          .toast-content {
+              text-color: #ffffff !important; /* Mengatur warna konten */
+          }
+      `;
+      document.head.appendChild(style);
     </script>
 
     <!-- Register -->
@@ -463,9 +574,17 @@
         let benchmark = $("#benchmark").val();
 
         // console.log({province,regency,district,date});
+        Swal.fire({
+          title: "Akun Anda Sedang Kami Proses",
+          text: "Mohon tunggu sebentar ...",
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
 
         $.ajax({
-            url: "{{ ('register') }}", // Route register di Laravel
+            url: "{{ route('register.user') }}", // Route register di Laravel
             type: "POST",
             data: {
                 _token: "{{ csrf_token() }}", // Token CSRF untuk Laravel
@@ -485,27 +604,77 @@
                 benchmark : benchmark,
             },
             success: function (response) {
+                Swal.close();
                 if (response.success) {
-                    Swal.fire({
-                        title: "Success",
-                        text: response.message,
-                        icon: "success",
+                    Toast.fire({
+                      icon: "success",
+                      text: response.message,
+                      title: "Berhasil",
+                      willOpen: () => {
+                        const title = document.querySelector('.swal2-title');
+                        const content = document.querySelector('.swal2-html-container');
+                        if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                        if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                      }
                     }).then(function () {
-                        window.location.href = "/"; // Redirect ke halaman utama atau halaman lain
+                      window.location.href = "/email-verify"; // Redirect ke halaman utama atau halaman lain
                     });
                 } else {
-                    let errors = response.errors;
-                    let errorMessages = response.message;
-                    for (const key in errors) {
-                        if (errors.hasOwnProperty(key)) {
-                            errorMessages += errors[key][0] + "<br>";
+                    let errorMessage = response.message || "Terjadi kesalahan"; // Mengambil pesan error dari response
+                    Toast.fire({
+                        icon: "error",
+                        text: errorMessage,
+                        title: "Oops..",
+                        willOpen: () => {
+                          const title = document.querySelector('.swal2-title');
+                          const content = document.querySelector('.swal2-html-container');
+                          if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                          if (content) content.style.color = '#ffffff'; // Ubah warna konten
                         }
-                    }
-                    Swal.fire("Error", errorMessages, "error");
+                    });
                 }
             },
             error: function (response) {
-                Swal.fire("Error", "Kesalahan Sistem", "error");
+                Swal.close();
+                let errorMessage = "";
+                
+                
+
+                if (response.responseJSON) {
+                    if (response.responseJSON.message) {
+                        errorMessage = response.responseJSON.message; // Pesan error dari Laravel
+                        
+                
+                    } else if (response.responseJSON.errors) {
+                        // Jika ada beberapa pesan error, tampilkan semuanya
+                        errorMessage = "";
+                        $.each(response.responseJSON.errors, function (key, value) {
+                            errorMessage += value[0] + "<br>"; // Menggabungkan pesan error
+                        });
+                        
+                
+                    }
+                } else if (response.statusText) {
+                    // Jika tidak ada response JSON, tampilkan status text dari request
+                    errorMessage = response.statusText;
+                    
+                
+                }
+
+                // Tampilkan pesan error dengan SweetAlert
+                Toast.fire({
+                    icon: "error",
+                    text: errorMessage,
+                    title: "Oops..",
+                    willOpen: () => {
+                        const title = document.querySelector('.swal2-title');
+                        const content = document.querySelector('.swal2-html-container');
+                        if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                        if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                    }
+                });
+                
+                
             },
         });
       });
@@ -519,8 +688,18 @@
         let email = $("#login_email").val();
         let password = $("#login_password").val();
 
+        Swal.fire({
+          title: "Sedang Mengakses Akunmu",
+          text: "Mohon tunggu sebentar ...",
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
+        // console.log({email, password});
+
         $.ajax({
-            url: "{{ ('login') }}", // Route register di Laravel
+            url: "{{ route('login.user') }}", // Route register di Laravel
             type: "POST",
             data: {
                 _token: "{{ csrf_token() }}", // Token CSRF untuk Laravel
@@ -528,27 +707,55 @@
                 password: password,
             },
             success: function (response) {
+                Swal.close();
                 if (response.success) {
-                    Swal.fire({
-                        title: "Success",
-                        text: response.message,
-                        icon: "success",
-                    }).then(function () {
-                        window.location.href = "/"; // Redirect ke halaman utama atau halaman lain
-                    });
-                } else {
-                    let errors = response.errors;
-                    let errorMessages = response.message;
-                    for (const key in errors) {
-                        if (errors.hasOwnProperty(key)) {
-                            errorMessages += errors[key][0] + "<br>";
-                        }
+                  Toast.fire({
+                    icon: "success",
+                    text: response.message,
+                    title: "Berhasil",
+                    willOpen: () => {
+                      const title = document.querySelector('.swal2-title');
+                      const content = document.querySelector('.swal2-html-container');
+                      if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                      if (content) content.style.color = '#ffffff'; // Ubah warna konten
                     }
-                    Swal.fire("Error", errorMessages, "error");
+                  }).then(function () {
+                      window.location.href = "/"; // Redirect ke halaman utama atau halaman lain
+                  });
+                } else {
+                  let errors = response.errors;
+                  let errorMessages = response.message;
+                  for (const key in errors) {
+                      if (errors.hasOwnProperty(key)) {
+                          errorMessages += errors[key][0] + "<br>";
+                      }
+                  }
+                  Toast.fire({
+                    icon: "error",
+                    text: response.message,
+                    title: "Oops..",
+                    willOpen: () => {
+                      const title = document.querySelector('.swal2-title');
+                      const content = document.querySelector('.swal2-html-container');
+                      if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                      if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                    }
+                  });
                 }
             },
             error: function (response) {
-                Swal.fire("Error", "Failed to login", "error");
+              Swal.close();
+              Toast.fire({
+                icon: "error",
+                text: response.message,
+                title: "Oops..",
+                willOpen: () => {
+                  const title = document.querySelector('.swal2-title');
+                  const content = document.querySelector('.swal2-html-container');
+                  if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                  if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                }
+              });
             },
         });
       });
@@ -603,6 +810,152 @@
       });
     </script>
 
+    <!-- CHECK EMAIL FORGOT PASSWORD -->
+    <script>
+      $('#forgot_password_email').on('keyup', function () {
+        var email = $(this).val();
+        if (email) {
+            $.ajax({
+                url: "{{ route('check.email.voucher') }}",
+                method: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    email: email
+                },
+                beforeSend: function() {
+                    // Tampilkan spinner sebelum request dimulai
+                    $('.spinner-border').show();
+                },
+                success: function (response) {
+                    if (response.exists) {
+                        $('#validationEmailForgot').text('Email Anda Terdaftar').addClass('text-white').show();
+                        $('#forgot-btn').prop('disabled', false);
+                    } else {
+                        $('#validationEmailForgot').text('Oops, Email Anda Belum Terdaftar').addClass('text-white').show();
+                        $('#forgot-btn').prop('disabled', true);
+                    }
+                },
+                complete: function() {
+                    // Sembunyikan spinner setelah request selesai
+                    $('.spinner-border').hide();
+                },
+                error: function() {
+                    // Jika ada error, tetap sembunyikan spinner
+                    $('.spinner-border').hide();
+                }
+            });
+        }
+      });
+
+      // ACTION DAPATKAN LINK LUPA PASSWORD
+      $(document).on("submit", "#forgot-password-form", function (e) {
+          e.preventDefault();
+
+          let email = $("#forgot_password_email").val();
+
+          Swal.fire({
+              title: "Sedang mengirim token verifikasi ke emailmu",
+              text: "Mohon tunggu sebentar ...",
+              allowOutsideClick: false,
+              didOpen: () => {
+                  Swal.showLoading();
+              }
+          });
+
+          $.ajax({
+              url: "{{ route('forgot.password.link') }}", // Route forgot password di Laravel
+              type: "POST",
+              data: {
+                  _token: "{{ csrf_token() }}", // CSRF token dari Laravel
+                  email: email,
+              },
+              success: function (response) {
+                  Swal.close();
+
+                  if (response.success) {
+                      Toast.fire({
+                          icon: "success",
+                          text: response.message,
+                          title: "Berhasil",
+                          willOpen: () => {
+                              const title = document.querySelector('.swal2-title');
+                              const content = document.querySelector('.swal2-html-container');
+                              if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                              if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                          }
+                      }).then(function (result) {
+                          if (result.isConfirmed) {
+                              window.location.href = "/"; // Redirect ke halaman utama atau halaman lain
+                          }
+                      });
+                  } else {
+                      let errorMessage = response.message; // Inisialisasi errorMessage sebelum digunakan
+                      if (response.responseJSON) {
+                          if (response.responseJSON.message) {
+                              errorMessage = response.responseJSON.message; // Pesan error dari Laravel
+                          } else if (response.responseJSON.errors) {
+                              // Jika ada beberapa pesan error, tampilkan semuanya
+                              $.each(response.responseJSON.errors, function (key, value) {
+                                  errorMessage += value[0] + "<br>"; // Menggabungkan pesan error
+                              });
+                          }
+                      } else if (response.statusText) {
+                          // Jika tidak ada response JSON, tampilkan status text dari request
+                          errorMessage = response.statusText;
+                      }
+
+                      // Tampilkan pesan error dengan SweetAlert
+                      Toast.fire({
+                          icon: "error",
+                          text: errorMessage,
+                          title: "Oops..",
+                          willOpen: () => {
+                              const title = document.querySelector('.swal2-title');
+                              const content = document.querySelector('.swal2-html-container');
+                              if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                              if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                          }
+                      });
+                  }
+              },
+              error: function (response) {
+                  Swal.close();
+                  let errorMessage = "Maaf, terjadi kesalahan."; // Definisikan errorMessage di awal
+
+                  // Cek apakah ada response JSON dari server
+                  if (response.responseJSON) {
+                      if (response.responseJSON.message) {
+                          errorMessage = response.responseJSON.message; // Pesan error dari Laravel
+                      } else if (response.responseJSON.errors) {
+                          // Jika ada beberapa pesan error, tampilkan semuanya
+                          errorMessage = "";
+                          $.each(response.responseJSON.errors, function (key, value) {
+                              errorMessage += value[0] + "<br>"; // Menggabungkan pesan error
+                          });
+                      }
+                  } else if (response.statusText) {
+                      // Jika tidak ada response JSON, tampilkan status text dari request
+                      errorMessage = response.statusText;
+                  }
+
+                  // Tampilkan pesan error dengan SweetAlert
+                  Toast.fire({
+                      icon: "error",
+                      text: errorMessage,
+                      title: "Oops..",
+                      willOpen: () => {
+                          const title = document.querySelector('.swal2-title');
+                          const content = document.querySelector('.swal2-html-container');
+                          if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                          if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                      }
+                  });
+              },
+          });
+      });
+
+    </script>
+
     <!-- Logout -->
     <script>
       $(document).ready(function(){
@@ -611,16 +964,27 @@
             e.preventDefault();
 
             $.ajax({
-                url: "{{ route('logout') }}",
+                url: "{{ route('logout.user') }}",
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}"
                 },
                 success: function(response) {
-                    if(response.success) {
-                        alert(response.message);
-                        window.location.href = '/'; // Redirect setelah logout
-                    }
+                  if(response.success) {
+                    Toast.fire({
+                      icon: "success",
+                      text: response.message,
+                      title: "Berhasil",
+                      willOpen: () => {
+                        const title = document.querySelector('.swal2-title');
+                        const content = document.querySelector('.swal2-html-container');
+                        if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                        if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                      }
+                    }).then(function () {
+                      window.location.href = "/"; // Redirect ke halaman utama atau halaman lain
+                    });
+                  }
                 },
                 error: function(xhr) {
                     alert('Terjadi kesalahan saat logout, silahkan coba lagi.');
@@ -630,6 +994,7 @@
       });
     </script>
 
+    <!-- Reset Form Masuk & Daftar -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         // Tangkap modal elemen
@@ -646,36 +1011,6 @@
           registerModal.querySelector('form').reset();
         });
       });
-    </script>
-  
-    <!-- KATEGORI MOBILE -->
-    <script>
-      document.getElementById('shop-link').addEventListener('click', function(event) {
-        event.preventDefault();
-        const categoriesDiv = document.getElementById('categories');
-        categoriesDiv.classList.toggle('d-none');
-      });
-    </script>
-
-    <!-- BRAND MOBILE -->
-    <script>
-      document.getElementById('brand-link').addEventListener('click', function(event) {
-        event.preventDefault();
-        const categoriesDiv = document.getElementById('brands');
-        categoriesDiv.classList.toggle('d-none');
-      });
-    </script>
-
-    <!-- BATASI TITLE PRODUCT -->
-    <script>
-        const titleElements = document.querySelectorAll('.product-title');
-        const maxLength = 24; // Batas karakter
-
-        titleElements.forEach(titleElement => {
-            if (titleElement.innerText.length > maxLength) {
-                titleElement.innerText = titleElement.innerText.substring(0, maxLength) + '...';
-            }
-        });
     </script>
 
     <!-- AMBIL TOTAL CART ITEMS -->
@@ -698,13 +1033,117 @@
 
     @if (session('register_or_login_first'))
       <script>
-        Swal.fire({
-            title: "Error",
-            text: "Masuk/Daftar Terlebih Dahulu Yaa",
-            icon: "error",
+        var Toast = Swal.mixin({
+          toast: true,
+          position: "center",
+          background: "#183018",
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+
+        Toast.fire({
+          icon: "error",
+          text: "Masuk/Daftar terlebih dahulu yaa",
+          title: "Oops..",
+          willOpen: () => {
+            const title = document.querySelector('.swal2-title');
+            const content = document.querySelector('.swal2-html-container');
+            if (title) title.style.color = '#ffffff'; // Ubah warna judul
+            if (content) content.style.color = '#ffffff'; // Ubah warna konten
+          }
         });
       </script>
     @endif
 
+    @if (session('after_reset_password'))
+      <script>
+        var Toast = Swal.mixin({
+            toast: true,
+            position: "center",
+            background: "#183018",
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            },
+        });
+        Toast.fire({
+          icon: "success",
+          text: "Kata sandi anda berhasil diubah",
+          title: "Berhasil",
+          willOpen: () => {
+            const title = document.querySelector('.swal2-title');
+            const content = document.querySelector('.swal2-html-container');
+            if (title) title.style.color = '#ffffff'; // Ubah warna judul
+            if (content) content.style.color = '#ffffff'; // Ubah warna konten
+          }
+        });
+      </script>
+    @endif
+
+    @if (session('failed_reset_password'))
+      <script>
+        var Toast = Swal.mixin({
+            toast: true,
+            position: "center",
+            background: "#183018",
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            },
+        });
+        Toast.fire({
+          icon: "error",
+          text: "Kata sandi anda gagal diperbarui",
+          title: "Oops..",
+          willOpen: () => {
+            const title = document.querySelector('.swal2-title');
+            const content = document.querySelector('.swal2-html-container');
+            if (title) title.style.color = '#ffffff'; // Ubah warna judul
+            if (content) content.style.color = '#ffffff'; // Ubah warna konten
+          }
+        });
+      </script>
+    @endif
+
+    @if (session('success_verification_email'))
+      <script>
+        var Toast = Swal.mixin({
+            toast: true,
+            position: "center",
+            background: "#183018",
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            },
+        });
+        Toast.fire({
+          icon: "success",
+          text: "Yeey emailmu berhasil diverifikasi",
+          title: "Berhasil",
+          willOpen: () => {
+            const title = document.querySelector('.swal2-title');
+            const content = document.querySelector('.swal2-html-container');
+            if (title) title.style.color = '#ffffff'; // Ubah warna judul
+            if (content) content.style.color = '#ffffff'; // Ubah warna konten
+          }
+        });
+      </script>
+    @endif
+
+    
   </body>
 </html>

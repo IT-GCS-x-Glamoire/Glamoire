@@ -19,7 +19,7 @@
     </div>  
   </div>
 
-  <div class="container-fluid">
+  <div class="container-fluid pb-2 pb-md-4">
     <nav class="tabbable">
       <div class="nav nav-tabs border-secondary mb-2">
           <a class="nav-item nav-link text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" data-toggle="tab" href="#my-profile">Profilku</a>
@@ -33,45 +33,53 @@
     <div class="tab-content">
       <!-- PROFILE -->
       <div class="tab-pane fade px-2" id="my-profile" style="min-height:80vh;">
+        @if($profile->email_verified_at == NULL)
+          <p class="text-danger text-sm">Oops, Anda Belum Melakukan Verifikasi Email.</p>
+          <form class="d-inline" id="email-verify-form">
+              @csrf
+              <button type="submit" class="text-sm text-danger btn btn-link p-0 m-0 align-baseline text-[#183018]">{{ __('Kirim Email Verifikasi ') }}</button>.
+          </form>
+        @else
+        @endif
         @if (session('id_user'))
-        <form class="row" id="profileForm" method="POST" action="{{route('edit.account')}}">
-          @csrf
-          @method('PUT')
-          <div class="col-12">
-            <label for="name" class="form-label text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Nama Lengkap</label>
-            <input type="text" class="form-control text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" id="inputName" name="fullname" placeholder="Enter your fullname" value="{{ $profile->fullname ? $profile->fullname : '' }}">
-          </div>
-          <div class="col-12">
-            <label for="handphone" class="form-label text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Handphone</label>
-            <div class="input-group">
-              <span class="input-group-text text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" id="basic-addon1">+62</span>
-              <input type="number" class="form-control text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" id="inputHandphone" placeholder="Enter your phone number" pattern="[0]{1}[8]{1}[0-9]{9,10}" name="handphone" value="{{ $profile->handphone ? $profile->handphone : '' }}">
+          <form class="row" id="profileForm" method="POST" action="{{route('edit.account')}}">
+            @csrf
+            @method('PUT')
+            <div class="col-12">
+              <label for="name" class="form-label text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Nama Lengkap</label>
+              <input type="text" class="form-control text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" id="inputName" name="fullname" placeholder="Enter your fullname" value="{{ $profile->fullname ? $profile->fullname : '' }}" {{ $profile->email_verified_at == NULL ? "disabled" : "" }}>
             </div>
-          </div>
-          <div class="col-12">
-            <label for="email" class="form-label text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Email</label>
-            <input type="email" class="form-control text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" id="inputEmail" placeholder="Enter your email" value="{{ $profile->email ? $profile->email : '' }}" name="email">
-          </div>
-          <div class="col-12">
-            <label for="Gender" class="form-label text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Jenis Kelamin</label>
-            <div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" type="radio" id="inputMale" name="gender" value="male" {{ $profile->gender == "male" ? "checked" : ""}}>
-                <label class="form-check-label text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" for="inputMale">Pria</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" type="radio" id="inputFemale" name="gender" value="female" {{ $profile->gender == "female" ? "checked" : ""}}>
-                <label class="form-check-label text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" for="inputFemale">Wanita</label>
+            <div class="col-12">
+              <label for="handphone" class="form-label text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Handphone</label>
+              <div class="input-group">
+                <span class="input-group-text text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" id="basic-addon1">+62</span>
+                <input type="number" class="form-control text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" id="inputHandphone" placeholder="Enter your phone number" pattern="[0]{1}[8]{1}[0-9]{9,10}" name="handphone" value="{{ $profile->handphone ? $profile->handphone : '' }}" {{ $profile->email_verified_at == NULL ? "disabled" : "" }}>
               </div>
             </div>
-          </div>
+            <div class="col-12">
+              <label for="email" class="form-label text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Email</label>
+              <input type="email" class="form-control text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" id="inputEmail" placeholder="Enter your email" value="{{ $profile->email ? $profile->email : '' }}" name="email" {{ $profile->email_verified_at == NULL ? "disabled" : "" }}>
+            </div>
+            <div class="col-12">
+              <label for="Gender" class="form-label text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Jenis Kelamin</label>
+              <div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" type="radio" id="inputMale" name="gender" value="male" {{ $profile->gender == "male" ? "checked" : ""}} {{ $profile->email_verified_at == NULL ? "disabled" : "" }}>
+                  <label class="form-check-label text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" for="inputMale">Pria</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" type="radio" id="inputFemale" name="gender" value="female" {{ $profile->gender == "female" ? "checked" : ""}} {{ $profile->email_verified_at == NULL ? "disabled" : "" }}>
+                  <label class="form-check-label text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" for="inputFemale">Wanita</label>
+                </div>
+              </div>
+            </div>
 
-          <div class="col-12 pt-2">
-            <button type="submit" class="btn btn-primary text-white w-full rounded-sm text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" style="background-color: #183018" id="submitBtn" disabled>
-              Ubah Profil
-            </button>
-          </div>
-        </form>
+            <div class="col-12 pt-2">
+              <button type="submit" class="btn btn-primary text-white w-full rounded-sm text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" style="background-color: #183018" id="submitBtn" disabled>
+                Ubah Profil
+              </button>
+            </div>
+          </form>
         @else    
         @endif
       </div>
@@ -368,35 +376,35 @@
       <div class="tab-pane fade" id="my-whislist" style="min-height:80vh;">
         <div class="col-12">
           <div class="row">
-            @foreach ($whishlist as $wp)
-            <div class="col-lg-3 col-md-4 col-6 p-1">
+            @foreach ($profile->wishlist as $wp)
+            <div class="col-lg-2 col-md-3 col-6 p-1">
               <div class="bg-white rounded-lg shadow-sm overflow-hidden product-item border border-xl">
                   <a href="/detail" class="text-decoration-none">
                       <div class="position-relative overflow-hidden bg-transparent p-0">
-                          <img class="img-fluid w-100 rounded-md pb-1 md:pb-2 lg:pb-2 xl:pb-2" src="images/produk.png" alt="">
+                          <img class="img-fluid w-100 rounded-sm pb-1 md:pb-2 lg:pb-2 xl:pb-2" src="images/produk.png" alt="">
                       </div>
                       <div class="grid gap-1 text-left p-2">
                           <div class="flex justify-content-start gap-1">
                               <i class="text-decoration-none fas fa-star text-[12px] md:text-[14px] lg:text-[16px] xl:text-[16px]" style="color:orange;"></i>
                               <p class="text-decoration-none text-black text-[12px] md:text-[12px] lg:text-[14px] xl:text-[14px]">5</p>
                           </div>
-                          <h1 class="text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] product-title" id="product{{$wp->product_id}}">Everlaskin 2in1 {{ $wp->product_id }}</h1>
+                          <h1 class="text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px] product-title" id="product{{$wp->product_id}}">Everlaskin 2in1 {{ $wp->product_id }}</h1>
                           <div class="flex justify-content-start gap-1">
-                              <p class="text-decoration-none text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px] text-primary">Rp519.000</p>
+                              <p class="text-decoration-none text-black text-[10px] md:text-[10px] lg:text-[10px] xl:text-[12px] text-primary">Rp519.000</p>
                               <!-- <p class="text-muted text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px]"><del>Rp810.000</del></p> -->
                           </div>
                       </div>
-                      <div class="flex justify-content-between px-2">
-                          <a href="/detail" class="col-4 text-decoration-none text-[#183018] p-0 text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] grid hover-red text-center">
+                      <div class="flex justify-content-between">
+                          <a href="/detail" class="col-4 text-decoration-none text-[#183018] p-0 text-[10px] md:text-[10px] lg:text-[10px] xl:text-[12px] grid hover-red text-center">
                             <i class="fas fa-eye"></i>
                             Detail
                           </a>
-                          <a href="javascript:void(0);" class="col-4 text-decoration-none text-[#FF0000] p-0 text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] grid hover-[#183018] text-center" onclick="removeFromWishlist({{$wp->product_id}})">
-                            <i class="fas fa-heart"></i> Wishlist
-                          </a>
-                          <a href="javascript:void(0);" class="col-4 text-decoration-none text-[#183018] p-0 text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] grid hover-red text-center" onclick="addToCart({{$wp->product_id}})">
+                          <a href="javascript:void(0);" class="col-4 text-decoration-none text-[#183018] p-0 text-[10px] md:text-[12px] lg:text-[10px] xl:text-[12px] grid hover-red text-center" onclick="addToCart({{$wp->product_id}})">
                             <i class="fas fa-shopping-cart"></i>
-                            Cart
+                            Keranjang
+                          </a>
+                          <a href="javascript:void(0);" class="col-4 text-decoration-none text-[#183018] p-0 text-[10px] md:text-[12px] lg:text-[10px] xl:text-[12px] grid hover-[#183018] text-center" onclick="removeFromWishlist({{$wp->product_id}})">
+                            <i class="fas fa-heart"></i> Hapus
                           </a>
                       </div>
                   </a>
@@ -477,11 +485,11 @@
           <div class="grid gap-1 gap-md-2">
             <div class="col-12 p-0">
               <label for="label" class="form-label text-black text-[12px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Label</label>
-              <input type="text" class="form-control rounded-md text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" name="label" placeholder="Masukkan Nama Label Untuk Alamatmu" required>
+              <input type="text" class="form-control rounded-sm text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" name="label" placeholder="Masukkan Nama Label Untuk Alamatmu" required>
             </div>
             <div class="col-12 p-0">
               <label for="receiver" class="form-label text-black text-[12px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Nama Penerima</label>
-              <input type="text" class="form-control rounded-md text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]"  name="recipient_name" placeholder="Masukkan Nama Penerima" required>
+              <input type="text" class="form-control rounded-sm text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]"  name="recipient_name" placeholder="Masukkan Nama Penerima" required>
             </div>
             <div class="col-12 p-0">
               <label for="handphone" class="form-label text-black text-[12px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Handphone</label>
@@ -553,15 +561,15 @@
         <form id="editShippingAddressForm" method="POST" action="{{route('edit.shipping.address')}}">
           @csrf
           @method('PUT')
-          <input type="number" class="form-control d-none rounded-md text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" name="address-id">
+          <input type="number" class="form-control d-none rounded-sm text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" name="address-id">
           <div class="grid gap-1 gap-md-2">
             <div class="col-12 p-0">
               <label for="label" class="form-label text-black text-[12px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Label</label>
-              <input type="text" class="form-control rounded-md text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" placeholder="Masukkan Nama Label Untuk Alamatmu" name="label">
+              <input type="text" class="form-control rounded-sm text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" placeholder="Masukkan Nama Label Untuk Alamatmu" name="label">
             </div>
             <div class="col-12 p-0">
               <label for="receiver" class="form-label text-black text-[12px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Nama Penerima</label>
-              <input type="text" class="form-control rounded-md text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]"  placeholder="Masukkan Nama Penerima" name="recipient_name">
+              <input type="text" class="form-control rounded-sm text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]"  placeholder="Masukkan Nama Penerima" name="recipient_name">
             </div>
             <div class="col-12 p-0">
               <label for="handphone" class="form-label text-black text-[12px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Handphone</label>
@@ -699,7 +707,7 @@
       <div class="modal-body overflow-y-auto" style="max-height:100vh;">
         <div class="row gap-2 gap-lg-0">
           <div class="col-12 col-lg-5 pl-lg-0 d-lg-none d-block">
-            <div class="grid p-1 p-md-2 p-lg-3 custom-shadow rounded-md position-sticky" style="top: 0.1rem;">
+            <div class="grid p-1 p-md-2 p-lg-3 custom-shadow rounded-sm position-sticky" style="top: 0.1rem;">
               <div class="col-12 p-0 border-bottom">
                 <p class="text-black text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px]">Riwayat Pengiriman</p>
                 <div class="track">
@@ -713,7 +721,7 @@
           </div>
 
           <div class="col-12 col-lg-7">
-            <div class="grid p-3 custom-shadow rounded-md">
+            <div class="grid p-3 custom-shadow rounded-sm">
               <div class="col-12 p-0 pb-2 border-bottom">
                 <div class="d-flex">
                   <p class="text-[10px] md:text-[12px] lg:text-[12px] xl:text-[14px]">No. Invoice</p>
@@ -803,7 +811,7 @@
           </div>
 
           <div class="col-12 col-lg-5 pl-lg-0 d-none d-lg-block">
-            <div class="grid p-1 p-md-2 p-lg-3 custom-shadow rounded-md position-sticky" style="top: 0.1rem;">
+            <div class="grid p-1 p-md-2 p-lg-3 custom-shadow rounded-sm position-sticky" style="top: 0.1rem;">
               <div class="col-12 p-0 border-bottom">
                 <p class="text-black text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px]">Riwayat Pengiriman</p>
                 <div class="track">
@@ -947,17 +955,32 @@
                 _token: '{{ csrf_token() }}'
             },
             success: function(response) {
-              Swal.fire({
-                  title: "Success",
-                  text: response.message,
-                  icon: "success",
-              }).then(function() {
-                  location.reload(); // Refresh halaman jika diperlukan
+              Toast.fire({
+                icon: "success",
+                text: response.message,
+                title: "Berhasil",
+                willOpen: () => {
+                  const title = document.querySelector('.swal2-title');
+                  const content = document.querySelector('.swal2-html-container');
+                  if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                  if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                }
+              }).then(function () {
+                location.reload(); // Redirect ke halaman utama atau halaman lain
               });
             },
             error: function(xhr) {
-                console.log(xhr.responseText);
-                alert("Error occurred!");
+              Toast.fire({
+                icon: "error",
+                text: "Kesalahan Sistem",
+                title: "Oops..",
+                willOpen: () => {
+                  const title = document.querySelector('.swal2-title');
+                  const content = document.querySelector('.swal2-html-container');
+                  if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                  if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                }
+              });
             }
         });
     });
@@ -978,27 +1001,45 @@
             },
             success: function(response) {
                 if (response.success) {
-                    Swal.fire({
-                        title: "Success",
-                        text: response.message,
-                        icon: "success",
-                    }).then(function() {
-                      location.reload(); // Refresh halaman jika diperlukan
-                    });
+                  Toast.fire({
+                    icon: "success",
+                    text: response.message,
+                    title: "Berhasil",
+                    willOpen: () => {
+                      const title = document.querySelector('.swal2-title');
+                      const content = document.querySelector('.swal2-html-container');
+                      if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                      if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                    }
+                  }).then(function () {
+                    location.reload(); // Redirect ke halaman utama atau halaman lain
+                  });
                 } else {
-                    Swal.fire({
-                        title: "Error",
-                        text: response.message,
-                        icon: "error",
-                    });
+                  Toast.fire({
+                    icon: "error",
+                    text: response.message,
+                    title: "Oops..",
+                    willOpen: () => {
+                      const title = document.querySelector('.swal2-title');
+                      const content = document.querySelector('.swal2-html-container');
+                      if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                      if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                    }
+                  });
                 }
             },
             error: function(xhr, status, error) {
-                Swal.fire({
-                    title: "Error",
-                    text: "Error occurred while setting main address.",
-                    icon: "error",
-                });
+              Toast.fire({
+                icon: "error",
+                text: "Gagal Mengubah Alamat",
+                title: "Oops..",
+                willOpen: () => {
+                  const title = document.querySelector('.swal2-title');
+                  const content = document.querySelector('.swal2-html-container');
+                  if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                  if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                }
+              });
             }
         });
     });
@@ -1006,10 +1047,16 @@
 
   @if(session('after_add_address'))
     <script>
-      Swal.fire({
-        title: "Success",
-        text: "Berhasil Menambahkan Alamat Pengiriman Baru",
+      Toast.fire({
         icon: "success",
+        text: "Berhasil menambahkan alamat pengiriman baru",
+        title: "Berhasil",
+        willOpen: () => {
+          const title = document.querySelector('.swal2-title');
+          const content = document.querySelector('.swal2-html-container');
+          if (title) title.style.color = '#ffffff'; // Ubah warna judul
+          if (content) content.style.color = '#ffffff'; // Ubah warna konten
+        }
       });
   </script>  
   @endif
@@ -1038,14 +1085,113 @@
 
 -->
 @if(session('after_update_profile'))
-  <script>
-    Swal.fire({
-      title: "Success",
-      text: "Profilmu Berhasil Diubah",
+<script>
+  Toast.fire({
+    icon: "success",
+    text: "Profilmu berhasil diubah",
+    title: "Berhasil",
+    willOpen: () => {
+      const title = document.querySelector('.swal2-title');
+      const content = document.querySelector('.swal2-html-container');
+      if (title) title.style.color = '#ffffff'; // Ubah warna judul
+      if (content) content.style.color = '#ffffff'; // Ubah warna konten
+    }
+  });
+</script>  
+@endif 
+
+@if(session('success_send_email'))
+<script>
+    Toast.fire({
       icon: "success",
+      text: "Link verifikasi email berhasil dikirim. Cek kotak emailmu sekarang",
+      title: "Berhasil",
+      willOpen: () => {
+        const title = document.querySelector('.swal2-title');
+        const content = document.querySelector('.swal2-html-container');
+        if (title) title.style.color = '#ffffff'; // Ubah warna judul
+        if (content) content.style.color = '#ffffff'; // Ubah warna konten
+      }
     });
 </script>  
 @endif 
+
+<!-- VERIFICATION EMAIL -->
+<script>
+  $(document).on("submit", "#email-verify-form", function (e) {
+    e.preventDefault(); // Mencegah form dari submit secara default
+
+    // Tampilkan loading
+    Swal.fire({
+      title: "Mengirim Email...",
+      text: "Mohon tunggu sebentar.",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
+    $.ajax({
+      url: "{{ route('verification.send') }}", // Route register di Laravel
+      type: "POST",
+      data: {
+          _token: "{{ csrf_token() }}", // Token CSRF untuk Laravel
+      },
+      success: function (response) {
+          Swal.close(); // Tutup loading
+
+          if (response.success) {
+            Toast.fire({
+              icon: "success",
+              text: response.message,
+              title: "Berhasil",
+              willOpen: () => {
+                const title = document.querySelector('.swal2-title');
+                const content = document.querySelector('.swal2-html-container');
+                if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                if (content) content.style.color = '#ffffff'; // Ubah warna konten
+              }
+            });
+          } else {
+            let errors = response.errors;
+            let errorMessages = "Email gagal dikirim. Coba lagi<br>";
+            for (const key in errors) {
+                if (errors.hasOwnProperty(key)) {
+                    errorMessages += errors[key][0] + "<br>";
+                }
+            }
+            Toast.fire({
+              icon: "error",
+              text: errorMessages,
+              title: "Oops..",
+              willOpen: () => {
+                const title = document.querySelector('.swal2-title');
+                const content = document.querySelector('.swal2-html-container');
+                if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                if (content) content.style.color = '#ffffff'; // Ubah warna konten
+              }
+            });
+          }
+      },
+      error: function (response) {
+        Swal.close(); // Tutup loading
+
+        Toast.fire({
+          icon: "error",
+          text: "Kesalahan Sistem",
+          title: "Oops..",
+          willOpen: () => {
+            const title = document.querySelector('.swal2-title');
+            const content = document.querySelector('.swal2-html-container');
+            if (title) title.style.color = '#ffffff'; // Ubah warna judul
+            if (content) content.style.color = '#ffffff'; // Ubah warna konten
+          }
+        });
+      },
+    });
+  });
+</script>
+
 
 <!-- UNTUK CEK TAB ACCOUNT -->
 <script>
@@ -1088,6 +1234,108 @@
   });
 </script>
 
+<!-- API WILAYAH FOR ADDRESS -->
+<script>
+  fetch("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json")
+        .then((response) => response.json())
+        .then((provinces) => {
+            const provinceSelect = document.getElementById("address_province");
+
+            provinces.forEach((province) => {
+                let option = document.createElement("option");
+                option.value = province.id;
+                option.text = province.name;
+                provinceSelect.appendChild(option);
+            });
+        })
+        .catch((error) => console.error("Error fetching provinces:", error));
+
+    // Event listener for province selection
+    // PILIH PROVINSI
+    document
+        .getElementById("address_province")
+        .addEventListener("change", function () {
+            const provinceId = this.value;
+            const provinceName = this.options[this.selectedIndex].text; // Get the name
+            document.getElementById("address_province_name").value =
+                provinceName; // Save name in hidden input
+
+            const regencySelect = document.getElementById("address_regency");
+            regencySelect.innerHTML =
+                '<option value="">Pilih Kabupaten/Kota</option>';
+            document.getElementById("address_regency_name").value = ""; // Clear previous regency name
+
+            // GET DATA REGENCIES FROM PROVINCE
+            if (provinceId) {
+                fetch(
+                    `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`
+                )
+                    .then((response) => response.json())
+                    .then((regencies) => {
+                        regencies.forEach((regency) => {
+                            let option = document.createElement("option");
+                            option.value = regency.id;
+                            option.text = regency.name;
+                            regencySelect.appendChild(option);
+                        });
+                    })
+                    .catch((error) =>
+                        console.error("Error fetching regencies:", error)
+                    );
+            }
+        });
+
+    document
+        .getElementById("address_regency")
+        .addEventListener("change", function () {
+            const regenciesId = this.value;
+            const regenciesName = this.options[this.selectedIndex].text; // Get the name
+            document.getElementById("address_regency_name").value =
+                regenciesName; // Save name in hidden input
+
+            const districtSelect = document.getElementById("address_district");
+            districtSelect.innerHTML =
+                '<option value="">Pilih Kecamatan</option>';
+            document.getElementById("address_district_name").value = ""; // Clear previous regency name
+
+            // GET DATA DISTRICT FROM REGENCY
+            if (regenciesId) {
+                fetch(
+                    `https://www.emsifa.com/api-wilayah-indonesia/api/districts/${regenciesId}.json`
+                )
+                    .then((response) => response.json())
+                    .then((districts) => {
+                        districts.forEach((district) => {
+                            let option = document.createElement("option");
+                            option.value = district.id;
+                            option.text = district.name;
+                            districtSelect.appendChild(option);
+                        });
+                    })
+                    .catch((error) =>
+                        console.error("Error fetching districts:", error)
+                    );
+            }
+        });
+
+    // Event listener for regency selection
+    document
+        .getElementById("address_regency")
+        .addEventListener("change", function () {
+            const regencyName = this.options[this.selectedIndex].text; // Get the name
+            document.getElementById("address_regency_name").value = regencyName; // Save name in hidden input
+        });
+
+    // Event listener for district selection
+    document
+        .getElementById("address_district")
+        .addEventListener("change", function () {
+            const districtName = this.options[this.selectedIndex].text; // Get the name
+            document.getElementById("address_district_name").value =
+                districtName; // Save name in hidden input
+        });
+    // END API WILAYAH REGISTER
+</script>
 
 @endsection
 
