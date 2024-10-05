@@ -3,30 +3,29 @@
 @section('content')
 <div class="md:px-20 lg:px-24 xl:px-24 py-2 mb-14 mb-md-0">
     <div class="container-fluid">
-        <div class="row py-2 py-md-3">
-            <div class="col-12">
-                <div class="d-flex gap-2">
-                    <a href="/home" class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Home</a>
-                    <p class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
-                    <a href="/shop" class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Brand</a>
-                    <p class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
-                    <a href="#" class="text-black text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Nama Produk</a>
-                </div>
+        <div class="shadow-sm border border-black rounded-md py-2 py-md-3 my-2 my-md-3">
+            <div class="d-flex gap-2 pl-2">
+                <a href="/" class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Beranda</a>
+                <p class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
+                <a href="/shop" class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Belanja</a>
+                <p class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
+                <a href="#" class="text-black text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Nama Produk</a>
             </div>
         </div>
     </div>
+
     <!-- Shop Detail Start -->
     <div class="container-fluid">
         <!-- IMAGE PRODUCT -->
         <div class="row">
             <div class="col-lg-4">
-                <div class="position-sticky" style="top: 2rem">
+                <div class="position-sticky" style="top: 4rem">
                     <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiperShow">
                         <div class="swiper-wrapper">
                             @for ($h = 1; $h <= 7; $h++)
                                 @if ($h == 7)
-                                    <div class="swiper-slide">
-                                        <video class="zoomable-video" controls>
+                                    <div class="swiper-slide h-fit">
+                                        <video class="zoomable-video" id="mainVideo" controls controlsList="nodownload noplaybackrate">
                                             <source src="images/videoproduk.mp4" type="video/mp4">
                                         </video>
                                     </div>
@@ -40,16 +39,20 @@
                             @endfor
                         </div>
                     </div>
-                    
+
                     <div class="swiper mySwiperProduct">
                         <div class="swiper-wrapper">
                             @for ($i = 1; $i <= 7; $i++)
                                 @if ($i == 7)
                                     <div class="swiper-slide example-product hover:cursor-pointer p-1" id="videoproduk">
-                                        <video class="zoomable-video" controls>
-                                            <source src="images/videoproduk.mp4" type="video/mp4">
-                                        </video>
+                                        <a>
+                                            <div class="video-thumbnail-wrapper">
+                                                <img src="images/videoproduk-thumbnail.png" alt="Video Thumbnail" />
+                                                <i class="fas fa-play" style="color: #183018;"></i>
+                                            </div>
+                                        </a>
                                     </div>
+
                                 @else
                                     <div class="swiper-slide example-product hover:cursor-pointer p-1" id="produk{{ $i }}">
                                         <a>
@@ -80,7 +83,7 @@
                 </div>
 
                 <div>
-                    <h3 class="text-[14px] md:text-[18px] lg:text-[20px] xl:text-[24px]">Brand</h3>
+                    <a href="/brand" class="text-decoration-none text-black text-[14px] md:text-[18px] lg:text-[20px] xl:text-[24px]">Brand</a>
                     <h3 class="font-weight-semi-bold text-[14px] md:text-[18px] lg:text-[20px] xl:text-[24px]">Product {{ $data }}</h3>
                 </div>
                 
@@ -100,7 +103,7 @@
                         <small class="fas fa-star text-[14px]" style="color:orange;"></small>
                         <small class="text-[14px] text-black">5</small>
                     </div>
-                    <small class="pt-1">(50 Reviews)</small>
+                    <small class="pt-1">(50 Ulasan)</small>
                 </div>
                 
                 <div>
@@ -118,23 +121,23 @@
                             <i class="fa fa-minus"></i>
                             </button>
                         </div>
-                        <input type="text" class="form-control bg-secondary text-center" value="1">
+                        <input type="text" class="form-control bg-secondary text-center" id="total-detail-product-quantity-{{$data}}" value="1">
                         <div class="input-group-btn">
                             <button class="btn btn-plus">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
-                    <a href="/cart" class="btn rounded-sm shadow-sm px-3 text-black text-[14px] md:text-[16px] lg:text-[18px] xl:text-[18px]"><i class="fa fa-shopping-cart mr-1"></i>Keranjang</a>
-                    <a href="/checkout" class="text-decoration-none py-2 rounded-sm hover:bg-neutral-900 shadow-sm px-3 text-white bg-[#183018] text-[14px] md:text-[16px] lg:text-[18px] xl:text-[18px]">Beli Produk</a>
+                    <a onclick="addCartWithQuantity({{$data}})" class="hover:cursor-pointer py-2 hover:bg-gray-100 rounded-sm shadow-sm text-decoration-none px-3 text-black text-[14px] md:text-[12px] lg:text-[16px] xl:text-[16px]"><i class="fa fa-plus mr-1"></i> Keranjang</a>
+                    <a onclick="buyNow({{$data}})"  class="hover:cursor-pointer text-decoration-none py-2 rounded-sm hover:bg-neutral-900 shadow-sm px-3 text-white bg-[#183018] text-[14px] md:text-[12px] lg:text-[16px] xl:text-[16px]">Beli Sekarang</a>
                 </div>
 
                 <div class="row">
                     <div class="col">
                         <div class="nav nav-tabs justify-content-start border-secondary mb-4">
-                            <a class="nav-item nav-link active text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" data-toggle="tab" href="#tab-pane-1">Description</a>
-                            <a class="nav-item nav-link text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" data-toggle="tab" href="#tab-pane-2">Information</a>
-                            <a class="nav-item nav-link text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
+                            <a class="nav-item nav-link active text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" data-toggle="tab" href="#tab-pane-1">Deskripsi</a>
+                            <a class="nav-item nav-link text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" data-toggle="tab" href="#tab-pane-2">Informasi</a>
+                            <a class="nav-item nav-link text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" data-toggle="tab" href="#tab-pane-3">Ulasan (0)</a>
                         </div>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="tab-pane-1">
@@ -181,63 +184,37 @@
                             </div>
                             <div class="tab-pane fade" id="tab-pane-3">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-12 overflow-y-auto custom-scroll" style="max-height:50vh;">
                                         <h4 class="mb-4 text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">1 review for "Colorful Stylish Shirt"</h4>
-                                        
-                                        <div class="media mb-4">
-                                            <img src="images/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                            <div class="media-body">
-                                                <h6 class="mb-2 text-[12px] md:text-[12px] lg:text-[14px] xl:text-[16px]">John Doe<small> - <i>01 Jan 2045</i></small></h6>
-                                                <div class="text-primary mb-2 d-flex">
-                                                    <i class="fas fa-star mr-1 text-[14px] md:text-[16px] lg:text-[18px] xl:text-[18px]" style="color:orange;"></i>
-                                                    <p class="text-[12px] md:text-[14px] lg:text-[16x] xl:text-[16px]">5</p>
+                                        @for ($k=1; $k <= 80;$k++)
+                                            <div class="comment mb-4">
+                                                <div class="media-body grid">
+                                                    <div class="flex">
+                                                        <div class="col-10">
+                                                            <div class="grid">
+                                                                <div class="flex">
+                                                                    <img src="images/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                                                    <div class="grid">
+                                                                        <h6 class="mb-2 text-[12px] md:text-[12px] lg:text-[14px] xl:text-[16px]">John Doe<small> - <i>01 Jan 2045</i></small></h6>
+                                                                        <div class="mr-2">
+                                                                            <small class="fas fa-star text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" style="color:orange;"></small>
+                                                                            <small class="text-[10px] md:text-[12px] lg:text-[14x] xl:text-[16px] text-black">5</small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <p class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-2 d-flex align-items-center">
+                                                            <img src="images/produk1.png" alt="" style="height: 100%; object-fit: cover; width: auto;">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <p class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
                                             </div>
-                                        </div>
-                                        <div class="media mb-4">
-                                            <img src="images/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                            <div class="media-body">
-                                                <h6 class="mb-2 text-[12px] md:text-[12px] lg:text-[14px] xl:text-[16px]">John Doe<small> - <i>01 Jan 2045</i></small></h6>
-                                                <div class="text-primary mb-2 d-flex">
-                                                    <i class="fas fa-star mr-1 text-[14px] md:text-[16px] lg:text-[18px] xl:text-[18px]" style="color:orange;"></i>
-                                                    <p class="text-[12px] md:text-[14px] lg:text-[16x] xl:text-[16px]">5</p>
-                                                </div>
-                                                <p class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
-                                            </div>
-                                        </div>
+                                        @endfor
                                     </div>
-                                    <!-- <div class="col-md-6">
-                                        <h4 class="mb-4">Leave a review</h4>
-                                        <small>Your email address will not be published. Required fields are marked *</small>
-                                        <div class="d-flex my-3">
-                                            <p class="mb-0 mr-2">Your Rating * :</p>
-                                            <div class="text-primary">
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="message">Your Review *</label>
-                                                <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="name">Your Name *</label>
-                                                <input type="text" class="form-control" id="name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="email">Your Email *</label>
-                                                <input type="email" class="form-control" id="email">
-                                            </div>
-                                            <div class="form-group mb-0">
-                                                <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
-                                            </div>
-                                        </form>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -245,7 +222,7 @@
                 </div>
 
                 <div class="d-flex">
-                    <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
+                    <p class="text-dark font-weight-medium mb-0 mr-2">Bagikan Produk ke:</p>
                     <div class="d-inline-flex">
                         <a class="text-dark px-2" href="">
                             <i class="fab fa-facebook-f"></i>
@@ -270,7 +247,7 @@
     <!-- Products Start -->
     <div class="container-fluid mt-md-4">
         <div class="text-center md:mb-4 lg:mb-4 xl:mb-4 py-3 md:pt-4 lg:pt-4 xl:pt-4">
-            <h2 class="section-title px-5  text-[12px] md:text-[14px] lg:text-[18px] xl:text-[22px]"><span class="px-2">You May Also Like</span></h2>
+            <h2 class="section-title px-5  text-[12px] md:text-[14px] lg:text-[18px] xl:text-[22px]"><span class="px-2">Produk Yang Mungkin Anda Suka</span></h2>
         </div>
 
         <div class="swiper mySwiper">
@@ -283,28 +260,35 @@
                                     <img class="img-fluid w-100 rounded-md pb-1 md:pb-2 lg:pb-2 xl:pb-2" src="images/produk.png" alt="">
                                 </div>
                                 <div class="grid gap-1 text-left p-2">
-                                    <div class="flex justify-content-start gap-1">
-                                        <i class="text-decoration-none fas fa-star text-[8px] md:text-[14px] lg:text-[16px] xl:text-[16px]" style="color:orange;"></i>
-                                        <p class="text-decoration-none text-black text-[8px] md:text-[12px] lg:text-[14px] xl:text-[14px]">5</p>
+                                    <div class="flex">
+                                        <div class="flex gap-1">
+                                            <i class="text-decoration-none fas fa-star text-[8px] md:text-[14px] lg:text-[16px] xl:text-[16px]" style="color:orange;"></i>
+                                            <p class="text-decoration-none text-black text-[8px] md:text-[12px] lg:text-[14px] xl:text-[14px]">5</p>
+                                        </div>
+                                        <div class="ml-auto">
+                                            <a href="javascript:void(0);" class="text-decoration-none text-[#183018] p-0 text-[7px] md:text-[12px] lg:text-[10px] xl:text-[12px] grid align-items-center justify-content-between hover-red" onclick="addToWishlist({{$i}})">
+                                                <i class="fas fa-heart text-center"></i> Favorit
+                                            </a>
+                                        </div>
                                     </div>
-                                    <h1 class="text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] product-title" id="product{{$i}}">Everlaskin 2in1 Produk {{ $i }}</h1>
+                                    <h1 class="text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] product-title" id="product{{$i}}">Everlaskin {{$i}}</h1>
                                     <div class="flex justify-content-start gap-1">
                                         <p class="text-decoration-none text-black text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px] text-primary">Rp519.000</p>
                                         <!-- <p class="text-muted text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px]"><del>Rp810.000</del></p> -->
                                     </div>
                                 </div>
                                 <div class="flex justify-content-between px-2">
-                                    <a href="/{{ $i }}_product" class="col-4 text-decoration-none text-[#183018] p-0 text-[7px] md:text-[12px] lg:text-[14px] xl:text-[16px] grid hover-red">
+                                    <!-- <a href="/{{ $i }}_product" class="col-4 text-decoration-none text-[#183018] p-0 text-[7px] md:text-[12px] lg:text-[10px] xl:text-[12px] grid hover-red">
                                         <i class="fas fa-eye"></i>
                                         Detail
                                     </a>
-                                    <a href="javascript:void(0);" class="col-4 text-decoration-none text-[#183018] p-0 text-[7px] md:text-[12px] lg:text-[14px] xl:text-[16px] grid hover-red" onclick="addToWishlist({{$i}})">
-                                        <i class="fas fa-heart"></i> Wishlist
-                                    </a>
+                                    <a href="javascript:void(0);" class="col-4 text-decoration-none text-[#183018] p-0 text-[7px] md:text-[12px] lg:text-[10px] xl:text-[12px] grid hover-red" onclick="addToWishlist()">
+                                        <i class="fas fa-heart"></i> Favorit
+                                    </a> -->
 
-                                    <a href="javascript:void(0);" class="col-4 text-decoration-none text-[#183018] p-0 text-[7px] md:text-[12px] lg:text-[14px] xl:text-[16px] grid hover-red" onclick="addToCart({{$i}})">
-                                        <i class="fas fa-shopping-cart"></i>
-                                        Cart
+                                    <a href="javascript:void(0);" class="mb-2 py-2 rounded-sm border border-[#183018] hover:border-white shadow-sm w-full hover:bg-[#183018] text-decoration-none text-[#183018] hover:text-white p-0 text-[7px] md:text-[12px] lg:text-[10px] xl:text-[12px] flex gap-1 align-items-center justify-content-center hover-red" onclick="addToCart({{$i}})">
+                                        + <i class="fas fa-shopping-cart"></i>
+                                        Keranjang
                                     </a>
                                 </div>
                             </a>
@@ -338,14 +322,112 @@
 
 <!-- UNTUK MENGATUR ZOOM IN GAMBAR PADA HALAMAN DETAIL PRODUK -->
 <script>
-  document.querySelector('.image-container').addEventListener('mousemove', function(e) {
-    const zoomableImage = this.querySelector('.zoomable-image');
-    const rect = this.getBoundingClientRect();
-    const x = e.clientX - rect.left; // Koordinat x kursor relatif terhadap kontainer
-    const y = e.clientY - rect.top;  // Koordinat y kursor relatif terhadap kontainer
+    document.querySelector('.image-container').addEventListener('mousemove', function(e) {
+        const zoomableImage = this.querySelector('.zoomable-image');
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left; // Koordinat x kursor relatif terhadap kontainer
+        const y = e.clientY - rect.top;  // Koordinat y kursor relatif terhadap kontainer
 
-    // Mengatur transform-origin berdasarkan posisi kursor
-    zoomableImage.style.transformOrigin = `${x}px ${y}px`;
-  });
+        // Mengatur transform-origin berdasarkan posisi kursor
+        zoomableImage.style.transformOrigin = `${x}px ${y}px`;
+    });
+
+    document.getElementById('videoproduk').addEventListener('click', function(e) {
+        e.preventDefault();
+        // Temukan video berdasarkan ID
+        const video = document.getElementById('mainVideo');
+        
+        // Pastikan video berada di slide yang aktif
+        const swiperInstance = document.querySelector('.swiper').swiper;
+        swiperInstance.slideTo(6); // Mengarahkan ke slide dengan indeks yang berisi video
+
+        // Tunggu sampai transisi selesai dan kemudian play video
+        setTimeout(function() {
+            video.play();
+        }, 500); // Delay untuk memastikan transisi selesai
+    });
+
+
+    function addCartWithQuantity(productId) {
+        var currentQuantity = parseInt($('#total-detail-product-quantity-' + productId).val());
+
+        // console.log({
+        //     productId,
+        //     currentQuantity,
+        // });
+
+        $.ajax({
+            url: "{{ route('add.to.chart.with.quantity') }}", // Route register di Laravel
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}", // Token CSRF untuk Laravel
+                product_id: productId,
+                quantity: currentQuantity,
+            },
+            success: function (response) {
+                if (response.success) {
+                    Toast.fire({
+                      icon: "success",
+                      text: response.message,
+                      title: "Berhasil",
+                      willOpen: () => {
+                        const title = document.querySelector('.swal2-title');
+                        const content = document.querySelector('.swal2-html-container');
+                        if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                        if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                      }
+                    });
+                } else {
+                    let errors = response.errors;
+                    let errorMessages = response.message;
+                    for (const key in errors) {
+                        if (errors.hasOwnProperty(key)) {
+                            errorMessages += errors[key][0] + "<br>";
+                        }
+                    }
+                    Swal.fire("Error", errorMessages, "error");
+                }
+            },
+            error: function (response) {
+                Swal.fire("Error", "Kesalahan Sistem", "error");
+            },
+        });
+    }
+
+    function buyNow(productId) {
+        var currentQuantity = parseInt($('#total-detail-product-quantity-' + productId).val());
+
+        console.log({
+            productId,
+            currentQuantity,
+        });
+
+        $.ajax({
+            url: "{{ route('add.product.buy.now') }}", // Route register di Laravel
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}", // Token CSRF untuk Laravel
+                product_id: productId,
+                quantity: currentQuantity,
+            },
+            success: function (response) {
+                if (response.success) {
+                    window.location.href = "/buy-now";
+                } else {
+                    let errors = response.errors;
+                    let errorMessages = response.message;
+                    for (const key in errors) {
+                        if (errors.hasOwnProperty(key)) {
+                            errorMessages += errors[key][0] + "<br>";
+                        }
+                    }
+                    Swal.fire("Error", errorMessages, "error");
+                }
+            },
+            error: function (response) {
+                Swal.fire("Error", "Kesalahan Sistem", "error");
+            },
+        });
+    }
 </script>
 @endsection

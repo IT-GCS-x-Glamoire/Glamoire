@@ -30,8 +30,58 @@
         "Liberation Mono", "Courier New", monospace;
 }
 
+.grid-container {
+    display: row;
+    row-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+    padding: 5px;
+}
+  
+
 .hover-red:hover {
     color: red;
+}
+
+.grid-container, .grid-container-shop {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+    padding: 5px;
+}
+
+.custom-scroll {
+    scrollbar-width: thin; /* Membuat scrollbar lebih tipis */
+    scrollbar-color: #ffffff #183018; /* Warna thumb dan track */
+}
+
+.custom-scroll::-webkit-scrollbar {
+    width: 8px; /* Lebar scrollbar */
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    background-color: #ffffff; /* Warna thumb */
+    border-radius: 0; /* Tidak ada lengkungan */
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+    background-color: #183018; /* Warna track */
+    border-radius: 0; /* Tidak ada lengkungan */
+}
+
+  
+
+.grid-container-category {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 25px;
+    padding: 5px;
+}
+
+.grid-container-brands {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    padding: 5px;
 }
 
 .active > .categories {
@@ -45,7 +95,6 @@
 
 .aclonica-regular {
     font-family: "Aclonica", sans-serif;
-    font-weight: 400;
     font-style: normal;
 }
 
@@ -106,6 +155,19 @@
     .payment-method {
         display: none;
     }
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 5px;
+        padding: 5px;
+    }
+
+    .grid-container-shop {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 5px;
+        padding: 5px;
+    }
 }
 
 .swiper-button-next,
@@ -129,6 +191,13 @@
 }
 
 .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.swiper-slide video {
     display: block;
     width: 100%;
     height: 100%;
@@ -236,6 +305,8 @@ scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
     overflow-x: auto;
     overflow-y: hidden;
     flex-wrap: nowrap;
+    scrollbar-width: thin; /* Membuat scrollbar lebih tipis */
+    scrollbar-color: #ffffff #183018; /* Warna thumb dan track */
 }
 .tabbable .nav-tabs .nav-link {
     white-space: nowrap;
@@ -344,6 +415,34 @@ scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
     right: auto; /* Align the dropdown to the right edge of the container */
     left: 0; /* Prevents it from overflowing to the left */
 }
+
+.video-thumbnail-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.fa-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* Supaya ikon tidak bisa diklik */
+}
+
+.video-thumbnail-wrapper:hover .fa-play {
+    opacity: 1;
+}
+
+.video-thumbnail-wrapper img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
 
 *,
 *::before,
@@ -991,7 +1090,6 @@ pre code {
 
 .col-1,
 .col-2,
-.col-3,
 .col-4,
 .col-5,
 .col-6,
@@ -1117,10 +1215,6 @@ pre code {
     max-width: 16.66667%;
 }
 
-.col-3 {
-    flex: 0 0 25%;
-    max-width: 25%;
-}
 
 .col-4 {
     flex: 0 0 33.33333%;
@@ -2229,6 +2323,12 @@ pre code {
     .table-responsive-sm > .table-bordered {
         border: 0;
     }
+    .grid-container, .grid-container-shop {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 5px;
+        padding: 5px;
+      }
 }
 
 @media (max-width: 767.98px) {
@@ -5136,20 +5236,24 @@ input[type="button"].btn-block {
     }
 }
 
-.accordion {
-    overflow-anchor: none;
+.faq-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
-
-.accordion > .card {
-    overflow: hidden;
+.faq-item {
+    background-color: white;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
 }
-
-.accordion > .card:not(:last-of-type) {
-    border-bottom: 0;
+.faq-item h5 {
+    margin: 0;
 }
-
-.accordion > .card > .card-header {
-    margin-bottom: -1px;
+.contact-info {
+    text-align: center;
+    margin-top: 30px;
 }
 
 .breadcrumb {
@@ -5639,15 +5743,6 @@ a.badge-dark.focus {
     .progress-bar-animated {
         animation: none;
     }
-}
-
-.media {
-    display: flex;
-    align-items: flex-start;
-}
-
-.media-body {
-    flex: 1;
 }
 
 .list-group {

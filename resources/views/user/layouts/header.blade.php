@@ -30,7 +30,7 @@
  <!-- <link rel="stylesheet" href="css/app.css"> -->
  <link href="css/app.css" rel="stylesheet">
 
-<script src="https://cdn.tailwindcss.com"></script>
+<!-- <script src="https://cdn.tailwindcss.com"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- Google Font -->
@@ -38,6 +38,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Aclonica&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+<!-- TAILWIND -->
+@vite('resources/css/app.css')
 
 <!-- reCAPTCHA -->
 <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->

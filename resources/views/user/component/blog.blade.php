@@ -3,15 +3,13 @@
 @section('content')
 <div class="md:px-20 lg:px-24 xl:px-24 py-2">
   <div class="container-fluid">
-    <div class="row py-2 py-md-3">
-      <div class="col-12">
-          <div class="d-flex gap-2">
-            <a href="/home" class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Home</a>
-            <p class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
-            <a href="/newsletter" class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Newsletter</a>
-            <p class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
-            <a href="/blog" class="text-black text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Title Blog</a>
-          </div>
+    <div class="shadow-sm border border-black rounded-md py-2 py-md-3 my-1 my-md-3">
+      <div class="d-flex gap-2 pl-2">
+        <a href="/" class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Beranda</a>
+        <p class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
+        <a href="/newsletter" class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Artikel</a>
+        <p class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
+        <a href="#" class="text-black text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Experts: Apakah Sampo Non SLS Bisa Bikin Rambut Kering & Kulit Kepala Gatal?</a>
       </div>
     </div>
 
@@ -66,17 +64,17 @@
           <h6 class="text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Comments</h6>
 
           @if (session('id_user'))
-            <form class="my-4" name="sentMessage" id="contactForm" novalidate="novalidate">
+            <form class="my-4" name="comment-form" id="comment-form">
               <div>
-                <input type="text" class="hidden" value="{{session('id_user')}}">
+                <input type="text" class="hidden" name="article_id" id="article_id" value="12">
                 <p class="py-2 px-4 rounded-sm badge badge-white border text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px] text-black font-light">{{ session('username') }}</p>
               </div>
               <div class="control-group w-full py-1">
-                <textarea class="form-control text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]"  rows="2" id="message" placeholder="Masukkan Komentar Anda" name="comment" required="required" data-validation-required-message="Please enter your comment"></textarea>
+                <textarea class="form-control text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]"  rows="2" id="comment" placeholder="Masukkan Komentar Anda" name="comment" required="required" data-validation-required-message="Please enter your comment"></textarea>
                 <p class="help-block text-danger"></p>
               </div>
               <div class="w-full">
-                <button class="btn w-full rounded-sm text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" style="background-color: #183018" type="submit" id="sendMessageButton"><p class="text-white">Kirim Komentar</p></button>
+                <button class="btn w-full rounded-sm text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]" style="background-color: #183018" type="submit" id="sendArticleComment"><p class="text-white">Kirim Komentar</p></button>
               </div>
             </form>
           @endif
@@ -128,7 +126,7 @@
                         </a>
                       </div>
                       <div class="d-flex">
-                        <h6  class="text-[10px] md:text-[6px] lg:text-[8px] xl:text-[10px]">by <a class="font-bold">Admin Glamoire</a></h6>
+                        <h6  class="text-[10px] md:text-[6px] lg:text-[8px] xl:text-[10px]">by <span class="font-bold">Admin Glamoire</span></h6>
                       </div>
                     </div>
                   </div>
@@ -255,4 +253,57 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).on("submit", "#comment-form", function (e) {
+    e.preventDefault();
+
+    let articleId = $("#article_id").val();
+    let comment    = $("#comment").val();
+
+    console.log({
+      articleId,
+      comment,
+    });
+
+    $.ajax({
+        url: "{{ route('comment.article') }}",
+        type: "POST",
+        data: {
+            _token: "{{ csrf_token() }}",
+            articleId: articleId,
+            comment: comment,
+        },
+        success: function (response) {
+            if (response.success) {
+              Toast.fire({
+                icon: "success",
+                text: response.message,
+                title: "Berhasil",
+                willOpen: () => {
+                  const title = document.querySelector('.swal2-title');
+                  const content = document.querySelector('.swal2-html-container');
+                  if (title) title.style.color = '#ffffff'; // Ubah warna judul
+                  if (content) content.style.color = '#ffffff'; // Ubah warna konten
+                }
+              }).then(function () {
+                window.refresh(); // Redirect ke halaman utama atau halaman lain
+              });
+            } else {
+                let errors = response.errors;
+                let errorMessages = response.message;
+                for (const key in errors) {
+                    if (errors.hasOwnProperty(key)) {
+                        errorMessages += errors[key][0] + "<br>";
+                    }
+                }
+                Swal.fire("Error", errorMessages, "error");
+            }
+        },
+        error: function (response) {
+            Swal.fire("Error", "Maaf, Coba Lagi", "error");
+        },
+    });
+  });
+</script>
 @endsection

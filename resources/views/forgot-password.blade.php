@@ -11,45 +11,40 @@
     <link rel="stylesheet" href="assets/vendors/sweetalert2/sweetalert2.min.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="stylesheet" href="assets/css/pages/auth.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+    rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{asset('template')}}/plugins/fontawesome-free/css/all.min.css">
 </head>
 
 <body>
-    <div id="auth">
-        <div class="auth-container">
-            <div class="auth-logo text-center">
-                <h4>Glamoire</h4>
-            </div>
-            <h1 class="auth-title">Forgot Password</h1>
-            <p class="auth-subtitle mb-5">Input your email and we will send you reset password link.</p>
-            <form action="index.html">
-                <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="email" class="form-control form-control-xl" placeholder="Email">
-                    <div class="form-control-icon">
-                        <i class="bi bi-envelope"></i>
-                    </div>
+    <div class="container py-8">
+        <div class="container-fluid d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+            <div class="">
+                <div class="auth-logo text-center">
+                    <h4 class="text-2xl md:text-2xl lg:text-3xl text-[#183018] mb-3">Glamoire</h4>
                 </div>
-                <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Send</button>
-            </form>
-            <div class="text-center mt-5 text-lg fs-4">
-                <p class='text-gray-600'>Remember your account? <a href="/login" class="font-bold">Log
-                        in</a>.
-                </p>
+                <h1 class="auth-title text-lg md:text-lg lg:text-xl">Lupa Kata Sandi</h1>
+                <p class="auth-subtitle text-lg md:text-lg lg:text-xl mb-3">Masukkan email akun anda, kami akan mengirimkan link ubah kata sandi</p>
+                <form action="{{ route('reset.password') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="token">
+                    <div class="form-group">
+                        <label for="password">Password Baru</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password baru" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password_confirmation">Konfirmasi Password Baru</label>
+                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi password baru" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ubah Password</button>
+                </form>
             </div>
-
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @if ($errors->any())
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: '{{ $errors->first() }}',
-                confirmButtonText: 'OK'
-            });
-        </script>
-    @endif
 </body>
 
 
