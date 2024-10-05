@@ -26,32 +26,36 @@
         <div id="main">
             <div class="page-heading">
                 <div class="page-title">
-
-
-                    <div class="row mb-3">
-                        <div class="col-12 col-md-6 order-md-1 order-last">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
                             <h3>Shipping Fee Data</h3>
-                            <nav aria-label="breadcrumb" class="breadcrumb-header me-3">
+                        </div>
+                        <div class="col-12 col-md-6 d-flex justify-content-md-end align-items-center">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header" style="margin-bottom: 20px;">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Shipping Fee</a></li>
+                                    <li class="breadcrumb-item"><a href="/shipping-fee">Shipping Fee</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">All Shipping Fee</li>
                                 </ol>
                             </nav>
                         </div>
-                        <div
-                            class="col-12 col-md-6 d-flex justify-content-md-end align-items-center order-md-2 order-first">
-                            <a href="/create-shipping-fee" type="submit"
-                                class="btn btn-sm btn-dark d-flex align-items-center" style="border-radius: 8px;">
-                                <i class="bi bi-plus-circle" style="margin-right: 3px;"></i> Add Shipping
-                            </a>
-                        </div>
-
                     </div>
+
                 </div>
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Shipping</h4>
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <h4>List Shipping Fee</h4>
+                                </div>
+                                <div class="col-12 col-md-6 d-flex justify-content-md-end align-items-center">
+                                    <a href="/create-shipping-fee" type="submit"
+                                        class="btn btn-sm btn-primary d-flex align-items-center"
+                                        style="border-radius: 8px;">
+                                        <i class="bi bi-plus-circle" style="margin-right: 3px;"></i> Add Shipping
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <table class="table" id="table1">

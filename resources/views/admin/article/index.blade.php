@@ -25,39 +25,43 @@
 
         <div id="main">
             <div class="page-heading">
-                <div class="page-title" style="margin-bottom: 20px;">
+                <div class="page-title">
                     <div class="row">
-                        <div class="col-12 col-md-6 order-md-1 order-last">
+                        <div class="col-12 col-md-6">
                             <h3>All Article</h3>
-                            <nav aria-label="breadcrumb" class="breadcrumb-header me-3">
+                        </div>
+                        <div class="col-12 col-md-6 d-flex justify-content-md-end align-items-center">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header" style="margin-bottom: 20px;">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Article</a></li>
+                                    <li class="breadcrumb-item"><a href="/article-admin">Article</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">All Article</li>
                                 </ol>
                             </nav>
                         </div>
-                        <div
-                            class="col-12 col-md-6 d-flex justify-content-md-end align-items-center order-md-2 order-first">
-                            <a href="/category-article" type="button"
-                                class="btn btn-sm btn-dark d-flex align-items-center"
-                                style="border-radius: 8px; margin-right: 10px;">
-                                <i class="bi bi-box-arrow-in-right" style="margin-right: 3px;"></i>Category
-                            </a>
-
-                            <a href="/create-article-admin" type="button"
-                                class="btn btn-sm btn-primary d-flex align-items-center" style="border-radius: 8px;">
-                                <i class="bi bi-plus-circle" style="margin-right: 3px;"></i>Add Article
-                            </a>
-                        </div>
-
-
                     </div>
                 </div>
 
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Categories</h4>
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <h4>List Article</h4>
+                                </div>
+                                <div class="col-12 col-md-6 d-flex justify-content-md-end align-items-center">
+                                    <a href="/category-article" type="button"
+                                        class="btn btn-sm btn-dark d-flex align-items-center"
+                                        style="border-radius: 8px; margin-right: 10px;">
+                                        <i class="bi bi-box-arrow-in-right" style="margin-right: 3px;"></i>Category
+                                    </a>
+
+                                    <a href="/create-article-admin" type="button"
+                                        class="btn btn-sm btn-primary d-flex align-items-center"
+                                        style="border-radius: 8px;">
+                                        <i class="bi bi-plus-circle" style="margin-right: 3px;"></i>Add Article
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <table class="table" id="table1">
@@ -78,12 +82,12 @@
                                             </td>
                                             <td>
                                                 <a href="{{ url('/review-article-admin/' . $item->id) }}"> <span
-                                                        class="badge bg-info"><i class="bi bi-box-arrow-in-up-right" style="margin-right: 3px;"></i>Review</span>
+                                                        class="badge bg-info"><i class="bi bi-box-arrow-in-up-right"
+                                                            style="margin-right: 3px;"></i>Review</span>
                                                 </a>
-                                                {{-- <a href="{{ url('/detail-brand/' . $brand->id) }}" --}}
-
-                                                <a href="/edit-article-admin"> <span
-                                                        class="badge bg-warning"><i class="bi bi-pencil" style="margin-right: 3px;"></i>Edit</span>
+                                                <a href="/edit-article-admin"> <span class="badge bg-warning"><i
+                                                            class="bi bi-pencil"
+                                                            style="margin-right: 3px;"></i>Edit</span>
                                                 </a>
                                             </td>
                                         </tr>
@@ -142,17 +146,8 @@
             </div>
 
 
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="http://ahmadsaugi.com">A. Saugi</a></p>
-                    </div>
-                </div>
-            </footer>
+            @include('admin.layouts.footer')
+
         </div>
     </div>
 
@@ -184,7 +179,6 @@
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="assets/vendors/apexcharts/apexcharts.js"></script>
     <script src="assets/js/pages/dashboard.js"></script>
 
     <script src="assets/js/main.js"></script>

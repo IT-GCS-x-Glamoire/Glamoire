@@ -25,18 +25,19 @@
 
         <div id="main">
             <div class="page-heading">
-                <div class="page-title">
-                    <div class="row mb-3">
-                        <div class="col-12 col-md-6 order-md-1 order-last">
+                <div class="page-title">                    
+                    <div class="row">
+                        <div class="col-12 col-md-6">
                             <h3>All User</h3>
-                            <nav aria-label="breadcrumb" class="breadcrumb-header me-3">
+                        </div>
+                        <div class="col-12 col-md-6 d-flex justify-content-md-end align-items-center">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header" style="margin-bottom: 20px;">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="index.html">User</a></li>
+                                    <li class="breadcrumb-item"><a href="/user-admin">User</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">All User</li>
                                 </ol>
                             </nav>
                         </div>
-
                     </div>
                 </div>
                 <section class="section">
@@ -48,52 +49,29 @@
                             <table class="table" id="table1">
                                 <thead>
                                     <tr>
-                                        <th>User Name</th>
+                                        {{-- <th>User Name</th> --}}
                                         <th>Full Name</th>
-                                        <th>Date</th>
                                         <th>Email</th>
-                                        <th>Phone</th>                                      
+                                        <th>Phone</th>
+                                        <th>Registered at</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Graiden</td>
-                                        <td>vehicula.co.uk</td>
-                                        <td>076 4820 8838</td>                                        
-                                        <td>
-                                            <span class="badge bg-light-success">Success</span>
-                                        </td>
-                                        <td>Offenburg</td>
-                                        <td><a href="/user-detail"> <span class="badge bg-warning">View</span>
-                                            </a></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Emmanuel</td>
-                                        <td>eget.lacus.org</td>
-                                        <td>(016977) 8208</td>
-                                        <td>Saint-Rem</td>
-                                        <td>
-                                            <span class="badge bg-light-primary">Delivered</span>
-                                        </td>
-                                        <td><a href="/user-detail"> <span class="badge bg-warning">View</span>
-                                            </a></td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td>Emmanuel</td>
-                                        <td>eget.lacus.org</td>
-                                        <td>(016977) 8208</td>
-                                        <td>Saint-Rem</td>
-                                        <td>
-                                            <span class="badge bg-light-danger">canceled</span>
-                                        </td>
-                                        <td><a href="/user-detail"> <span class="badge bg-warning">View</span>
-                                            </a></td>
-
-                                    </tr>
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            {{-- <td>{{ $user->name }}</td> --}}
+                                            <td>{{ $user->fullname }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->handphone }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($user->date)->translatedFormat('d F Y') }}</td>
+                                            <td>
+                                                <a href="/user-detail/{{ $user->id }}">
+                                                    <span class="badge bg-warning">View</span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class File extends Model
 {
     use HasFactory;
-
+    protected $table = 'file_partner';  // Tambahkan baris ini
     protected $fillable = [
         'id',
         'file_name',
@@ -17,4 +17,5 @@ class File extends Model
         'created_at',
         'updated_at',
     ];
+    
 }

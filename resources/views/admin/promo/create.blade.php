@@ -307,7 +307,7 @@
                                                             @endif
                                                         </div>
 
-                                                        <div class="col-lg-12" style="margin-bottom: 20px;">
+                                                        {{-- <div class="col-lg-12" style="margin-bottom: 20px;">
                                                             <div class="mb-2">
                                                                 <label for="first-name-icon">Pilih Produk <span
                                                                         style="color: red">*</span></label>
@@ -328,17 +328,18 @@
                                                                                     value="{{ $product->id }}">
                                                                             </td>
                                                                             <td>
-                                                                                <img src="{{ asset($product->main_image) }}"
-                                                                                    loading="lazy" class="lazyload"
-                                                                                    alt="Product Image"
-                                                                                    style="width: 44px; height: 44px; border-radius: 8px; object-fit: cover;">
+                                                                                <img src="{{ Storage::url($product->main_image) }}" alt="Product Image"
+                                                                                class="lazyload"
+                                                                                style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;"
+                                                                                onclick="openImageInNewTab('{{ Storage::url($product->main_image) }}')">
+                        
                                                                                 {{ $product->product_name }}
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach
                                                                 </tbody>
                                                             </table>
-                                                        </div>
+                                                        </div> --}}
                                                     </div>
 
                                                     <div class="col-md-6">
@@ -404,6 +405,45 @@
                                                         </div>
                                                     </div>
 
+                                                    <div class="col-lg-12" style="margin-bottom: 20px;">
+                                                        <div class="mb-2">
+                                                            <label for="first-name-icon">Pilih Produk <span
+                                                                    style="color: red">*</span></label>
+                                                        </div>
+                                                        <table class="table" id="table1">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>✔</th>
+                                                                    <th>Product</th>
+                                                                    <th>Stock</th>
+                                                                    <th>Price</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach ($products as $product)
+                                                                    <tr>
+                                                                        <td>
+                                                                            <input type="checkbox"
+                                                                                name="product_ids[]"
+                                                                                value="{{ $product->id }}">
+                                                                        </td>
+                                                                        <td>
+                                                                            <img src="{{ Storage::url($product->main_image) }}"
+                                                                                loading="lazy" class="lazyload"
+                                                                                alt="Product Image"
+                                                                                style="width: 44px; height: 44px; border-radius: 8px; object-fit: cover;">
+                                                                            {{ $product->product_name }}
+                                                                        </td>
+                                                                        <td>{{ $product->stock_quantity }}</td>
+                                                                        <td>Rp.
+                                                                            {{ number_format($product->regular_price, 0, ',', '.') }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
                                                     <div class="col-12 d-flex justify-content-end">
                                                         <button type="submit"
                                                             class="btn btn-sm btn-primary me-1 mb-1"
@@ -424,17 +464,8 @@
                 </section>
             </div>
 
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="http://ahmadsaugi.com">A. Saugi</a></p>
-                    </div>
-                </div>
-            </footer>
+            @include('admin.layouts.footer')
+
         </div>
     </div>
 

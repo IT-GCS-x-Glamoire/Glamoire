@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Subscribe extends Model
 {
     use HasFactory;
+    protected $table = 'subscribe';  // Tambahkan baris ini
 
     protected $fillable = [
         'id',

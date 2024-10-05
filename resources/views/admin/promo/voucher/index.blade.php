@@ -65,11 +65,9 @@
                             <table class="table" id="table1">
                                 <thead>
                                     <tr>
-                                        <th>Banner</th>
-                                        <th>Promo</th>
-                                        <th>Type</th>
-                                        <th>Start Date Promo</th>
-                                        <th>End Date Promo</th>
+                                        <th>Voucher</th>
+                                        <th>Periode</th>
+                                        <th>Kode</th>
                                         <th>Diskon</th>
                                         <th>Action</th>
                                     </tr>
@@ -84,11 +82,9 @@
                                                     onclick="openImageInNewTab('{{ asset($item->image) }}')">
                                             </td>
                                             <td>{{ $item->promo_name }}</td>
-                                            <td>{{ $item->type }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d F Y') }}
-                                            </td>
-                                            <td>{{ \Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y') }}
-                                            </td>
+                                            <td>{{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d F Y') }} - {{ \Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y') }}
+                                            </td>    
+                                            <td>{{ $item->promo_code }}</td>                                      
                                             <td>{{ $item->diskon }}</td>
                                             <td class="action-buttons">
                                                 <a href="{{ url('detail-promo/' . $item->id) }}">
@@ -108,17 +104,8 @@
                 </section>
 
             </div>
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="http://ahmadsaugi.com">A. Saugi</a></p>
-                    </div>
-                </div>
-            </footer>
+            @include('admin.layouts.footer')
+
         </div>
     </div>
 

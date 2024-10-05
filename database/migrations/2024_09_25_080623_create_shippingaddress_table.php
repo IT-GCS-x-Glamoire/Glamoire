@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shipping_addresses', function (Blueprint $table) {
+        Schema::create('shippingaddress', function (Blueprint $table) {
             $table->id();
             $table->uuid('user_id');
             $table->string('label');
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('shippingaddress');
     }
 };

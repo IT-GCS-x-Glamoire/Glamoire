@@ -13,15 +13,16 @@ return new class extends Migration
     {
         Schema::create('product_variations', function (Blueprint $table) {
             $table->id();
-            $table->string('product_code')->nullable(); 
-            $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('color');
-            $table->string('size')->nullable(); 
-            $table->integer('stock_quantity'); 
-            $table->bigInteger('price');
-            $table->text('main_image');
-            $table->text('images')->nullable();
+            $table->string('sku')->unique(); // Menambahkan kolom SKU
+            $table->string('variant_type');
+            $table->string('variant_value');
+            $table->text('use_variant_image')->nullable();
+            $table->text('variant_image')->nullable(); // Untuk menyimpan gambar varian jika diperlukan
+            $table->string('variant_stock');
+            $table->bigInteger('variant_price');
+            $table->string('weight_variant')->nullable();
             $table->timestamps();
         });
     }

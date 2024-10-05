@@ -6,6 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
 
 class UserSeeder extends Seeder
 {
@@ -16,6 +18,7 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
+                'id' => Str::uuid(), // Generate UUID
                 'name' => 'superadmin',
                 'email' => 'superadmin@example.com',
                 'email_verified_at' => now(),
@@ -26,6 +29,7 @@ class UserSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'id' => Str::uuid(), // Generate UUID
                 'name' => 'admin',
                 'email' => 'admin@example.com',
                 'email_verified_at' => now(),
@@ -37,6 +41,7 @@ class UserSeeder extends Seeder
             ],
             // Add more users if needed
             [
+                'id' => Str::uuid(), // Generate UUID
                 'name' => 'accounting',
                 'email' => 'accounting@example.com',
                 'email_verified_at' => now(),
@@ -47,6 +52,7 @@ class UserSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'id' => Str::uuid(), // Generate UUID
                 'name' => 'admingudang',
                 'email' => 'user@example.com',
                 'email_verified_at' => now(),

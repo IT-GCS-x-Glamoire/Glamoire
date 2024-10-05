@@ -161,11 +161,11 @@
 
                                                     <div class="col-12 d-flex justify-content-end">
                                                         <button type="submit"
-                                                            class="btn btn-sm btn-primary me-1 mb-1"
+                                                            class="btn btn-primary me-1 mb-1"
                                                             style="border-radius: 8px;">Submit</button>
-                                                        <button type="reset"
+                                                        {{-- <button type="reset"
                                                             class="btn btn-sm btn-light-secondary me-1 mb-1"
-                                                            style="border-radius: 8px;">Reset</button>
+                                                            style="border-radius: 8px;">Reset</button> --}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -178,17 +178,8 @@
                 </section>
             </div>
 
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="http://ahmadsaugi.com">A. Saugi</a></p>
-                    </div>
-                </div>
-            </footer>
+            @include('admin.layouts.footer')
+
             
         </div>
     </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AffiliateController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthenticateController;
 use App\Http\Controllers\BrandController;
@@ -7,18 +8,19 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChartofAccountController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PromoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactusController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SubscribeController;
 
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login.user');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout.user');
+Route::post('/register', [AuthController::class, 'register'])->name('register.user');
 Route::post('/check-email', [AuthController::class, 'checkEmail'])->name('check.email');
 Route::post('/check-email-subscribe', [FormController::class, 'checkEmailSubscribe'])->name('check.email.subscribe');
 Route::post('/check-email-voucher', [FormController::class, 'checkEmailVoucher'])->name('check.email.voucher');
@@ -115,6 +117,8 @@ Route::get('/terms', function () {
     return view('user.component.terms');
 });
 
+
+// ADMIN PAGE
 Route::get('/error-403', function () {
     return view('error-403');
 })->name('error-403');
@@ -129,6 +133,7 @@ Route::get('/forgot-password', [AuthenticateController::class, 'forgotPassword']
 Route::middleware('auth')->get('/dashboard', [DashboardController::class, 'indexDashboard'])->name('dashboard');
 
 Route::middleware(['auth', 'role:admin,superadmin'])->group(function () {
+    Route::get('/dashboard/get-sales-data', [DashboardController::class, 'getSalesData']);
 
     // product
     Route::get('/product-admin', [ProductController::class, 'indexProductAdmin'])->name('index-product-admin');
@@ -196,36 +201,42 @@ Route::middleware(['auth', 'role:admin,superadmin'])->group(function () {
     Route::get('/create-promo-ongkir', [PromoController::class, 'createPromoOngkir'])->name('create-promo-ongkir');
     Route::post('/create-promo-ongkir', [PromoController::class, 'storePromoOngkir'])->name('store-promo-ongkir');
     
+    Route::get('/promo-diskon', [PromoController::class, 'indexPromoDiskon'])->name('index-promo-diskon');
+    Route::get('/create-promo-diskon', [PromoController::class, 'createPromoDiskon'])->name('create-promo-diskon');
+    Route::post('/create-promo-diskon', [PromoController::class, 'storePromoDiskon'])->name('store-promo-diskon');
+    
     Route::get('/detail-promo/{id}', [PromoController::class, 'detailPromo'])->name('detail-promo');
     Route::put('/update/promo/{id}', [PromoController::class, 'updatePromo'])->name('update-promo');
     
     Route::delete('/delete-promo/{id}', [PromoController::class, 'deletePromo'])->name('delete-promo');
 
     // AFFILIATE
-    Route::get('/affiliate-admin', function () {
-        return view('admin.affiliate.index');
-    });
+    Route::get('/affiliate-admin', [AffiliateController::class, 'indexAffiliateAdmin'])->name('index-affiliate-admin');
+    Route::get('/detail-affiliate-admin/{id}', [AffiliateController::class, 'detailAffiliateAdmin'])->name('detail-affiliate-admin');
 
     Route::get('/chat-admin', function () {
         return view('admin.chat.index');
     });
 
     // user detail
-    Route::get('/user', function () {
-        return view('admin.user.index');
-    });
-
-    Route::get('/user-detail', function () {
-        return view('admin.user.detail');
-    });
+    Route::get('/user-admin', [UserController::class, 'indexUserAdmin'])->name('index-user-admin');
+    Route::get('/user-admin-detail', [UserController::class, 'detailUserAdmin'])->name('detail-user-admin');
 
     // shipping fee
     Route::get('/shipping-fee', function () {
         return view('admin.shippingfee.index');
     });
+
     Route::get('/create-shipping-fee', function () {
         return view('admin.shippingfee.create');
     });
+    
+    Route::get('/contact-us-admin', [ContactusController::class, 'indexContactusAdmin'])->name('index-contactus-admin');
+    Route::get('/contact-us-admin/{id}', [ContactusController::class, 'showContactusAdmin'])->name('show-contactus-admin');
+
+    Route::get('/subscribe-admin', [SubscribeController::class, 'indexSubscribeAdmin'])->name('index-subscribe-admin');
+
+
 });
 
 

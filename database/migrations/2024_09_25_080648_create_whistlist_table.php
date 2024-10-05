@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('whistlist', function (Blueprint $table) {
             $table->id();
-            $table->string('file_name');
-            $table->string('file_path');
-            $table->string('type');
+            $table->uuid('user_id');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('whistlist');
     }
 };

@@ -25,10 +25,11 @@ return new class extends Migration
             $table->string('color')->nullable(); 
             $table->string('color_text')->nullable(); 
             $table->string('weight_product')->nullable();
+            $table->text('dimensions')->nullable();  // Menggunakan JSON
             $table->bigInteger('regular_price');
             $table->text('main_image');
             $table->text('images')->nullable();
-            $table->text('video')->nullable(); // Menambahkan kolom video setelah kolom images
+            $table->text('video')->nullable(); // Menambahkan kolom video setelah kolom images            
             $table->timestamps();
         });
     }
