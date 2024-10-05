@@ -16,6 +16,7 @@ class Cart_item extends Model
         'quantity',
         'price',
         'total',
+        'is_choose',
         'created_at',
         'updated_at',
     ];

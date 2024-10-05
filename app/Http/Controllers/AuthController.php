@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-
-use App\Models\User;
+use App\Mail\sendMailCodeNewUser;
 use App\Models\Role;
 use App\Models\Shipping_address;
-
+use App\Models\User;
+use App\Models\VoucherNewUser;
 use Exception;
+
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+
+
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -69,10 +74,57 @@ class AuthController extends Controller
                 'updated_at' => now(),
             ]);
 
-            return response()->json(['success' => true, 'message' => 'Registrasi Berhasil']);
+            event(new Registered($user));
+
+            $userLogin = User::where('email', $user->email)->first();
+    
+            if ($userLogin) {
+                // Email ditemukan, sekarang cek apakah password cocok
+                
+                // Increment: hitung jumlah voucher yang sudah ada dan tambah 1
+                $increment = VoucherNewUser::count() + 1;
+
+                // Ambil 4 karakter pertama dari ID user
+                $idFragment = substr($userLogin->id, 0, 4);
+
+                // Buat kode voucher sesuai format "increment-4hurufID"
+                $codeUser = "{$increment}-{$idFragment}";
+
+                VoucherNewUser::create([
+                    'code' => $codeUser,
+                    'user_id' => $userLogin->id,
+                    'is_use' => 0,
+                ]);
+
+                Auth::login($userLogin);
+
+
+                $data = [
+                    'code' => $codeUser,
+                    'fullname' => $userLogin->fullname,
+                ];
+                $email_target = $userLogin->email;
+                Mail::to($email_target)->send(new sendMailCodeNewUser($data));
+                
+                session()->put([
+                    'id_user' => $user['id'],
+                    'username' => $user['fullname'],
+                ]);
+
+                return response()->json([
+                    'success' => true, 
+                    'message' => 'Registrasi Berhasil, Silakan cek email Anda untuk verifikasi & Jangan lupa periksa voucher kamu'
+                ]);
+               
+            } else {
+                return response()->json(['error' => true, 'message' => 'Oops Email Gagal Didaftarkan']);
+            }
 
         } catch (Exception $err) {
-            dd($err);
+            return response()->json([
+                'error'   => true, 
+                'message' => $err->getMessage(), // Menangkap pesan error
+            ]); // Mengembalikan status 500 untuk menandakan error server
         }
     }
 
@@ -88,6 +140,16 @@ class AuthController extends Controller
         $handphoneExists = User::where('handphone', $request->handphone)->exists();
         
         return response()->json(['exists' => $handphoneExists]);
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if (!$user->hasVerifiedEmail()) {
+            Auth::logout();
+            return redirect('/email/verify')->with('warning', 'Verifikasi email Anda terlebih dahulu.');
+        }
+
+        return redirect()->intended('/');
     }
 
     public function logout(Request $request)

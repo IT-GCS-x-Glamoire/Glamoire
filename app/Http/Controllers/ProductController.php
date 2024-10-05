@@ -6,13 +6,86 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\CategoryProduct;
 use App\Models\Product;
+use App\Models\Partner;
 use App\Models\ProductVariations;
+use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
+    public function index(){
+        try {
+            $userId = session('id_user');
+
+            if ($userId) {
+                $data = User::with(['wishlist'])
+                    ->where('id', $userId)
+                    ->first();
+
+                    // dd($data);
+                return view('user.component.home')->with('data', $data);
+            }
+            else {
+                return view('user.component.home');
+            }
+
+            // dd($data->whislist);
+            // dd(count($data->whislist));
+
+
+        } catch (Exception $err) {
+            dd($err);
+        }
+    }
+
+    public function detail($id){
+        try {
+
+            $data = $id;
+
+            return view('user.component.detail')->with('data', $data);
+
+        } catch (Exception $err) {
+            dd($err);
+        }
+    }
+
+    public function search(Request $request)
+    {
+        // dd($request);
+        $product_search = $request->product_search; // Get the search query
+        
+        $products = Partner::where('fullname', 'like', '%' . $product_search . '%')->get(); // Search products
+        // dd($query);
+        
+        if(count($products) !== 0){
+            $products = Partner::where('fullname', 'like', '%' . $query . '%')->get(); // Search products
+            $products = [
+                'product' => 0,
+                'keyword' => $query,
+                'count'   => count($products),
+            ];
+
+            return view('user.component.search')->with('data', $products); // Return results to a view
+        }
+        else {
+            $products = [
+                'product' => 0,
+                'keyword' => $product_search,
+                'count'   => 0,
+                'brand'   => $request->brand,
+                'min_price' => $request->min_price,
+                'max_price' => $request->max_price,
+                'rating' => $request->rating,
+            ];
+
+            return view('user.component.search')->with('data', $products);
+        }
+    }
+
     // START PRODUCT
     public function indexProductAdmin()
     {

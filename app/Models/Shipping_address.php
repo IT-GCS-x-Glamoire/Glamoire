@@ -8,12 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Shipping_address extends Model
 {
     use HasFactory;
-
-    // Nonaktifkan auto-increment jika id adalah UUID
-    public $incrementing = false;
-    protected $keyType = 'string';
-
-    // Tentukan kolom yang bisa diisi secara massal
+    
     protected $fillable = [
         'user_id',
         'label',

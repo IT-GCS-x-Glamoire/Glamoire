@@ -25,7 +25,8 @@ class FormController extends Controller
         return response()->json(['exists' => $emailExists]);
     }
 
-    public function sendQuestion(Request $request){
+    public function sendQuestion(Request $request)
+    {
         try { 
             $question = Question::create([
                 'fullname'   => $request->fullname,
@@ -45,7 +46,8 @@ class FormController extends Controller
         }
     }
 
-    public function files(Request $request){
+    public function files(Request $request)
+    {
         try {
             if ($request->hasFile('file_company')) {
                 // Simpan file ke direktori penyimpanan
@@ -92,6 +94,18 @@ class FormController extends Controller
             session()->flash('send_success');
             return redirect()->back()->with('success', 'File berhasil diupload');
 
+        } catch (Exception $err) {
+            dd($err);
+        }
+    }
+
+    public function comment(Request $request)
+    {
+        try {
+            return response()->json([
+                'success' => true, 
+                'message' => 'Komentar Berhasil Ditambahkan'
+            ]);
         } catch (Exception $err) {
             dd($err);
         }
