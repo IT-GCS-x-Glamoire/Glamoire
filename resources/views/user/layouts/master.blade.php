@@ -68,7 +68,7 @@
                 <img src="images/l-1.png" alt="logo glamoire" class="w-1/4">
               </div>
               
-              <form class="px-0 px-md-4 grid" id="register-form">
+              <form class="px-0 px-md-4 grid" id="register-user-form">
                 @csrf
                 <div class="col-12 mb-2">
                   <div>
@@ -117,21 +117,22 @@
                     </div>
                   </div>
                 </div>
-              </form>
-              <div class="col-12">
-                <!-- Button with improved hover effect -->
-                <button 
-                  class="btn btn-light w-full rounded-lg text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]" 
-                  type="submit" 
-                  id="register">
-                  Buat Akun
-                </button>
-                <div class="grid">
-                  <p class="text-white text-center py-4 font-light text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]">Sudah Memiliki Akun ? 
-                    <a href="#" class="ml-1 text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]" data-bs-toggle="modal" data-bs-target="#login" data-bs-dismiss="modal">Masuk Sekarang</a>
-                  </p>
+                <div class="col-12">
+                  <!-- Button with improved hover effect -->
+                  <button 
+                    class="btn btn-light w-full rounded-lg text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]" 
+                    type="submit" 
+                    id="register">
+                    Buat Akun
+                  </button>
+                  <div class="grid">
+                    <p class="text-white text-center py-4 font-light text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]">Sudah Memiliki Akun ? 
+                      <a href="#" class="ml-1 text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]" data-bs-toggle="modal" data-bs-target="#login" data-bs-dismiss="modal">Masuk Sekarang</a>
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </form>
+              
             </div>
           </div>
 
@@ -301,7 +302,6 @@
     </script>
     <!--  -->
 
-     
 
     <!-- UNTUK MENGATUR SWIPER CARD PADA HALAMAN DETAIL PRODUCT -->
     <script>
@@ -558,6 +558,9 @@
         e.preventDefault();
 
         let fullname = $("#register_fullname").val();
+
+        console.log(fullname);
+
         let email = $("#register_email").val();
         let password = $("#register_password").val();
         let handphone = $("#register_handphone").val();
@@ -638,8 +641,6 @@
                 Swal.close();
                 let errorMessage = "";
                 
-                
-
                 if (response.responseJSON) {
                     if (response.responseJSON.message) {
                         errorMessage = response.responseJSON.message; // Pesan error dari Laravel
@@ -673,8 +674,6 @@
                         if (content) content.style.color = '#ffffff'; // Ubah warna konten
                     }
                 });
-                
-                
             },
         });
       });
@@ -687,6 +686,8 @@
 
         let email = $("#login_email").val();
         let password = $("#login_password").val();
+
+        console.log(email);
 
         Swal.fire({
           title: "Sedang Mengakses Akunmu",
@@ -1030,6 +1031,8 @@
           });
       });
     </script>
+
+    
 
     @if (session('register_or_login_first'))
       <script>

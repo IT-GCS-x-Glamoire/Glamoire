@@ -175,4 +175,16 @@ class BrandController extends Controller
             'message' => 'Brand deleted successfully.'
         ]);
     }
+
+    // AKSES USER 
+    public function brands($name){
+        $brand = Brand::where('name', $name)
+        ->with(['products'])
+        ->get();
+        
+        // dd($brand);
+        return view('user.component.brand', [
+            'brands' => $brand
+        ]);
+    }
 }

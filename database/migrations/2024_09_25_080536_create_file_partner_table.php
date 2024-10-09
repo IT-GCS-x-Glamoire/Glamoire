@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('file_partner', function (Blueprint $table) {
+        Schema::create('file_partners', function (Blueprint $table) {
             $table->id();
             $table->string('file_name');
             $table->string('file_path');

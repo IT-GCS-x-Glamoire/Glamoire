@@ -8,7 +8,7 @@
             <div class="d-flex gap-2 pl-2">
                 <a href="/home" class="text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Beranda</a>
                 <p class="text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
-                <a href="#" class="text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Checkout</a>
+                <a href="#" class="text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Pembayaran</a>
             </div>
         </div>
     </div>
@@ -151,7 +151,7 @@
                 </div>
             </div>
 
-            <div class="col-12 p-0 md:shadow-md md:rounded p-md-3 py-2 py-md-0 border-bottom border-top md:border-none">
+            <!-- <div class="col-12 p-0 md:shadow-md md:rounded p-md-3 py-2 py-md-0 border-bottom border-top md:border-none">
                 <h1 class="font-semibold text-black text-[12px] md:text-[12px] lg:text-[14px] xl:text-[16px] mb-2">Metode Pembayaran</h1>
                 <div class="grid gap-md-2 mb-md-2">
                     <div class="col-sm-10">
@@ -172,44 +172,54 @@
                                 
                     </div>
                 </div>
-            </div>
+            </div> -->
     
-            @foreach ($data['product'] as $product)
+            @foreach ($data['product'] as $cart => $product)
                 <div class="col-12 p-0 py-1 py-md-0 md:shadow-md md:border border-bottom border-top md:rounded p-md-3">
                     <div class="grid mb-2">
-                        <h1 class="text-black font-semibold text-[12px] md:text-[12px] lg:text-[14px] xl:text-[16px] mb-1 mb-md-2">Produk - {{ $product->product_id }}</h1>
+                        <h1 class="text-black font-semibold text-[12px] md:text-[12px] lg:text-[14px] xl:text-[16px] mb-1 mb-md-2">Produk - {{ $cart + 1 }}</h1>
                     </div>  
     
                     <div class="flex">
                         <div class="w-[70px] h-[70px] w-md-[110px] h-md-[110px]">
-                            <img src="images/produk1.png" alt="gambar produk" class="rounded-md border border-[]">
+                            <img src="{{ Storage::url($product->product->main_image) }}" alt="gambar produk" class="rounded-md border border-[#183018]">
                         </div>
                         <div class="col p-0">
                             <div class="grid lg:flex">
                                 <div class="col-lg-8 mb-2 mb-md-0">
                                     <div class="d-flex col-12 gap-1 gap-md-2 mb-2 p-0 h-[20px] h-md-[20px]">
-                                        <img class="rounded-sm" src="images/l-1.png" alt="logo brand" style="background-color:#183018">
-                                        <p class="font-semibold text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Glamoire</p>
+                                        <img class="rounded-sm" src="{{ Storage::url($product->product->brand->brand_logo)}}" alt="logo brand" style="background-color:#183018">
+                                        <p class="font-semibold text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">{{ $product->product->brand->name }}</p>
                                     </div>
-                                    <p class="text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px] mb-2">Nama Produk {{ $product->product_id }}</p>
+                                    <p class="text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px] mb-2">{{ $product->product->product_name }}</p>
                                     <div class="d-flex gap-1 font-semibold">
-                                        <p class="text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
-                                        <input type="number" id="amountProduct" value="{{$product->price}}" hidden>
+                                        <p class="text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Rp{{ number_format($product->product->regular_price, 0, ',', '.') }}</p>
+                                        <input type="number" id="amountProduct" value="{{$product->product->regular_price}}" hidden>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 p-lg-0 d-flex flex-column">
                                     <div class="d-flex mt-auto bottom">
                                         <div class="d-flex ml-md-auto">
-                                            <div class="input-group quantity rounded-sm shadow-sm max-w-[115px]">
+                                            <div class="input-group quantity-detail-produk rounded-sm shadow-sm" style="width: 130px;">
                                                 <div class="input-group-btn">
-                                                    <button class="btn btn-minus" data-id="{{$product->product_id}}" data-quantity="{{$product->quantity}}" style="height: 32px; width: 32px; display: flex; justify-content: center; align-items: center;" id="minus-btn-product-cart">
-                                                        <i class="fa fa-minus text-[8px] md:text-[12px] lg:text-[12px] xl:text-[12px]"></i>
+                                                    <button class="btn btn-minus" data-id="{{$product->product_id}}" data-quantity="{{$product->product->stock_quantity}}" style="height: 32px; width: 32px; display: flex; justify-content: center; align-items: center;" id="minus-btn-product-cart-{{$product->product_id}}">
+                                                        <i class="fa fa-minus text-xs"></i>
                                                     </button>
                                                 </div>
-                                                <input type="text" name="total_product_buy_now" class="text-[12px] form-control bg-secondary text-center" id="product-quantity-{{ $product->product_id }}" value="{{ $product->quantity }}">
+
+                                                <input type="number" 
+                                                    id="product-quantity-{{ $product->product->id }}" 
+                                                    value="{{ $product->quantity }}"
+                                                    name="total_product_buy_now"
+                                                    class="text-xs form-control bg-secondary text-center" 
+                                                    min="1" 
+                                                    max="{{ $product->product->stock_quantity}}" 
+                                                    oninput="validateInput(this, {{ $product->product->stock_quantity }})">
+
+                                                    
                                                 <div class="input-group-btn">
-                                                    <button class="btn btn-plus" data-id="{{$product->product_id}}" data-quantity="{{$product->quantity}}" style="height: 32px; width: 32px; display: flex; justify-content: center; align-items: center;" id="plus-btn-product-cart">
-                                                        <i class="fa fa-plus text-[8px] md:text-[12px] lg:text-[12px] xl:text-[12px]"></i>
+                                                    <button class="btn btn-plus" data-id="{{$product->product_id}}" data-quantity="{{$product->product->stock_quantity}}" style="height: 32px; width: 32px; display: flex; justify-content: center; align-items: center;" id="plus-btn-product-cart-{{$product->product_id}}">
+                                                        <i class="fa fa-plus text-xs"></i>
                                                     </button>
                                                 </div>
                                             </div>
@@ -231,33 +241,41 @@
                     <div class="grid">
                         <div class="d-flex">
                             <p id="totalProductBuyNow" class="text-[10px] md:text-[8px] lg:text-[12px] xl:text-[14px]">Total Harga ({{ $data['totalProduct'] }} Barang)</p>
-                            <p id="totalPriceBuyNow" class="text-[10px] md:text-[8px] lg:text-[12px] xl:text-[14px] ml-auto"></p>
+                            <p id="totalPriceBuyNow" class="text-[10px] md:text-[8px] lg:text-[12px] xl:text-[14px] ml-auto">(Rp{{ number_format($data['totalPrice'], 0, ',', '.') }})</p>
                         </div>
-                        <div class="d-flex">
-                            <p class="text-[10px] md:text-[8px] lg:text-[12px] xl:text-[14px]">Diskon</p>
-                            <p class="text-[10px] md:text-[8px] lg:text-[12px] xl:text-[14px] ml-auto">-Rp30.000</p>
+                        <div class="d-none" id="discount-use">
+                            <p class="text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Diskon</p>
+                            <p class="text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px] ml-auto" id="discount"></p>
                         </div>
                         <div class="d-flex">
                             <p class="text-[10px] md:text-[8px] lg:text-[12px] xl:text-[14px]">Ongkos Kirim</p>
-                            <p class="text-[10px] md:text-[8px] lg:text-[12px] xl:text-[14px] ml-auto">Rp30.000</p>
+                            <p class="text-[10px] md:text-[8px] lg:text-[12px] xl:text-[14px] ml-auto">Rp20.000</p>
                         </div>
                     </div>
-                    <div class="d-flex py-2 border-bottom border-top align-items-center"">
-                        <p class="text-black text-[12px] md:text-[8px] lg:text-[12px] xl:text-[14px]">Total Belanja</p>
-                        <p class="text-black font-semibold text-[12px] md:text-[12px] lg:text-[16px] xl:text-[18px] ml-auto">Rp30.000</p>
+
+                    <div class="d-flex py-2 border-bottom border-top align-items-center">
+                        <p class="text-black text-[12px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Total Belanja</p>
+                        <p class="text-black font-semibold text-[12px] md:text-[12px] lg:text-[16px] xl:text-[18px] ml-auto" id="total-shopping"></p>
                     </div>
+
                     <div>
-                        <form action="" id="code-voucher-form" class="grid gap-2">
+                        <form  id="code-voucher-form" class="grid gap-2">
                             @csrf
-                            <div class="d-flex gap-1">
-                                <input type="text" class="form-control w-full rounded-md text-[10px] md:text-[8px] lg:text-[14px] xl:text-[16px]" id="code_voucher" placeholder="Masukkan kode promo">
-                                <button type="submit" id="button-code-voucher" class="btn border rounded-md w-fit text-white text-[10px] md:text-[7px] lg:text-[14px] xl:text-[16px] hover-shadow-md" style="background-color: #183018">
+                            <div class="relative flex gap-1 items-center">
+                                <input type="text" class="form-control pl-5 w-full rounded-md text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" id="code_voucher" name="code_voucher" placeholder="Masukkan kode promo">
+                                <div class="spinner-border text-[#183018] absolute" role="status" style="width:15px; height:15px;display:none;" id="voucher-spinner">
+                                    <span class="visually-hidden"></span>
+                                </div>
+                                <button type="submit" id="button-code-voucher" class="btn border rounded-md w-fit text-white text-[10px] md:text-[7px] lg:text-[12px] xl:text-[14px] hover-shadow-md" style="background-color: #183018" disabled>
                                     Pakai
                                 </button>
                             </div>
+                            <div id="validationVoucher" class="text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]" style="display: none;">
+                            </div>
                         </form>
                     </div>
-                    <button type="button" class="d-flex align-items-center btn btn-primary rounded-sm text-black text-[6px] md:text-[10px] lg:text-[12px] xl:text-[14px]" data-bs-toggle="modal" data-bs-target="#promo" style="background-color: #FFFFFF">
+
+                    <button type="button" class="d-flex align-items-center btn btn-primary rounded-sm text-black text-[6px] md:text-[10px] lg:text-[12px] xl:text-[14px]" data-bs-toggle="modal" data-bs-target="#promo" style="background-color: #FFFFFF" id="show-voucher">
                         <i class="fas fa-solid fa-tag mr-2"></i>
                         <p class="text-[10px] md:text-[8px] lg:text-[12px] xl:text-[14px]">Gunakan Promo</p>
                         <i class="fas fa-solid fa-arrow-right ml-auto"></i>
@@ -804,7 +822,26 @@
     // END API WILAYAH REGISTER
 </script>
 
-<!-- HANDLE QUANTITY -->
+<!-- HANDLE QUANTITY  -->
+<script>
+// Product Quantity
+$(".quantity button").on("click", function () {
+    var button = $(this);
+    var oldValue = button.parent().parent().find("input").val();
+    if (button.hasClass("btn-plus")) {
+        var newVal = parseFloat(oldValue) + 1;
+    } else {
+        if (oldValue > 1) {
+            var newVal = parseFloat(oldValue) - 1;
+        } else {
+            newVal = 1;
+        }
+    }
+    button.parent().parent().find("input").val(newVal);
+});
+</script>
+
+<!-- HANDLE QUANTITY IN DATABASE -->
 <script>
 $(document).ready(function() {
 
@@ -896,6 +933,150 @@ $(document).ready(function() {
     }
     });
 
+    $(".quantity-detail-produk button").on("click", function () {
+        var button = $(this);
+        var input = button.parent().parent().find("input");
+        var oldValue = parseFloat(input.val());
+        var maxQuantity = parseFloat(button.data("quantity")); // Ambil nilai max quantity dari data attribute
+        var newVal;
+
+        if (button.hasClass("btn-plus")) {
+            if (oldValue < maxQuantity) {
+                newVal = oldValue + 1;
+            } else {
+                newVal = maxQuantity; // Jika sudah mencapai maksimum, tetap pada max
+            }
+        } else {
+            newVal = (oldValue > 1) ? oldValue - 1 : 1;
+        }
+
+        // Set nilai baru ke input field
+        input.val(newVal);
+        
+        // Panggil checkMaxQuantity untuk memeriksa batas
+        checkMaxQuantity(input[0], maxQuantity);
+    });
+
+    // Fungsi untuk memeriksa apakah sudah mencapai max quantity
+    function checkMaxQuantity(input, maxQuantity) {
+        var value = parseFloat(input.value);
+        var warningElement = document.getElementById("quantity-warning-" + input.id.split('-').pop());
+        var plusButton = document.getElementById("plus-btn-product-cart-" + input.id.split('-').pop());
+
+        if (value > maxQuantity) {
+            plusButton.disabled = true; // Disable tombol plus ketika sudah mencapai stok maksimum
+            if (warningElement) {
+                warningElement.innerText = "Batas untuk pembelian produk terpenuhi";
+            }
+        } else {
+            plusButton.disabled = false; // Enable tombol plus jika belum mencapai stok maksimum
+            if (warningElement) {
+                warningElement.innerText = "";
+            }
+        }
+    }
+
+    function validateInput(input, maxQuantity) {
+        var value = parseFloat(input.value);
+
+        if (value > maxQuantity) {
+            input.value = maxQuantity; // Jangan biarkan lebih dari stok
+        } else if (value < 1) {
+            input.value = 1; // Jangan biarkan di bawah 1
+        }
+        checkMaxQuantity(input, maxQuantity); // Update status tombol
+    }
+
+</script>
+
+<!-- CHECK KODE VOUCHER TERSEDIA ATAU TIDAK -->
+<script>
+     $('#code_voucher').on('keyup', function () {
+        var code = $(this).val();
+        if (code) {
+            $.ajax({
+                url: "{{ route('check.code.voucher') }}",
+                method: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    code: code
+                },
+                beforeSend: function() {
+                    // Tampilkan spinner sebelum request dimulai
+                    $('.spinner-border').show();
+                },
+                success: function (response) {
+                    if (response.exists) {
+                        $('#validationVoucher').text('Kode Voucher Tersedia').addClass('text-red-900').show();
+                        $('#button-code-voucher').prop('disabled', false);
+                    } else {
+                        $('#validationVoucher').text('Kode Voucher Tidak Tersedia').addClass('text-red-900').show();
+                        $('#button-code-voucher').prop('disabled', true);
+                    }
+                },
+                complete: function() {
+                    // Sembunyikan spinner setelah request selesai
+                    $('.spinner-border').hide();
+                },
+                error: function() {
+                    console.log(error);
+                    // Jika ada error, tetap sembunyikan spinner
+                    $('.spinner-border').hide();
+                }
+            });
+        }
+    });
+</script>
+
+<!-- GUNAKAN KODE VOUCHER -->
+<script>
+    $(document).on("submit", "#code-voucher-form", function (e) {
+        e.preventDefault();
+        var voucherCode = $("#code_voucher").val();
+        var spinner = $("#voucher-spinner");
+        var button = $("#button-code-voucher");
+
+        // Tampilkan spinner dan disable tombol
+        spinner.show();
+        button.prop('disabled', true);
+        console.log(voucherCode);
+
+        $.ajax({
+            url: "{{ route('apply.voucher.buy.now') }}",
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                code_voucher: voucherCode
+            },
+            success: function(response) {
+                console.log(response);
+                spinner.hide();
+                button.prop('disabled', false);
+                
+                if (response.success) {
+                    // Update rincian biaya di halaman checkout
+                    function formatRupiah(number) {
+                        return 'Rp' + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    };
+
+                    $("#total-price").text(formatRupiah(response.totalPriceFormatted)); // Mengubah teks total harga ke format Rupiah
+                    $("#discount").text("-" + formatRupiah(response.discountFormatted)); // Mengubah teks diskon ke format Rupiah
+                    $("#total-shopping").text(formatRupiah(response.totalShoppingFormatted)); // Mengubah teks total belanja ke format Rupiah
+                    $("#discount-use").removeClass("d-none").addClass("d-flex"); // Hapus class d-none dan ubah menjadi d-flex
+                    $("#validationVoucher").text("Kode promo berhasil diterapkan.").show();
+                    $('#button-code-voucher').prop('disabled', true);
+                    $('#show-voucher').prop('disabled', true);
+                } else {
+                    $("#validationVoucher").text(response.message).show();
+                }
+            },
+            error: function(xhr) {
+                spinner.hide();
+                button.prop('disabled', false);
+                $("#validationVoucher").text("Terjadi kesalahan. Silakan coba lagi.").show();
+            }
+        });
+    });
 </script>
 
 @if(session('after_add_address'))

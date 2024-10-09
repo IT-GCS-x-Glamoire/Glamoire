@@ -64,7 +64,7 @@ class AuthController extends Controller
             // Set nilai role secara langsung
             $role = 'user';  // Kamu bisa mengubah ini sesuai kebutuhan
 
-            User::create([
+            $user = User::create([
                 'fullname'   => $request->fullname,
                 'email'      => $request->email,
                 'password'   => Hash::make($request->password),
@@ -99,7 +99,6 @@ class AuthController extends Controller
                 ]);
 
                 Auth::login($userLogin);
-
 
                 $data = [
                     'code' => $codeUser,

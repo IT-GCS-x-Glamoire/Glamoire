@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('voucher_newusers', function (Blueprint $table) {
+        Schema::create('voucher_new_users', function (Blueprint $table) {
             $table->id();
             $table->uuid('user_id');
             $table->string('code');
