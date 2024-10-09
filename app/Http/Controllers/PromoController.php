@@ -13,7 +13,7 @@ class PromoController extends Controller
 {
     public function indexPromo()
     {
-        $promo = Promo::all();
+        $promo = Promo::where('type', 'promo')->get();
         $products = Product::all();
         $brands = Brand::all();
         return view('admin.promo.index', [
@@ -45,13 +45,14 @@ class PromoController extends Controller
             ]);
 
             // Simpan single image
-            $image = null;
+            $imagePath = null;
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = time() . '_' . $image->getClientOriginalName();
-                $image->move(public_path('uploads/promo'), $imageName);
-                $imagePath = 'uploads/promo/' . $imageName;
+                // Simpan file ke storage/app/public/uploads/promo
+                $imagePath = $image->storeAs('uploads/promo', $imageName, 'public');
             }
+
 
             // Simpan data promo
             $promo = Promo::create([
@@ -78,7 +79,7 @@ class PromoController extends Controller
     // PROMO VOUCHER
     public function indexPromoVoucher()
     {
-        $promo = Promo::all();
+        $promo = Promo::where('type', 'voucher')->get();
         $products = Product::all();
         $brands = Brand::all();
         return view('admin.promo.voucher.index', [
@@ -110,15 +111,15 @@ class PromoController extends Controller
                 'diskon' => 'required',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
                 // 'product_ids' => 'required|array',
-            ]);
+            ]);        
 
             // Simpan single image
-            $image = null;
+            $imagePath = null;
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = time() . '_' . $image->getClientOriginalName();
-                $image->move(public_path('uploads/promo'), $imageName);
-                $imagePath = 'uploads/promo/' . $imageName;
+                // Simpan file ke storage/app/public/uploads/promo
+                $imagePath = $image->storeAs('promo', $imageName, 'public');
             }
 
             // Simpan data promo
@@ -137,7 +138,7 @@ class PromoController extends Controller
             ]);
 
             // Redirect dengan pesan sukses
-            return redirect()->route('index-promo')->with('success', 'Promo Voucher created successfully!');
+            return redirect()->route('index-promo-voucher')->with('success', 'Promo Voucher created successfully!');
         } catch (\Exception $e) {
             // Tangani error
             Log::error($e->getMessage()); // Tulis log
@@ -254,7 +255,7 @@ class PromoController extends Controller
     // PROMO DISKON
     public function indexPromoDiskon()
     {
-        $promo = Promo::all();
+        $promo = Promo::where('type', 'diskon')->get();
         $products = Product::all();
         $brands = Brand::all();
         return view('admin.promo.diskon.index', [
@@ -315,5 +316,4 @@ class PromoController extends Controller
             return back()->withErrors(['error' => 'Something went wrong: ' . $e->getMessage()]);
         }
     }
-
 }

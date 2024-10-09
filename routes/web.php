@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AffiliateController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthenticateController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
-use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChartofAccountController;
 use App\Http\Controllers\DashboardController;
@@ -19,12 +17,12 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\ShopController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactusController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\SubscribeController;
+use Illuminate\Support\Facades\Auth;
 
 // VERIFIKASI EMAIL REGISTER
 // Rute untuk halaman yang hanya bisa diakses oleh user terverifikasi
@@ -32,12 +30,28 @@ Route::get('/{user}_account', [UserController::class, 'account'])
     ->name('account');
 
 // Rute untuk memverifikasi email
+// Route::get('/email-verify', function () {
+//     if (auth()->user()->hasVerifiedEmail()) {
+//         return redirect('/'); // Ganti dengan route yang diinginkan
+//     }
+//     return view('user.component.verify-email');
+// })->middleware('auth')->name('verification.notice');
+
+// Rute untuk memverifikasi email
 Route::get('/email-verify', function () {
-    if (auth()->user()->hasVerifiedEmail()) {
-        return redirect('/'); // Ganti dengan route yang diinginkan
+    // Cek apakah pengguna sudah login
+    if (auth()->check()) {
+        // Cek apakah email pengguna sudah diverifikasi
+        if (auth()->user()->hasVerifiedEmail()) {
+            return redirect('/'); // Ganti dengan route yang diinginkan
+        }
+        return view('user.component.verify-email');
     }
-    return view('user.component.verify-email');
+
+    // Jika pengguna belum login, redirect ke halaman login
+    return redirect()->route('login');
 })->middleware('auth')->name('verification.notice');
+
 
 // Memproses link verifikasi
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
@@ -68,9 +82,7 @@ Route::get('/search', [ProductController::class, 'search'])->name('search.produc
 Route::post('/login-user', [AuthController::class, 'login'])->name('login.user');
 Route::post('/logout-user', [AuthController::class, 'logout'])->name('logout.user');
 Route::post('/register-user', [AuthController::class, 'register'])->name('register.user');
-use App\Http\Controllers\FormController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SubscribeController;
+
 
 Route::post('/login', [AuthController::class, 'login'])->name('login.user');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout.user');
@@ -207,13 +219,15 @@ Route::get('/error-403', function () {
 
 // DASHBOARD
 
-Route::get('/login', [AuthenticateController::class, 'indexlogin'])->name('index-login');
-Route::post('/login', [AuthenticateController::class, 'login'])->name('login');
+Route::get('/login-admin', [AuthenticateController::class, 'indexlogin'])->name('index-login');
+Route::post('/login-admin', [AuthenticateController::class, 'login'])->name('login-admin');
 Route::post('/logout', [AuthenticateController::class, 'logout'])->name('logout');
 
 Route::get('/forgot-password', [AuthenticateController::class, 'forgotPassword'])->name('index-forgotpassword');
 
 Route::middleware('auth')->get('/dashboard', [DashboardController::class, 'indexDashboard'])->name('dashboard');
+Route::middleware(['auth', 'role:admin,superadmin,accounting'])->get('/dashboard', [DashboardController::class, 'indexDashboard'])->name('dashboard');
+
 
 Route::middleware(['auth', 'role:admin,superadmin'])->group(function () {
     Route::get('/dashboard/get-sales-data', [DashboardController::class, 'getSalesData']);

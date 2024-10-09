@@ -50,21 +50,10 @@ class BrandController extends Controller
         // Generate unique brand code based on the brand name
         $brandCode = $this->generateBrandCode($request->name);
 
-        // if ($request->hasFile('brand_logo')) {
-        //     $image = $request->file('brand_logo');
-        //     $imageName = time() . '.' . $image->getClientOriginalExtension();
-        //     $image->move(public_path('uploads/brand_logos'), $imageName);
-        //     $imagePath = 'uploads/brand_logos/' . $imageName;
-        // }
-
         if ($request->hasFile('brand_logo')) {
             $image = $request->file('brand_logo');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            // Simpan file ke storage/app/public/brand_logos
             $imagePath = $image->storeAs('brand_logos', $imageName, 'public');
-
-            // Simpan informasi file di database (opsional)
-            // Brand::create([...]);
         }
 
 

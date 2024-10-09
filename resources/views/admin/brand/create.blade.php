@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
 
-    <link rel="stylesheet" href="assets/vendors/toastify/toastify.css"> 
+    <link rel="stylesheet" href="assets/vendors/toastify/toastify.css">
 
     <link rel="stylesheet" href="assets/vendors/iconly/bold.css">
 
@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="assets/vendors/sweetalert2/sweetalert2.min.css">
+
 
     <style>
         .upload__img-wrap {
@@ -117,12 +119,18 @@
                                                                     style="color: red">*</span></label>
                                                             <div class="position-relative">
                                                                 <input type="text" class="form-control"
-                                                                    placeholder="Enter Brand Name"
-                                                                    id="first-name-icon" name="name">
+                                                                    {{ $errors->has('name') ? 'is-invalid' : '' }}
+                                                                    placeholder="Enter Brand Name" id="first-name-icon"
+                                                                    name="name">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-bag"></i>
                                                                 </div>
+
                                                             </div>
+                                                            @if ($errors->has('name'))
+                                                                <p style="color: red">
+                                                                    {{ $errors->first('name') }}</p>
+                                                            @endif
                                                         </div>
 
                                                         <div class="form-group ">
@@ -133,24 +141,28 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-6">                                                     
+                                                    <div class="col-md-6">
                                                         <div class="card">
                                                             <label for="first-name-icon">Brand Logo <span
                                                                     style="color: red">*</span></label>
 
-                                                            <div class="image-upload-wrap"
-                                                                id="single-image-upload-wrap"
+                                                            <div class="image-upload-wrap" id="single-image-upload-wrap"
                                                                 style="border: 2px dashed #ddd; border-radius: 4px; padding: 20px; width: 100%; box-sizing: border-box; position: relative; background: #f8f8f8; margin-bottom: 15px; height: auto;">
                                                                 <input type="file" name="brand_logo"
                                                                     class="file-upload-input"
+                                                                    {{ $errors->has('brand_logo') ? 'is-invalid' : '' }}
                                                                     onchange="readURLSingle(this);" accept="image/*"
                                                                     style="position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
                                                                 <div class="drag-text"
                                                                     style="text-align: center; color: #888;">
                                                                     <p>Drag and drop a file or select to add Image</p>
                                                                 </div>
-                                                            </div>
 
+                                                            </div>
+                                                            @if ($errors->has('brand_logo'))
+                                                                <p style="color: red">
+                                                                    {{ $errors->first('brand_logo') }}</p>
+                                                            @endif
                                                             <div class="file-upload-content"
                                                                 id="single-file-upload-content"
                                                                 style="display: flex; flex-wrap: wrap;">
@@ -160,8 +172,7 @@
                                                     </div>
 
                                                     <div class="col-12 d-flex justify-content-end">
-                                                        <button type="submit"
-                                                            class="btn btn-primary me-1 mb-1"
+                                                        <button type="submit" class="btn btn-primary me-1 mb-1"
                                                             style="border-radius: 8px;">Submit</button>
                                                         {{-- <button type="reset"
                                                             class="btn btn-sm btn-light-secondary me-1 mb-1"
@@ -180,7 +191,7 @@
 
             @include('admin.layouts.footer')
 
-            
+
         </div>
     </div>
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
@@ -192,6 +203,28 @@
 
     <!-- toastify -->
     <script src="assets/vendors/toastify/toastify.js"></script>
+
+    <script src="assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            @if ($errors->any())
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 4000,
+                    timerProgressBar: true,
+                    icon: 'error',
+                    title: 'Error: {{ $errors->first() }}',
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+            @endif
+        });
+    </script>
 
     {{-- Upload Single Image --}}
     <script>

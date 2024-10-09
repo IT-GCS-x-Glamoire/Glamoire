@@ -78,9 +78,9 @@
                                 <thead>
                                     <tr>
                                         <th>Promo</th>
+                                        <th>Promo Name</th>
                                         <th>Type</th>
-                                        <th>Start Date Promo</th>
-                                        <th>End Date Promo</th>
+                                        <th>Periode</th>
                                         <th>Diskon</th>
                                         <th>Action</th>
                                     </tr>
@@ -89,66 +89,17 @@
                                     @foreach ($promo as $item)
                                         <tr id="promo-item-{{ $item->id }}">
                                             <td>
-                                                <img src="{{ asset($item->image) }}" alt="{{ $item->image }}"
-                                                    class="lazyload"
+                                                <img src="{{ Storage::url($item->image) }}"
+                                                    alt="{{ $item->promo_name }}" class="lazyload"
                                                     style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;"
-                                                    onclick="openImageInNewTab('{{ asset($item->image) }}')">
+                                                    onclick="openImageInNewTab('{{ Storage::url($item->image) }}')">
                                             </td>
-                                            <td>{{ $item->promo_name }}</td>
-                                            <td>{{ $item->type }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d F Y') }}
-                                            </td>
-                                            <td>{{ \Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y') }}
-                                            </td>
-                                            <td>{{ $item->diskon }}</td>
-                                            <td class="action-buttons">
-                                                <a href="{{ url('detail-promo/' . $item->id) }}">
-                                                    Review
-                                                </a>
-                                                <a href="javascript:void(0);" class="delete-promo"
-                                                    data-id="{{ $item->id }}">
-                                                    Delete
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
 
-                <section class="section">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>List Voucher</h4>
-                        </div>
-                        <div class="card-body">
-                            <table class="table" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th>Promo</th>
-                                        <th>Type</th>
-                                        <th>Start Date Promo</th>
-                                        <th>End Date Promo</th>
-                                        <th>Diskon</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($promo as $item)
-                                        <tr id="promo-item-{{ $item->id }}">
-                                            <td>
-                                                <img src="{{ asset($item->image) }}" alt="{{ $item->image }}"
-                                                    class="lazyload"
-                                                    style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;"
-                                                    onclick="openImageInNewTab('{{ asset($item->image) }}')">
-                                            </td>
                                             <td>{{ $item->promo_name }}</td>
                                             <td>{{ $item->type }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d F Y') }}
-                                            </td>
-                                            <td>{{ \Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y') }}
+                                                -
+                                                {{ \Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y') }}
                                             </td>
                                             <td>{{ $item->diskon }}</td>
                                             <td class="action-buttons">
@@ -166,56 +117,7 @@
                             </table>
                         </div>
                     </div>
-                </section>
-                <section class="section">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>List Diskon</h4>
-                        </div>
-                        <div class="card-body">
-                            <table class="table" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th>Promo</th>
-                                        <th>Type</th>
-                                        <th>Start Date Promo</th>
-                                        <th>End Date Promo</th>
-                                        <th>Diskon</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($promo as $item)
-                                        <tr id="promo-item-{{ $item->id }}">
-                                            <td>
-                                                <img src="{{ asset($item->image) }}" alt="{{ $item->image }}"
-                                                    class="lazyload"
-                                                    style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;"
-                                                    onclick="openImageInNewTab('{{ asset($item->image) }}')">
-                                            </td>
-                                            <td>{{ $item->promo_name }}</td>
-                                            <td>{{ $item->type }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d F Y') }}
-                                            </td>
-                                            <td>{{ \Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y') }}
-                                            </td>
-                                            <td>{{ $item->diskon }}</td>
-                                            <td class="action-buttons">
-                                                <a href="{{ url('detail-promo/' . $item->id) }}">
-                                                    Review
-                                                </a>
-                                                <a href="javascript:void(0);" class="delete-promo"
-                                                    data-id="{{ $item->id }}">
-                                                    Delete
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
+                </section>                           
             </div>
             @include('admin.layouts.footer')
 

@@ -65,6 +65,7 @@
                             <table class="table" id="table1">
                                 <thead>
                                     <tr>
+                                        <th>Voucher Banner</th>
                                         <th>Voucher</th>
                                         <th>Periode</th>
                                         <th>Kode</th>
@@ -76,10 +77,10 @@
                                     @foreach ($promo as $item)
                                         <tr id="promo-item-{{ $item->id }}">
                                             <td>
-                                                <img src="{{ asset($item->image) }}" alt="{{ $item->image }}"
-                                                    class="lazyload"
-                                                    style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;"
-                                                    onclick="openImageInNewTab('{{ asset($item->image) }}')">
+                                                <img src="{{ Storage::url($item->image) }}"
+                                                     alt="{{ $item->promo_name }}" class="lazyload"
+                                                     style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;"
+                                                     onclick="openImageInNewTab('{{ Storage::url($item->image) }}')">
                                             </td>
                                             <td>{{ $item->promo_name }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->start_date)->translatedFormat('d F Y') }} - {{ \Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y') }}

@@ -106,7 +106,7 @@
                                         <form action="{{ route('store-promo-diskon') }}" class="form form-vertical"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
-                                            <input type="hidden" name="type" value="promo">
+                                            <input type="hidden" name="type" value="diskon">
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-6">

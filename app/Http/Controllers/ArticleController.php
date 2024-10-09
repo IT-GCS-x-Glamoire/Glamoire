@@ -48,13 +48,13 @@ class ArticleController extends Controller
             'content' => 'required',
         ]);
 
+        // Simpan single image
         $imagePath = null;
-
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/article_images'), $imageName);
-            $imagePath = 'uploads/article_images/' . $imageName;
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            // Simpan file ke storage/app/public/uploads/promo
+            $imagePath = $image->storeAs('article', $imageName, 'public');
         }
 
         Article::create([

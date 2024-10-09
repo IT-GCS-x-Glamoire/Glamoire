@@ -61,13 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td><input type="number" class="form-control" name="variant_price[${typeIndex}][${valueIndex}]" placeholder="Price" min="0" step="0.01"></td>
                     <td><input type="number" class="form-control" name="variant_stock[${typeIndex}][${valueIndex}]" placeholder="Stock" min="0"></td>
                     <td><input type="text" class="form-control" name="variant_sku[${typeIndex}][${valueIndex}]" placeholder="SKU"></td>
-                    <td><input type="number" class="form-control" name="variant_weight[${typeIndex}][${valueIndex}]" placeholder="Weight" min="0"></td>
-                    <td>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="variantStatus${typeIndex}${valueIndex}" name="variant_status[${typeIndex}][${valueIndex}]" value="1" checked>
-                            <label class="form-check-label" for="variantStatus${typeIndex}${valueIndex}">Active</label>
-                        </div>
-                    </td>
+                    <td><input type="number" class="form-control" name="variant_weight[${typeIndex}][${valueIndex}]" placeholder="Weight" min="0"></td>                    
                 `;
                 variantTableBody.appendChild(row);
             });

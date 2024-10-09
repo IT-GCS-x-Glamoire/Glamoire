@@ -249,6 +249,86 @@
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
+
+                                                        <label for="">Weight Product</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Weight Product" name="weight_product"
+                                                                value="{{ $product->weight_product }}">
+                                                            <span class="input-group-text"
+                                                                id="basic-addon2">gram</span>
+                                                        </div>
+
+                                                        <label for="">Dimension Product</label>
+                                                        <div class="row mb-3">
+                                                            <div class="col">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="Length" name="length"
+                                                                        value="{{ $product->dimensions['length'] }}">
+                                                                    <span class="input-group-text"
+                                                                        id="basic-addon1">cm</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="Width" name="width"
+                                                                        value="{{ $product->dimensions['width'] }}">
+                                                                    <span class="input-group-text"
+                                                                        id="basic-addon2">cm</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="Height" name="height"
+                                                                        value="{{ $product->dimensions['height'] }}">
+                                                                    <span class="input-group-text"
+                                                                        id="basic-addon3">cm</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- <div class="mt-4">
+                                                            <h4 class="card-title">Variant Product</h4>
+                                                            <p class="card-subtitle">Add variants so that buyers can
+                                                                choose the right product! You can enter up to 2 types of
+                                                                variants.</p>
+                                                        </div>
+
+                                                        <div class="mt-3">
+                                                            <div id="variant-container">
+                                                                <div class="variant-type mb-4 p-3 border rounded">
+                                                                    <label>Tipe Variant</label>
+                                                                    <div class="d-flex align-items-center mb-2">
+                                                                        <select
+                                                                            class="select2-add-option form-select me-2"
+                                                                            name="variant_type[]">
+                                                                            <option value="rasa">Rasa</option>
+                                                                            <option value="ukuran">Ukuran</option>
+                                                                            <option value="warna">Warna</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <label class="form-label">Variant Values</label>
+                                                                    <div class="variant-values">
+                                                                        <select
+                                                                            class="select2 form-select multiple-remove"
+                                                                            name="variant_values[0][]"
+                                                                            multiple="multiple"></select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Area untuk upload gambar yang tersembunyi awalnya -->
+                                                            <div class="variant-images mt-3" style="display: none;">
+                                                                <input type="file"
+                                                                    class="form-control variant-image-upload"
+                                                                    accept="image/*">
+                                                            </div>
+                                                            <button type="button" class="btn btn-outline-primary"
+                                                                id="addVariantType">+ Add Product Variant</button>
+                                                        </div> --}}
+
                                                     </div>
 
                                                     <!-- Kolom Kanan -->
@@ -275,8 +355,8 @@
                                                                 <div class="upload__img-wrap">
                                                                     <div class="upload__img-box-single">
                                                                         <div class="img-bg-single"
-                                                                            style="background-image: url('{{ asset($product->main_image) }}');"
-                                                                            onclick="openImageInNewTab('{{ asset($product->main_image) }}')">
+                                                                            style="background-image: url('{{ Storage::url($product->main_image) }}');"
+                                                                            onclick="openImageInNewTab('{{ Storage::url($product->main_image) }}')">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -312,13 +392,15 @@
                                                                 @foreach ($product->images as $image)
                                                                     <div class="upload__img-box-multiple">
                                                                         <div class="img-bg"
-                                                                            style="background-image: url('{{ asset($image) }}');"
-                                                                            onclick="openImageInNewTab('{{ asset($image) }}')">
+                                                                            style="background-image: url('{{ Storage::url($image) }}');"
+                                                                            onclick="openImageInNewTab('{{ Storage::url($image) }}')">
                                                                         </div>
                                                                     </div>
                                                                 @endforeach
                                                             @endif
                                                         </div>
+
+
                                                         @error('images')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
@@ -344,11 +426,12 @@
                                                             @if (!empty($product->video))
                                                                 <div class="upload__video-box">
                                                                     <video class="video-bg" controls>
-                                                                        <source src="{{ asset($product->video) }}"
+                                                                        <source
+                                                                            src="{{ Storage::url($product->video) }}"
                                                                             type="video/mp4">
                                                                         Your browser does not support the video tag.
                                                                     </video>
-                                                                   
+
                                                                 </div>
                                                             @endif
                                                         </div>

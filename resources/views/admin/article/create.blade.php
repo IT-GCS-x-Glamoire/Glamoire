@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Mazer Admin Dashboard</title>
 
-    <!-- Include Choices CSS -->
-    <link rel="stylesheet" href="assets/vendors/choices.js/choices.min.css" />
-
+    <link rel="stylesheet" href="{{ asset('assets/vendors/select2/select2.min.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -75,6 +73,7 @@
             border-radius: 4px;
         }
     </style>
+    
 </head>
 
 <body>
@@ -126,20 +125,37 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-group">
+                                                        {{-- <div class="form-group">
                                                             <label for="brand-select">Category Name<span
                                                                     style="color: red">*</span></label>
-                                                            <select class="choices form-select"
+                                                            <select class="form-control select2"
                                                                 name="category_article_id">
                                                                 @foreach ($categories as $category)
                                                                     <option value="{{ $category->id }}">
                                                                         {{ $category->name }}</option>
                                                                 @endforeach
                                                             </select>
+                                                        </div> --}}
+
+                                                        <div class="form-group mb-3">
+                                                            <label for="first-name-icon">Category Name <span
+                                                                    style="color: red">*</span></label>
+                                                            <div class="form-group">
+                                                                <select
+                                                                    class="form-control select2 {{ $errors->has('category_article_id') ? 'is-invalid' : '' }}"
+                                                                    name="category_article_id">
+                                                                    <option value="" disabled selected>Select
+                                                                        Brand</option> <!-- Placeholder -->
+                                                                    @foreach ($categories as $category)
+                                                                        <option value="{{ $category->id }}">
+                                                                            {{ $category->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
                                                         </div>
 
                                                         <div class="card">
-                                                            <label for="first-name-icon">Product Thumbnail <span
+                                                            <label for="first-name-icon">Article Image <span
                                                                     style="color: red">*</span></label>
 
                                                             <div class="image-upload-wrap" id="single-image-upload-wrap"
@@ -205,19 +221,21 @@
         </div>
     </div>
     <script src="assets/vendors/jquery/jquery.min.js"></script>
+    <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 
     <script src="assets/js/pages/dashboard.js"></script>
 
     <script src="assets/js/main.js"></script>
-    <script src="assets/vendors/choices.js/choices.min.js"></script>
+    <script src="assets/vendors/select2.js"></script>
 
     <!-- toastify -->
     <script src="assets/vendors/toastify/toastify.js"></script>
 
     <!-- summernote -->
     <script src="assets/vendors/summernote/summernote-lite.min.js"></script>
+
 
     <script>
         $('#summernote').summernote({

@@ -117,21 +117,22 @@
                     </div>
                   </div>
                 </div>
-              </form>
-              <div class="col-12">
-                <!-- Button with improved hover effect -->
-                <button 
-                  class="btn btn-light w-full rounded-lg text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]" 
-                  type="submit" 
-                  id="register">
-                  Buat Akun
-                </button>
-                <div class="grid">
-                  <p class="text-white text-center py-4 font-light text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]">Sudah Memiliki Akun ? 
-                    <a href="#" class="ml-1 text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]" data-bs-toggle="modal" data-bs-target="#login" data-bs-dismiss="modal">Masuk Sekarang</a>
-                  </p>
+                <div class="col-12">
+                  <!-- Button with improved hover effect -->
+                  <button 
+                    class="btn btn-light w-full rounded-lg text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]" 
+                    type="submit" 
+                    id="register">
+                    Buat Akun
+                  </button>
+                  <div class="grid">
+                    <p class="text-white text-center py-4 font-light text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]">Sudah Memiliki Akun ? 
+                      <a href="#" class="ml-1 text-[10px] md:text-[8px] lg:text-[10px] xl:text-[12px]" data-bs-toggle="modal" data-bs-target="#login" data-bs-dismiss="modal">Masuk Sekarang</a>
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </form>
+             
             </div>
           </div>
 

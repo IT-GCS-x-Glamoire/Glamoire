@@ -18,19 +18,21 @@ class CategoryController extends Controller
 
     public function indexCategoryProduct()
     {
-        $categoryProduct = CategoryProduct::withCount('products')->get(); // Mengambil semua kategori dengan hitung produk
-        return view('admin.category.index', compact('categoryProduct'));
+        $categories = CategoryProduct::with('children.children')->whereNull('parent_id')->get();
+        return view('admin.category.index', compact('categories'));
     }
-
 
     public function createCategoryProduct(Request $request)
     {
         $request->validate([
             'name' => 'required',
+            'parent_id' => 'nullable|exists:category_products,id',
+            'type' => 'required|in:category,subcategory,option',
         ]);
 
         $category = CategoryProduct::create([
-            'name' => $request->name
+            'name' => $request->name,
+            'parent_id' => $request->parent_id
         ]);
 
         return response()->json(['success' => true, 'category' => $category]);

@@ -117,7 +117,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
@@ -144,7 +144,36 @@
                                     </div>
                                 </div>
                             </div>
+                        </div> --}}
+
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Sales Information</h4>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input type="text" id="filter-date-range" class="form-control"
+                                                    placeholder="Select Date Range">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select id="filter-brand" class="form-select select2">
+                                                    <option value="">Select Brand</option>
+                                                    @foreach ($brands as $brand)
+                                                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="chart-sales-information"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
 
                         <div class="row">
                             <div class="col-12">
@@ -201,73 +230,8 @@
                             </div>
                         </div>
 
-
-
-
                         <div class="row">
-                            <div class="col-12 col-xl-4">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>Profile Visit</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="d-flex align-items-center">
-                                                    <svg class="bi text-primary" width="32" height="32"
-                                                        fill="blue" style="width:10px">
-                                                        <use
-                                                            xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
-                                                    </svg>
-                                                    <h5 class="mb-0 ms-3">Europe</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <h5 class="mb-0">862</h5>
-                                            </div>
-                                            <div class="col-12">
-                                                <div id="chart-europe"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="d-flex align-items-center">
-                                                    <svg class="bi text-success" width="32" height="32"
-                                                        fill="blue" style="width:10px">
-                                                        <use
-                                                            xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
-                                                    </svg>
-                                                    <h5 class="mb-0 ms-3">America</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <h5 class="mb-0">375</h5>
-                                            </div>
-                                            <div class="col-12">
-                                                <div id="chart-america"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="d-flex align-items-center">
-                                                    <svg class="bi text-danger" width="32" height="32"
-                                                        fill="blue" style="width:10px">
-                                                        <use
-                                                            xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
-                                                    </svg>
-                                                    <h5 class="mb-0 ms-3">Indonesia</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <h5 class="mb-0">1025</h5>
-                                            </div>
-                                            <div class="col-12">
-                                                <div id="chart-indonesia"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="col-12 col-xl-8">
                                 <div class="card">
                                     <div class="card-header">
@@ -320,7 +284,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-lg-3">                       
+                    {{-- <div class="col-12 col-lg-3">
                         <div class="card">
                             <div class="card-header">
                                 <h4>Recent Messages</h4>
@@ -367,7 +331,82 @@
                                 <div id="chart-visitors-profile"></div>
                             </div>
                         </div>
-                       
+
+                    </div> --}}
+
+                    <div class="col-12 col-lg-3">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Profile Visit</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center">
+                                            <svg class="bi text-primary" width="32" height="32"
+                                                fill="blue" style="width:10px">
+                                                <use
+                                                    xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                            </svg>
+                                            <h5 class="mb-0 ms-3">Europe</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <h5 class="mb-0">862</h5>
+                                    </div>
+                                    <div class="col-12">
+                                        <div id="chart-europe"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center">
+                                            <svg class="bi text-success" width="32" height="32"
+                                                fill="blue" style="width:10px">
+                                                <use
+                                                    xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                            </svg>
+                                            <h5 class="mb-0 ms-3">America</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <h5 class="mb-0">375</h5>
+                                    </div>
+                                    <div class="col-12">
+                                        <div id="chart-america"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center">
+                                            <svg class="bi text-danger" width="32" height="32" fill="blue"
+                                                style="width:10px">
+                                                <use
+                                                    xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                            </svg>
+                                            <h5 class="mb-0 ms-3">Indonesia</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <h5 class="mb-0">1025</h5>
+                                    </div>
+                                    <div class="col-12">
+                                        <div id="chart-indonesia"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Visitors Profile</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="chart-visitors-profile"></div>
+                            </div>
+                        </div>
+
                     </div>
                 </section>
             </div>
@@ -474,7 +513,8 @@
         loadSalesData(initialStart, initialEnd, 'all');
     </script> --}}
 
-    <script>
+    {{-- script sales information untuk bagian 7 hari terakhir --}}
+    {{-- <script>
         // inisialisasi select2
         $(document).ready(function() {
             $('.select2').select2({
@@ -555,42 +595,42 @@
         let initialStart = moment().subtract(6, 'days').format('YYYY-MM-DD');
         let initialEnd = moment().format('YYYY-MM-DD');
         loadSalesData(initialStart, initialEnd, ''); // Muat data awal
-    </script>
+    </script> --}}
 
-    {{-- <script>
+    <script>
+        // inisialisasi select2
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: 'Select Brand', // Placeholder untuk select
+                allowClear: true // Mengizinkan opsi untuk dibersihkan
+            });
+        });
+
         // Inisialisasi chart menggunakan ApexCharts
         let salesChart;
 
-        // Function untuk memuat data berdasarkan tanggal dan tipe data
-        function loadSalesData(startDate, endDate, type) {
-            // Kamu bisa ganti ini dengan data yang kamu dapatkan dari backend
-            let allData = {
-                sales: [40, 55, 60, 70, 80, 90, 100],
-                returns: [10, 15, 20, 25, 30, 35, 40]
-            };
+        // Dummy data for the last 3 months
+        const dummyCategories = [
+            '1-30 ' + moment().subtract(3, 'months').format('MMMM YYYY'), // e.g., "1-30 September 2024"
+            '1-31 ' + moment().subtract(2, 'months').format('MMMM YYYY'),
+            '1-31 ' + moment().subtract(1, 'months').format('MMMM YYYY'),
+            '1-31 ' + moment().format('MMMM YYYY'),
+        ];
 
-            let categories = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-            let filteredData = [];
+        const dummySalesData = [100, 150, 200, 250]; // Dummy sales data for each month
 
-            // Filter data sesuai tipe
-            if (type === 'sales') {
-                filteredData = allData.sales;
-            } else if (type === 'returns') {
-                filteredData = allData.returns;
-            } else {
-                filteredData = allData.sales.map((value, index) => value + allData.returns[index]);
-            }
-
-            // Update atau render chart
+        // Function to load dummy data
+        function loadDummySalesData() {
+            // Render chart
             if (salesChart) {
                 salesChart.updateOptions({
                     series: [{
                         name: 'Amount',
-                        data: filteredData
+                        data: dummySalesData
                     }],
                     xaxis: {
-                        categories: categories
+                        categories: dummyCategories
                     }
                 });
             } else {
@@ -601,10 +641,10 @@
                     },
                     series: [{
                         name: 'Amount',
-                        data: filteredData
+                        data: dummySalesData
                     }],
                     xaxis: {
-                        categories: categories
+                        categories: dummyCategories
                     }
                 };
 
@@ -617,53 +657,55 @@
         $(function() {
             $('#filter-date-range').daterangepicker({
                 opens: 'left',
+                startDate: moment().subtract(3, 'months').startOf('month'), // Set tanggal awal 3 bulan lalu
+                endDate: moment().endOf('month'), // Set tanggal akhir akhir bulan ini
                 locale: {
                     format: 'YYYY-MM-DD'
                 }
-            }, function(start, end, label) {
-                let type = $('#filter-type').val();
-                loadSalesData(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'), type);
+            }, function(start, end) {
+                // Placeholder for future functionality (filtering data based on date range)
+                console.log('Date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format(
+                    'YYYY-MM-DD'));
+                // Call to load sales data can be here if needed in future
             });
         });
 
-        // Event listener untuk tipe data
-        document.getElementById('filter-type').addEventListener('change', function() {
+        // Event listener for brand filter
+        document.getElementById('filter-brand').addEventListener('change', function() {
             let dates = $('#filter-date-range').data('daterangepicker');
             let startDate = dates.startDate.format('YYYY-MM-DD');
             let endDate = dates.endDate.format('YYYY-MM-DD');
-            let type = this.value;
+            let brandId = this.value;
 
-            loadSalesData(startDate, endDate, type);
+            loadSalesData(startDate, endDate, brandId);
         });
 
-        // Load initial chart data
-        let initialStart = moment().subtract(6, 'days').format('YYYY-MM-DD');
-        let initialEnd = moment().format('YYYY-MM-DD');
-        loadSalesData(initialStart, initialEnd, 'all');
 
+        // Load initial dummy data for the last 3 months
+        loadDummySalesData(); // Muat data awal
+    </script>
 
-
-        // Function untuk memuat data berdasarkan brand
-        function loadSalesDataByBrand(brandId) {
+    {{-- setup backend data dinamis --}}
+    {{-- <script>
+        function loadSalesData(startDate, endDate, brandId) {
             $.ajax({
-                url: '/dashboard/get-sales-data', // Ganti dengan route yang sesuai
+                url: '/your-route-to-get-sales-data', // Ubah dengan route yang sesuai
                 method: 'GET',
                 data: {
+                    start_date: startDate,
+                    end_date: endDate,
                     brand_id: brandId
                 },
                 success: function(response) {
-                    let categories = response.categories; // Kategori untuk x-axis (misal: tanggal)
-                    let data = response.data; // Data yang sesuai dengan brand
-
-                    // Update chart atau render chart baru
+                    // Render chart with dynamic data
                     if (salesChart) {
                         salesChart.updateOptions({
                             series: [{
-                                name: 'Sales Amount',
-                                data: data
+                                name: 'Amount',
+                                data: response.data // Data dari response
                             }],
                             xaxis: {
-                                categories: categories
+                                categories: response.categories // Kategori dari response
                             }
                         });
                     } else {
@@ -673,11 +715,11 @@
                                 height: 350
                             },
                             series: [{
-                                name: 'Sales Amount',
-                                data: data
+                                name: 'Amount',
+                                data: response.data // Data dari response
                             }],
                             xaxis: {
-                                categories: categories
+                                categories: response.categories // Kategori dari response
                             }
                         };
 
@@ -685,140 +727,50 @@
                             options);
                         salesChart.render();
                     }
-                }
-            });
-        }
-
-        // Event listener untuk filter brand
-        document.getElementById('filter-brand').addEventListener('change', function() {
-            let brandId = this.value;
-            loadSalesDataByBrand(brandId);
-        });
-    </script> --}}
-
-    {{-- <script>
-        // Inisialisasi chart menggunakan ApexCharts
-        let salesChart;
-
-        // Function untuk memuat data berdasarkan tanggal, brand, dan tipe data
-        function loadSalesData(startDate, endDate, brandId, type) {
-            $.ajax({
-                url: '/dashboard/get-sales-data', // Ganti dengan route yang sesuai
-                method: 'GET',
-                data: {
-                    start_date: startDate,
-                    end_date: endDate,
-                    brand_id: brandId,
-                    type: type // Bisa sales atau returns
                 },
-                success: function(response) {
-                    let categories = response.categories; // Kategori untuk x-axis (misal: tanggal)
-                    let data = response.data; // Data yang sesuai dengan filter
-
-                    // Update chart atau render chart baru
-                    if (salesChart) {
-                        salesChart.updateOptions({
-                            series: [{
-                                name: 'Sales Amount',
-                                data: data
-                            }],
-                            xaxis: {
-                                categories: categories
-                            }
-                        });
-                    } else {
-                        var options = {
-                            chart: {
-                                type: 'line',
-                                height: 350
-                            },
-                            series: [{
-                                name: 'Sales Amount',
-                                data: data
-                            }],
-                            xaxis: {
-                                categories: categories
-                            }
-                        };
-
-                        salesChart = new ApexCharts(document.querySelector("#chart-sales-information"),
-                        options);
-                        salesChart.render();
-                    }
+                error: function(xhr) {
+                    console.error(xhr);
+                    // Tambahkan penanganan error sesuai kebutuhan
                 }
             });
         }
 
-        // Inisialisasi Date Range Picker
-        $(function() {
+
+        $(document).ready(function() {
+            // Initialize select2 for brand selection
+            $('.select2').select2({
+                placeholder: 'Select Brand',
+                allowClear: true
+            });
+
+            // Load initial chart data for the last 3 months
+            let initialStart = moment().subtract(3, 'months').startOf('month').format('YYYY-MM-DD');
+            let initialEnd = moment().endOf('month').format('YYYY-MM-DD');
+            loadSalesData(initialStart, initialEnd, ''); // Load initial data
+
+            // Date Range Picker Initialization
             $('#filter-date-range').daterangepicker({
                 opens: 'left',
+                startDate: moment().subtract(3, 'months').startOf('month'),
+                endDate: moment().endOf('month'),
                 locale: {
                     format: 'YYYY-MM-DD'
                 }
-            }, function(start, end, label) {
-                let brandId = $('#filter-brand').val(); // Dapatkan brand yang dipilih
-                let type = $('#filter-type').val(); // Dapatkan tipe data (sales/returns)
-                loadSalesData(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'), brandId, type);
+            }, function(start, end) {
+                let brandId = $('#filter-brand').val();
+                loadSalesData(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'), brandId);
+            });
+
+            // Event listener for brand filter
+            document.getElementById('filter-brand').addEventListener('change', function() {
+                let dates = $('#filter-date-range').data('daterangepicker');
+                let startDate = dates.startDate.format('YYYY-MM-DD');
+                let endDate = dates.endDate.format('YYYY-MM-DD');
+                let brandId = this.value;
+
+                loadSalesData(startDate, endDate, brandId);
             });
         });
-
-        // Event listener untuk filter brand
-        document.getElementById('filter-brand').addEventListener('change', function() {
-            let dates = $('#filter-date-range').data('daterangepicker');
-            let startDate = dates.startDate.format('YYYY-MM-DD');
-            let endDate = dates.endDate.format('YYYY-MM-DD');
-            let brandId = this.value; // Brand yang dipilih
-            let type = $('#filter-type').val(); // Tipe data (sales/returns)
-
-            loadSalesData(startDate, endDate, brandId, type);
-        });
-
-        // Event listener untuk tipe data
-        document.getElementById('filter-type').addEventListener('change', function() {
-            let dates = $('#filter-date-range').data('daterangepicker');
-            let startDate = dates.startDate.format('YYYY-MM-DD');
-            let endDate = dates.endDate.format('YYYY-MM-DD');
-            let brandId = $('#filter-brand').val(); // Brand yang dipilih
-            let type = this.value; // Tipe data (sales/returns)
-
-            loadSalesData(startDate, endDate, brandId, type);
-        });
-
-        // Load initial chart data (7 hari terakhir dan semua brand secara otomatis)
-        let initialStart = moment().subtract(6, 'days').format('YYYY-MM-DD');
-        let initialEnd = moment().format('YYYY-MM-DD');
-        loadSalesData(initialStart, initialEnd, '', 'all');
-    </script> --}}
-
-
-    {{-- setup backend --}}
-    {{-- <script>
-        function loadSalesData(startDate, endDate, type) {
-            $.ajax({
-                url: '/get-sales-data',
-                method: 'GET',
-                data: {
-                    start_date: startDate,
-                    end_date: endDate,
-                    type: type
-                },
-                success: function(response) {
-                    let categories = response.categories; // Label untuk x-axis (misal: tanggal)
-                    let filteredData = response.data; // Data yang ditampilkan (sales, returns, atau keduanya)
-
-                    salesChart.updateOptions({
-                        series: [{
-                            name: 'Amount',
-                            data: filteredData
-                        }],
-                        xaxis: {
-                            categories: categories
-                        }
-                    });
-                }
-            });
-        }
     </script> --}}
 </body>
 

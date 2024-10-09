@@ -9,7 +9,7 @@ use App\Models\Product;
 use App\Models\Partner;
 use App\Models\ProductVariations;
 use App\Models\User;
-
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
@@ -18,19 +18,20 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         try {
             $userId = session('id_user');
 
+            // dd($userId);
             if ($userId) {
                 $data = User::with(['wishlist'])
                     ->where('id', $userId)
                     ->first();
 
-                    // dd($data);
+                // dd($data);
                 return view('user.component.home')->with('data', $data);
-            }
-            else {
+            } else {
                 return view('user.component.home');
             }
 
@@ -43,13 +44,38 @@ class ProductController extends Controller
         }
     }
 
-    public function detail($id){
+    // public function index()
+    // {
+    //     try {
+    //         // Ambil user_id dari session
+    //         $userId = session('id_user');
+
+    //         if ($userId) {
+    //             // Cari pengguna berdasarkan user_id dari session, termasuk wishlist
+    //             $data = User::with('wishlist')->where('id', $userId)->first();
+
+    //             // Render halaman, biarkan tampil meskipun wishlist-nya null
+    //             return view('user.component.home')->with('data', $data);
+    //         } else {
+    //             // Jika userId tidak ada dalam session, tetap render halaman tanpa data pengguna
+    //             return view('user.component.home');
+    //         }
+    //     } catch (Exception $err) {
+    //         // Jika ada error, tampilkan exception untuk debugging
+    //         dd($err);
+    //     }
+    // }
+
+
+
+
+    public function detail($id)
+    {
         try {
 
             $data = $id;
 
             return view('user.component.detail')->with('data', $data);
-
         } catch (Exception $err) {
             dd($err);
         }
@@ -59,11 +85,11 @@ class ProductController extends Controller
     {
         // dd($request);
         $product_search = $request->product_search; // Get the search query
-        
+
         $products = Partner::where('fullname', 'like', '%' . $product_search . '%')->get(); // Search products
         // dd($query);
-        
-        if(count($products) !== 0){
+
+        if (count($products) !== 0) {
             $products = Partner::where('fullname', 'like', '%' . $query . '%')->get(); // Search products
             $products = [
                 'product' => 0,
@@ -72,8 +98,7 @@ class ProductController extends Controller
             ];
 
             return view('user.component.search')->with('data', $products); // Return results to a view
-        }
-        else {
+        } else {
             $products = [
                 'product' => 0,
                 'keyword' => $product_search,
@@ -313,9 +338,12 @@ class ProductController extends Controller
                 'stock_quantity' => 'required',
                 'regular_price' => 'required',
                 'main_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'images' => 'nullable|array|max:6',
+                // 'images' => 'nullable|array|max:6',
+                'images' => 'required|array|min:1|max:6', // Ubah ini
+
                 'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'video' => 'nullable|mimes:mp4,avi,mov|max:5048',
+                'description' => 'required',
 
                 'variant_type' => 'required|array',
                 'variant_type.*' => 'required|string',
@@ -415,31 +443,6 @@ class ProductController extends Controller
                 'dimensions' => json_encode($dimensions),  // Menyimpan sebagai JSON                
             ]);
 
-            // if ($request->has('variant_type') && $request->has('variant_values')) {
-            //     $useVariantImage = $request->has('use_variant_image') && $request->use_variant_image[0] == '1';
-
-            //     foreach ($request->variant_type as $index => $variantType) {
-            //         if (isset($request->variant_values[$index]) && is_array($request->variant_values[$index])) {
-            //             foreach ($request->variant_values[$index] as $variantValueIndex => $variantValue) {
-            //                 $variantImage = null;
-
-            //                 if ($useVariantImage && $request->hasFile("variant_images") && isset($request->file("variant_images")[$variantValueIndex])) {
-            //                     $variantImageFile = $request->file("variant_images")[$variantValueIndex];
-            //                     $variantImageName = time() . '_' . $variantImageFile->getClientOriginalName();
-            //                     $variantImage = $variantImageFile->storeAs('product_images', $variantImageName, 'public');
-            //                 }
-
-            //                 ProductVariations::create([
-            //                     'product_id' => $product->id,
-            //                     'variant_type' => $variantType,
-            //                     'variant_value' => $variantValue,
-            //                     'use_variant_image' => $useVariantImage,
-            //                     'variant_image' => $variantImage,
-            //                 ]);
-            //             }
-            //         }
-            //     }
-            // }
 
             if ($request->has('variant_type') && $request->has('variant_values')) {
                 foreach ($request->variant_type as $typeIndex => $variantType) {
@@ -470,9 +473,11 @@ class ProductController extends Controller
             }
 
             return redirect()->route('index-product-admin')->with('success', 'Product created successfully!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
             Log::error('Error creating product', ['exception' => $e->getMessage()]);
-            return redirect()->route('index-product-admin')->with('error', 'An error occurred while creating the product: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'An error occurred while creating the product: ' . $e->getMessage()])->withInput();
         }
     }
 
@@ -522,6 +527,28 @@ class ProductController extends Controller
     }
 
 
+    // public function editProductAdmin($id)
+    // {
+    //     $categories = CategoryProduct::all();
+    //     $brands = Brand::all();
+    //     $product = Product::find($id);
+
+    //     if (!$product) {
+    //         return redirect()->route('index-product-admin')->with('error', 'Product not found');
+    //     }
+
+    //     // Decode JSON images to array
+    //     $product->images = json_decode($product->images, true);
+    //     $product->dimensions = json_decode($product->dimensions, true);
+
+
+    //     return view('admin.product.edit', [
+    //         'categories' => $categories,
+    //         'brands' => $brands,
+    //         'product' => $product
+    //     ]);
+    // }
+
     public function editProductAdmin($id)
     {
         $categories = CategoryProduct::all();
@@ -532,8 +559,18 @@ class ProductController extends Controller
             return redirect()->route('index-product-admin')->with('error', 'Product not found');
         }
 
-        // Decode JSON images to array
-        $product->images = json_decode($product->images, true);
+        // Decode JSON images to array if it's a string
+        if (is_string($product->images)) {
+            $product->images = json_decode($product->images, true);
+        } else {
+            $product->images = []; // Atau sesuaikan dengan kebutuhan Anda
+        }
+
+        if (is_string($product->dimensions)) {
+            $product->dimensions = json_decode($product->dimensions, true);
+        } else {
+            $product->dimensions = []; // Atau sesuaikan dengan kebutuhan Anda
+        }
 
         return view('admin.product.edit', [
             'categories' => $categories,
@@ -542,6 +579,103 @@ class ProductController extends Controller
         ]);
     }
 
+
+
+    // public function updateProductAdmin(Request $request, $id)
+    // {
+    //     try {
+    //         // Temukan produk berdasarkan ID
+    //         $product = Product::find($id);
+
+    //         if (!$product) {
+    //             return redirect()->route('admin.product.index')->with('error', 'Product not found');
+    //         }
+
+    //         // Validasi data yang dikirim
+    //         $validatedData = $request->validate([
+    //             'product_name' => 'required|string|max:255',
+    //             'category_product_id' => 'required',
+    //             'brand_id' => 'required',
+    //             'stock_quantity' => 'required',
+    //             'regular_price' => 'required',
+    //             'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //             'video' => 'nullable|mimes:mp4,avi,mov|max:5048',
+
+    //         ]);
+
+    //         // Hapus format rupiah dari regular_price
+    //         $regularPrice = str_replace(['Rp. ', '.'], '', $validatedData['regular_price']);
+
+    //         // Update data produk
+    //         $product->product_name = $validatedData['product_name'];
+    //         // $product->product_code = $validatedData['product_code'];
+    //         $product->category_product_id = $validatedData['category_product_id'];
+    //         $product->brand_id = $validatedData['brand_id'];
+    //         $product->stock_quantity = $validatedData['stock_quantity'];
+    //         $product->regular_price = $regularPrice; // Simpan harga dalam format angka
+
+    //         // Handle Main Image Upload (Single Image)
+    //         if ($request->hasFile('main_image')) {
+    //             // Hapus gambar lama jika ada
+    //             if (!empty($product->main_image) && file_exists(public_path($product->main_image))) {
+    //                 unlink(public_path($product->main_image));
+    //             }
+
+    //             // Simpan gambar baru
+    //             $mainImage = $request->file('main_image');
+    //             $mainImageName = time() . '_' . $mainImage->getClientOriginalName();
+    //             $mainImage->move(public_path('uploads/product_images'), $mainImageName);
+    //             $product->main_image = 'uploads/product_images/' . $mainImageName;
+    //         }
+
+    //         // Handle Product Gallery Upload (Multiple Images)
+    //         if ($request->hasFile('images')) {
+    //             // Hapus gambar lama jika ada
+    //             if (!empty($product->images)) {
+    //                 $existingImages = json_decode($product->images, true);
+
+    //                 // Hapus gambar lama
+    //                 foreach ($existingImages as $existingImage) {
+    //                     if (file_exists(public_path($existingImage))) {
+    //                         unlink(public_path($existingImage));
+    //                     }
+    //                 }
+    //             }
+
+    //             // Simpan gambar baru
+    //             $newImages = [];
+    //             foreach ($request->file('images') as $image) {
+    //                 $imageName = time() . '_' . $image->getClientOriginalName();
+    //                 $image->move(public_path('uploads/product_images'), $imageName);
+    //                 $newImages[] = 'uploads/product_images/' . $imageName;
+    //             }
+
+    //             $product->images = json_encode($newImages);
+    //         }
+
+    //         // Handle Video Upload
+    //         if ($request->hasFile('video')) {
+    //             // Hapus video lama jika ada
+    //             if (!empty($product->video) && file_exists(public_path($product->video))) {
+    //                 unlink(public_path($product->video));
+    //             }
+
+    //             // Simpan video baru
+    //             $video = $request->file('video');
+    //             $videoName = time() . '_' . $video->getClientOriginalName();
+    //             $video->move(public_path('uploads/product_videos'), $videoName);
+    //             $product->video = 'uploads/product_videos/' . $videoName;
+    //         }
+
+    //         $product->save();
+
+    //         return redirect()->route('index-product-admin')->with('success', 'Product updated successfully');
+    //     } catch (\Exception $e) {
+    //         Log::error('Error updating product', ['exception' => $e->getMessage()]);
+    //         return redirect()->route('index-product-admin')->with('error', 'An error occurred while updating the product: ' . $e->getMessage());
+    //     }
+    // }
 
     public function updateProductAdmin(Request $request, $id)
     {
@@ -556,26 +690,27 @@ class ProductController extends Controller
             // Validasi data yang dikirim
             $validatedData = $request->validate([
                 'product_name' => 'required|string|max:255',
-                'category_product_id' => 'required',
-                'brand_id' => 'required',
                 'stock_quantity' => 'required',
                 'regular_price' => 'required',
-                'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'images' => 'nullable|array|max:6',
+                'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'video' => 'nullable|mimes:mp4,avi,mov|max:5048',
+                'description' => 'required',
+                'category_product_id' => 'required', // Menambahkan validasi ini
+                'brand_id' => 'required', // Menambahkan validasi ini
 
+                // 'variant_type' => 'required|array',
+                // 'variant_type.*' => 'required|string',
+                // 'variant_values' => 'required|array',
+                // 'variant_values.*' => 'array',
+                // 'use_variant_image' => 'array',
+                // 'variant_images' => 'array',
+                // 'variant_images.*.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
             // Hapus format rupiah dari regular_price
             $regularPrice = str_replace(['Rp. ', '.'], '', $validatedData['regular_price']);
-
-            // Update data produk
-            $product->product_name = $validatedData['product_name'];
-            // $product->product_code = $validatedData['product_code'];
-            $product->category_product_id = $validatedData['category_product_id'];
-            $product->brand_id = $validatedData['brand_id'];
-            $product->stock_quantity = $validatedData['stock_quantity'];
-            $product->regular_price = $regularPrice; // Simpan harga dalam format angka
 
             // Handle Main Image Upload (Single Image)
             if ($request->hasFile('main_image')) {
@@ -587,8 +722,8 @@ class ProductController extends Controller
                 // Simpan gambar baru
                 $mainImage = $request->file('main_image');
                 $mainImageName = time() . '_' . $mainImage->getClientOriginalName();
-                $mainImage->move(public_path('uploads/product_images'), $mainImageName);
-                $product->main_image = 'uploads/product_images/' . $mainImageName;
+                $mainImagePath = $mainImage->storeAs('product_images', $mainImageName, 'public');
+                $product->main_image = $mainImagePath;
             }
 
             // Handle Product Gallery Upload (Multiple Images)
@@ -609,8 +744,8 @@ class ProductController extends Controller
                 $newImages = [];
                 foreach ($request->file('images') as $image) {
                     $imageName = time() . '_' . $image->getClientOriginalName();
-                    $image->move(public_path('uploads/product_images'), $imageName);
-                    $newImages[] = 'uploads/product_images/' . $imageName;
+                    $imagePath = $image->storeAs('product_images', $imageName, 'public');
+                    $newImages[] = $imagePath;
                 }
 
                 $product->images = json_encode($newImages);
@@ -626,10 +761,61 @@ class ProductController extends Controller
                 // Simpan video baru
                 $video = $request->file('video');
                 $videoName = time() . '_' . $video->getClientOriginalName();
-                $video->move(public_path('uploads/product_videos'), $videoName);
-                $product->video = 'uploads/product_videos/' . $videoName;
+                $videoPath = $video->storeAs('product_videos', $videoName, 'public');
+                $product->video = $videoPath;
             }
 
+            // Update informasi produk lainnya
+            $product->product_name = $validatedData['product_name'];
+            $product->category_product_id = $validatedData['category_product_id'];
+            $product->brand_id = $validatedData['brand_id'];
+            $product->description = $validatedData['description'];
+            $product->stock_quantity = $validatedData['stock_quantity'];
+            $product->regular_price = $regularPrice; // Simpan harga dalam format angka
+
+            // Simpan data dimensi sebagai array JSON jika diperlukan
+            if ($request->has('length') && $request->has('width') && $request->has('height')) {
+                $dimensions = [
+                    'length' => $request->input('length'),
+                    'width' => $request->input('width'),
+                    'height' => $request->input('height'),
+                ];
+                $product->dimensions = json_encode($dimensions);
+            }
+
+            // Update Variations
+            if ($request->has('variant_type') && $request->has('variant_values')) {
+                // Hapus variasi lama jika diperlukan
+                ProductVariations::where('product_id', $product->id)->delete();
+
+                foreach ($request->variant_type as $typeIndex => $variantType) {
+                    if (isset($request->variant_values[$typeIndex]) && is_array($request->variant_values[$typeIndex])) {
+                        foreach ($request->variant_values[$typeIndex] as $valueIndex => $variantValue) {
+                            $useVariantImage = isset($request->use_variant_image[$typeIndex][$valueIndex]) && $request->use_variant_image[$typeIndex][$valueIndex] == '1';
+                            $variantImage = null;
+
+                            if ($useVariantImage && $request->hasFile("variant_images.$typeIndex.$valueIndex")) {
+                                $variantImageFile = $request->file("variant_images")[$typeIndex][$valueIndex];
+                                $variantImageName = time() . '_' . $variantImageFile->getClientOriginalName();
+                                $variantImage = $variantImageFile->storeAs('product_images', $variantImageName, 'public');
+                            }
+
+                            ProductVariations::create([
+                                'product_id' => $product->id,
+                                'variant_type' => $variantType,
+                                'variant_value' => $variantValue,
+                                'use_variant_image' => $useVariantImage,
+                                'variant_image' => $variantImage,
+                                'variant_stock' => $request->variant_stock[$typeIndex][$valueIndex] ?? 0, // Sesuaikan
+                                'variant_price' => $request->variant_price[$typeIndex][$valueIndex] ?? 0, // Sesuaikan
+                                'weight_variant' => $request->variant_weight[$typeIndex][$valueIndex] ?? 0, // Sesuaikan
+                            ]);
+                        }
+                    }
+                }
+            }
+
+            // Simpan produk yang diperbarui
             $product->save();
 
             return redirect()->route('index-product-admin')->with('success', 'Product updated successfully');
@@ -638,6 +824,7 @@ class ProductController extends Controller
             return redirect()->route('index-product-admin')->with('error', 'An error occurred while updating the product: ' . $e->getMessage());
         }
     }
+
 
     public function deleteProductAdmin($id)
     {

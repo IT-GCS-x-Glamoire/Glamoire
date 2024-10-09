@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="assets/css/product/createproduct.css">
-
 </head>
 
 <body>
@@ -65,7 +64,8 @@
                                                                 <input type="text"
                                                                     class="form-control {{ $errors->has('product_name') ? 'is-invalid' : '' }}"
                                                                     placeholder="Enter Product Name"
-                                                                    id="first-name-icon" name="product_name">
+                                                                    id="first-name-icon" name="product_name"
+                                                                    value="{{ old('product_name') }}">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-bag"></i>
                                                                 </div>
@@ -83,13 +83,21 @@
                                                                 <select
                                                                     class="form-control select2-basic-category {{ $errors->has('category_product_id') ? 'is-invalid' : '' }}"
                                                                     name="category_product_id">
-                                                                    <option value="" disabled selected>Select
-                                                                        Category</option> <!-- Placeholder -->
+                                                                    <option value="" disabled
+                                                                        {{ old('category_product_id') ? '' : 'selected' }}>
+                                                                        Select Category</option> <!-- Placeholder -->
                                                                     @foreach ($categories as $category)
-                                                                        <option value="{{ $category->id }}">
-                                                                            {{ $category->name }}</option>
+                                                                        <option value="{{ $category->id }}"
+                                                                            {{ old('category_product_id') == $category->id ? 'selected' : '' }}>
+                                                                            {{ $category->name }}
+                                                                        </option>
                                                                     @endforeach
                                                                 </select>
+                                                                @if ($errors->has('category_product_id'))
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $errors->first('category_product_id') }}
+                                                                    </div>
+                                                                @endif
                                                             </div>
                                                         </div>
 
@@ -100,16 +108,25 @@
                                                                 <select
                                                                     class="form-control select2-basic-brand {{ $errors->has('brand_id') ? 'is-invalid' : '' }}"
                                                                     name="brand_id">
-                                                                    <option value="" disabled selected>Select
+                                                                    <option value="" disabled
+                                                                        {{ old('brand_id') ? '' : 'selected' }}>Select
                                                                         Brand</option> <!-- Placeholder -->
                                                                     @foreach ($brands as $brand)
-                                                                        <option value="{{ $brand->id }}">
-                                                                            {{ $brand->name }}</option>
+                                                                        <option value="{{ $brand->id }}"
+                                                                            {{ old('brand_id') == $brand->id ? 'selected' : '' }}>
+                                                                            {{ $brand->name }}
+                                                                        </option>
                                                                     @endforeach
                                                                 </select>
+                                                                @if ($errors->has('brand_id'))
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $errors->first('brand_id') }}
+                                                                    </div>
+                                                                @endif
                                                             </div>
                                                         </div>
 
+                                                        {{-- product code auto --}}
                                                         <input type="hidden" id="product-code-input"
                                                             name="product_code">
 
@@ -118,7 +135,7 @@
                                                                     style="color: red">*</span></label>
                                                             <div class="position-relative">
                                                                 <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description"
-                                                                    id="description" cols="30" rows="10"></textarea>
+                                                                    id="description" cols="30" rows="10">{{ old('description') }}</textarea>
                                                             </div>
                                                             @if ($errors->has('description'))
                                                                 <p style="color: red">
@@ -133,7 +150,8 @@
                                                                 <input type="text"
                                                                     class="form-control {{ $errors->has('stock_quantity') ? 'is-invalid' : '' }}"
                                                                     placeholder="Enter Stock Quantity"
-                                                                    id="first-name-icon" name="stock_quantity">
+                                                                    id="first-name-icon" name="stock_quantity"
+                                                                    value="{{ old('stock_quantity') }}">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-cart"></i>
                                                                 </div>
@@ -151,7 +169,8 @@
                                                                 <input type="text"
                                                                     class="form-control {{ $errors->has('regular_price') ? 'is-invalid' : '' }}"
                                                                     placeholder="Enter Regular Price"
-                                                                    id="regular-price" name="regular_price">
+                                                                    id="regular-price" name="regular_price"
+                                                                    value="{{ old('regular_price') }}">
 
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-cash-stack"></i>
@@ -166,7 +185,8 @@
                                                         <label for="">Weight Product</label>
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control"
-                                                                placeholder="Weight Product" name="weight_product">
+                                                                placeholder="Weight Product" name="weight_product"
+                                                                value="{{ old('weight_product') }}">
                                                             <span class="input-group-text"
                                                                 id="basic-addon2">gram</span>
                                                         </div>
@@ -175,54 +195,35 @@
                                                         <div class="row mb-3">
                                                             <div class="col">
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="Length" name="length">
+                                                                    <input type="text"
+                                                                        class="form-control"
+                                                                        placeholder="Length" name="length"
+                                                                        value="{{ old('length') }}">
                                                                     <span class="input-group-text"
                                                                         id="basic-addon1">cm</span>
-                                                                </div>
+                                                                </div>                                                                
                                                             </div>
                                                             <div class="col">
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="Width" name="width">
+                                                                    <input type="text"
+                                                                        class="form-control"
+                                                                        placeholder="Width" name="width"
+                                                                        value="{{ old('width') }}">
                                                                     <span class="input-group-text"
                                                                         id="basic-addon2">cm</span>
-                                                                </div>
+                                                                </div>                                                                
                                                             </div>
                                                             <div class="col">
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="Height" name="height">
+                                                                    <input type="text"
+                                                                        class="form-control"
+                                                                        placeholder="Height" name="height"
+                                                                        value="{{ old('height') }}">
                                                                     <span class="input-group-text"
                                                                         id="basic-addon3">cm</span>
-                                                                </div>
+                                                                </div>                                                              
                                                             </div>
                                                         </div>
-
-                                                        {{-- <div class="form-group mb-3">
-                                                            <label for="product-color">Product Color</label>
-                                                            <div class="d-flex align-items-center">
-                                                                <!-- Input Text untuk Warna -->
-                                                                <div class="d-flex flex-column me-3">
-                                                                    <span style="font-size: 3.6mm;">Enter color
-                                                                        name</span>
-                                                                    <input type="text"
-                                                                        class="form-control {{ $errors->has('color_text') ? 'is-invalid' : '' }}"
-                                                                        id="product-color-text" name="color_text"
-                                                                        placeholder="Enter color name">
-                                                                </div>
-
-                                                                <!-- Input Picker Warna -->
-                                                                <div class="d-flex flex-column">
-                                                                    <span style="font-size: 3.6mm;">Or Select color
-                                                                    </span>
-                                                                    <input type="color"
-                                                                        class="form-control {{ $errors->has('color') ? 'is-invalid' : '' }} input-color-size"
-                                                                        id="product-color" name="color"
-                                                                        value="#ffffff">
-                                                                </div>
-                                                            </div>
-                                                        </div> --}}
 
                                                         <div class="mt-4">
                                                             <h4 class="card-title">Variant Product</h4>
@@ -275,6 +276,7 @@
                                                                 style="border: 2px dashed #ddd; border-radius: 4px; padding: 20px; width: 100%; box-sizing: border-box; position: relative; background: #f8f8f8; margin-bottom: 15px; height: auto;">
                                                                 <input type="file" name="main_image"
                                                                     class="file-upload-input"
+                                                                    {{ $errors->has('main_image') ? 'is-invalid' : '' }}
                                                                     onchange="readURLSingle(this);" accept="image/*"
                                                                     style="position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
                                                                 <div class="drag-text"
@@ -282,7 +284,12 @@
                                                                     <p>Drag and drop a file or select to add Image
                                                                     </p>
                                                                 </div>
+
                                                             </div>
+                                                            @if ($errors->has('main_image'))
+                                                                <p style="color: red">
+                                                                    {{ $errors->first('main_image') }}</p>
+                                                            @endif
 
                                                             <span id="main-image-error"
                                                                 style="color: red; display: none;"></span>
@@ -303,6 +310,7 @@
                                                                 style="border: 2px dashed #ddd; border-radius: 4px; padding: 20px; width: 100%; box-sizing: border-box; position: relative; background: #f8f8f8; margin-bottom: 15px; height: auto;">
                                                                 <input type="file" id="images" name="images[]"
                                                                     class="file-upload-input"
+                                                                    {{ $errors->has('images[]') ? 'is-invalid' : '' }}
                                                                     onchange="handleFiles(this.files);"
                                                                     accept="image/*" multiple
                                                                     style="position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
@@ -312,6 +320,11 @@
                                                                     </p>
                                                                 </div>
                                                             </div>
+
+                                                            @if ($errors->has('images[]'))
+                                                                <p style="color: red">
+                                                                    {{ $errors->first('images[]') }}</p>
+                                                            @endif
 
                                                             <!-- Tempat pesan error -->
                                                             <span id="image-error"
@@ -371,7 +384,6 @@
                                                                             <th>Stock</th>
                                                                             <th>SKU</th>
                                                                             <th>Weight (grams)</th>
-                                                                            <th>Status</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody id="variant-table-body">
@@ -387,8 +399,8 @@
                                                         <button type="reset"
                                                             class="btn  btn-light-secondary me-3 mb-1"
                                                             style="border-radius: 5px;">Reset</button>
-                                                        <button type="submit" class="btn  btn-primary me-1 mb-1"
-                                                            style="border-radius: 5px;">Submit</button>
+                                                        <button type="submit" class="btn btn-primary me-1 mb-1"
+                                                            id="submitButton">Submit</button>
 
                                                     </div>
                                                 </div>
@@ -774,6 +786,26 @@
         });
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            @if ($errors->any())
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 4000,
+                    timerProgressBar: true,
+                    icon: 'error',
+                    title: 'Error: {{ $errors->first() }}',
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+            @endif
+        });
+    </script>
+
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 
@@ -839,7 +871,7 @@
     </script>
 
     {{-- multiple upload image --}}
-    <script>
+    {{-- <script>
         let selectedFiles = [];
 
         function handleFiles(files) {
@@ -911,7 +943,95 @@
 
             fileInput.files = dataTransfer.files;
         });
+    </script> --}}
+
+    <script>
+        let selectedFiles = [];
+
+        function handleFiles(files) {
+            const fileUploadContent = document.getElementById('file-upload-content');
+            const imageError = document.getElementById('image-error');
+            const totalFiles = selectedFiles.length + files.length;
+
+            // Reset pesan error
+            imageError.style.display = 'none';
+            imageError.textContent = '';
+
+            // Cek jika jumlah file melebihi 6
+            if (totalFiles > 6) {
+                imageError.textContent = 'You can upload a maximum of 6 images.';
+                imageError.style.display = 'block';
+                return;
+            }
+
+            // Tambahkan file ke array selectedFiles
+            for (let i = 0; i < files.length; i++) {
+                selectedFiles.push(files[i]);
+            }
+
+            // Tampilkan gambar di form
+            Array.from(files).forEach(file => {
+                const maxSize = 2 * 1024 * 1024; // 2MB
+                if (file.size > maxSize) {
+                    imageError.textContent = 'Each image file must be less than 2MB.';
+                    imageError.style.display = 'block';
+                    return;
+                }
+
+                if (!file.type.match('image.*')) return; // Hanya file gambar
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Buat elemen gambar
+                    const imgBox = document.createElement('div');
+                    imgBox.classList.add('upload__img-box-multiple');
+
+                    const imgBg = document.createElement('div');
+                    imgBg.classList.add('img-bg');
+                    imgBg.style.backgroundImage = `url(${e.target.result})`;
+
+                    // Tambahkan tombol close
+                    const imgClose = document.createElement('div');
+                    imgClose.classList.add('upload__img-close');
+                    imgClose.onclick = function() {
+                        const index = Array.from(fileUploadContent.children).indexOf(imgBox);
+                        selectedFiles.splice(index, 1);
+                        fileUploadContent.removeChild(imgBox);
+                    };
+
+                    imgBg.appendChild(imgClose);
+                    imgBox.appendChild(imgBg);
+                    fileUploadContent.appendChild(imgBox);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        document.querySelector('form').addEventListener('submit', function(event) {
+            const imageError = document.getElementById('image-error');
+
+            if (selectedFiles.length === 0) {
+                event.preventDefault(); // Mencegah form dari submit
+                imageError.textContent = 'Please upload at least one image.';
+                imageError.style.display = 'block';
+                imageError.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                return;
+            }
+
+            const fileInput = document.getElementById('images');
+            const dataTransfer = new DataTransfer();
+
+            selectedFiles.forEach(file => {
+                dataTransfer.items.add(file);
+            });
+
+            fileInput.files = dataTransfer.files;
+        });
     </script>
+
 
     {{-- upload vidio --}}
     <script>

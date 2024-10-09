@@ -63,10 +63,7 @@
                             </li>
                             <li class="submenu-item {{ Request::is('promo-voucher') ? 'active' : '' }}">
                                 <a href="/promo-voucher">Voucher</a>
-                            </li>
-                            <li class="submenu-item {{ Request::is('promo-ongkir') ? 'active' : '' }}">
-                                <a href="/promo-ongkir">Ongkir</a>
-                            </li>
+                            </li>                          
                             <li class="submenu-item {{ Request::is('promo-diskon') ? 'active' : '' }}">
                                 <a href="/promo-diskon">Diskon</a>
                             </li>
