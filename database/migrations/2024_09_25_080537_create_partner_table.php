@@ -23,9 +23,9 @@ return new class extends Migration
             $table->boolean('reached_email');
             $table->string('category_product');
             $table->unsignedBigInteger('file_company');
+            $table->foreign('file_company')->references('id')->on('file_partners')->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedBigInteger('file_bpom');
-            $table->foreign('file_company')->references('id')->on('files')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreign('file_bpom')->references('id')->on('files')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('file_bpom')->references('id')->on('file_partners')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('partner');
     }
 };

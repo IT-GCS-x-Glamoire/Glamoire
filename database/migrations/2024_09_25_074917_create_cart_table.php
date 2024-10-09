@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('article_comments', function (Blueprint $table) {
-            $table->unsignedBigInteger('id');
+        Schema::create('carts', function (Blueprint $table) {
+            $table->id();
             $table->uuid('user_id');
-            $table->unsignedBigInteger('article_id');
-            $table->string('description');
-            $table->foreign('article_id')->references('id')->on('article')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->timestamps();
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('cart');
     }
 };

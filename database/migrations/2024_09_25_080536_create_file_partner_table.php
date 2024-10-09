@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('password_reset_tokens', function (Blueprint $table) {
-            $table->dropUnique(['email']); // Hapus constraint unique pada kolom email
+        Schema::create('file_partners', function (Blueprint $table) {
+            $table->id();
+            $table->string('file_name');
+            $table->string('file_path');
+            $table->string('type');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('password_reset_tokens', function (Blueprint $table) {
-            $table->unique('email'); // Tambahkan kembali constraint unique jika dibutuhkan
-        });
+        Schema::dropIfExists('file_partner');
     }
 };

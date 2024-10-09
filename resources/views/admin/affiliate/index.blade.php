@@ -57,31 +57,32 @@
                             <table class="table" id="table1">
                                 <thead>
                                     <tr>
-                                        <th>Tanggal</th>
+                                        <th>Full Name</th>
                                         <th>Company Name</th>
                                         <th>Email</th>
-                                        <th>Nomor</th>
+                                        <th>Category Product</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Graiden</td>
-                                        <td>Graiden</td>
-                                        <td>Graiden</td>
-                                        <td>
-                                            <span class="badge bg-light-success">Success</span>
-                                        </td>
-                                        <td>                                         
-                                            <a href="#" type="button" data-bs-toggle="modal"
-                                                data-bs-target="#inlineForm">
-                                                <span class="badge bg-warning">View
-                                            </a>
+                                    @foreach ($partners as $item)
+                                        <tr>
+                                            <td>{{ $item->fullname }}</td>
+                                            <td>{{ $item->company_name }}</td>
+                                            <td>{{ $item->email }}</td>
+                                            <td>{{ $item->category_product }}</td>
+                                            <td>
+                                                <a href="{{ url('detail-affiliate-admin/' . $item->id) }}"><span
+                                                        class="badge bg-info">
+                                                        View</span></a>
+                                                
+                                                <a href="javascript:void(0);" class="delete-product"
+                                                    data-id="{{ $item->id }}"><span
+                                                        class="badge bg-danger">Delete</span></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
-                                            <a href="/user-detail"> <span class="badge bg-danger">Delete</span>
-                                            </a>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -150,13 +151,15 @@
                                 </div>
                             </div>
                             <div class="modal-body">
-                                <label>Any official  distributor in Indonesia ? <span style="color: red">*</span> </label>
+                                <label>Any official distributor in Indonesia ? <span style="color: red">*</span>
+                                </label>
                                 <div class="form-group mt-2">
                                     <input type="text" placeholder="Enter Category Name" class="form-control">
                                 </div>
                             </div>
                             <div class="modal-body">
-                                <label>Have you reached Glamoire via email before? <span style="color: red">*</span> </label>
+                                <label>Have you reached Glamoire via email before? <span style="color: red">*</span>
+                                </label>
                                 <div class="form-group mt-2">
                                     <input type="text" placeholder="Enter Category Name" class="form-control">
                                 </div>
@@ -168,7 +171,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-sm btn-light-secondary" data-bs-dismiss="modal">
+                                <button type="button" class="btn btn-sm btn-light-secondary"
+                                    data-bs-dismiss="modal">
                                     <i class="bx bx-x d-block d-sm-none"></i>
                                     <span class="d-none d-sm-block">Close</span>
                                 </button>

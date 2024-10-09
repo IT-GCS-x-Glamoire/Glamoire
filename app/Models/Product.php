@@ -12,6 +12,7 @@ class Product extends Model
 
     protected $casts = [
         'images' => 'array', // Ini akan mengubah kolom 'images' menjadi array saat diakses
+        'dimensions' => 'array', // Untuk kolom dimensions
     ];
 
     public function categoryProduct()
@@ -34,7 +35,7 @@ class Product extends Model
         return $this->belongsToMany(Promo::class, 'promo_products', 'product_id', 'promo_id');
     }
 
-    public function variations()
+    public function productVariations()
     {
         return $this->hasMany(ProductVariations::class);
     }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
+use App\Http\Controllers\AffiliateController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthenticateController;
 use App\Http\Controllers\AuthController;
@@ -18,13 +19,19 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ContactusController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SubscribeController;
+use App\Http\Controllers\CheckoutController;
 
 
 // VERIFIKASI EMAIL REGISTER
 // Rute untuk halaman yang hanya bisa diakses oleh user terverifikasi
+Route::get('/', [ProductController::class, 'index'])->name('home.glamoire');
+
+
 Route::get('/{user}_account', [UserController::class, 'account'])
-    ->name('account');
+->name('account');
 
 // Rute untuk memverifikasi email
 Route::get('/email-verify', function () {
@@ -37,7 +44,7 @@ Route::get('/email-verify', function () {
 // Memproses link verifikasi
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill(); // Verifikasi email
-   
+
     // Login otomatis setelah verifikasi
     Auth::login($request->user());
     session()->flash('success_verification_email');
@@ -63,6 +70,7 @@ Route::get('/search', [ProductController::class, 'search'])->name('search.produc
 Route::post('/login-user', [AuthController::class, 'login'])->name('login.user');
 Route::post('/logout-user', [AuthController::class, 'logout'])->name('logout.user');
 Route::post('/register-user', [AuthController::class, 'register'])->name('register.user');
+
 Route::post('/check-email', [AuthController::class, 'checkEmail'])->name('check.email');
 Route::post('/check-email-subscribe', [FormController::class, 'checkEmailSubscribe'])->name('check.email.subscribe');
 Route::post('/check-email-voucher', [FormController::class, 'checkEmailVoucher'])->name('check.email.voucher');
@@ -94,18 +102,12 @@ Route::post('/send-question', [FormController::class, 'sendQuestion'])->name('se
 Route::post('/partnership', [FormController::class, 'files'])->name('partnership');
 Route::post('/comment', [FormController::class, 'comment'])->name('comment.article');
 
-
-Route::get('/', [ProductController::class, 'index'])->name('home.glamoire');
-
-// Route::get('/belanja/{category}', function () {
-//     return view('user.component.shop');
-// });
-
 // SHOP
 Route::get('/belanja-{category}-{subcategory}-{listsubcategory}', [ShopController::class, 'listSubCategory'])->name('shop.category.sub.list');
 Route::get('/belanja-{category}-{subcategory}', [ShopController::class, 'subCategory'])->name('shop.category.sub');
 Route::get('/belanja-{category}', [ShopController::class, 'category'])->name('shop.category');
 
+// DETAIL PRODUCT
 Route::get('/{id}_product', [ProductController::class, 'detail'])->name('detail.product');
 
 Route::get('/contact', function () {
@@ -118,6 +120,8 @@ Route::get('/about', function () {
 
 // DETAIL PRODUK
 Route::get('/{id}_product', [ProductController::class, 'detail'])->name('detail.product');
+// DETAIL BRAND
+Route::get('/{nameBrand}_brand', [BrandController::class, 'brands'])->name('detail.brand.user');
 
 // ADD $ REMOVE CART ITEMS
 Route::post('/chart', [UserController::class, 'addToChart'])->name('add.to.chart');
@@ -125,19 +129,16 @@ Route::post('/chart-with-quantity', [UserController::class, 'addToChartWithQuant
 Route::post('/remove-product-cart', [CartController::class, 'deleteProductItem'])->name('delete.product.cart');
 Route::post('/update-cart-quantity', [CartController::class, 'updateCartQuantity'])->name('update.cart.quantity');
 
-
 // ADD & REMOVE WISHLIST
 Route::post('/wishlist', [UserController::class, 'addToWishlist'])->name('add.to.wishlist');
 Route::post('/remove-wishlist', [UserController::class,'removeFromWishlist'])->name('remove.from.wishlist');
 
-// BUY NOW
-Route::post('/add-product-buy-now', [UserController::class, 'addProductBuyNow'])->name('add.product.buy.now');
-Route::get('/buy-now', [UserController::class, 'buyNow'])->middleware(['auth', 'verified'])->name('buy.now');
-Route::post('/update-cart-quantity-buy-now', [UserController::class, 'updateCartQuantityBuyNow'])->name('update.cart.quantity.buy.now');
 
-Route::get('/home', function () {
-    return view('user.component.home');
-});
+// BUY NOW
+Route::post('/add-product-buy-now', [CheckoutController::class, 'addProductBuyNow'])->name('add.product.buy.now');
+Route::get('/buy-now', [CheckoutController::class, 'buyNow'])->middleware(['auth', 'verified'])->name('buy.now');
+Route::post('/update-cart-quantity-buy-now', [CheckoutController::class, 'updateCartQuantityBuyNow'])->name('update.cart.quantity.buy.now');
+
 
 Route::get('/help', function () {
     return view('user.component.help');
@@ -155,23 +156,20 @@ Route::get('/newsletter', function () {
     return view('user.component.newsletter');
 });
 
-Route::get('/blog', function () {
-    return view('user.component.blog');
-});
-
-Route::get('/brand', function () {
-    return view('user.component.brand');
-});
+Route::get('/newsletter', [ArticleController::class, 'articleUser'])->name('newsletter.user');
+Route::get('/blog-{nameArticle}', [ArticleController::class, 'detailArticle'])->name('detail.newsletter.user');
 
 Route::prefix('/cart')->group(function () {
     Route::get('/', [CartController::class, 'index']);
 });
 
-// Route::prefix('/checkout')->group(function () {
-//     Route::get('/', [CartController::class, 'checkout']);
-// })->middleware(['auth', 'verified'])->name('checkout');
 
-Route::middleware(['auth', 'verified'])->get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+// CHECKOUT
+Route::middleware(['auth', 'verified'])->get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/apply-voucher', [CheckoutController::class, 'applyVoucher'])->name('apply.voucher');
+Route::post('/apply-voucher-buy-now', [CheckoutController::class, 'applyVoucherBuyNow'])->name('apply.voucher.buy.now');
+// CHECK VOUCHER
+Route::post('/check-code-voucher', [CheckoutController::class, 'checkCodeVoucher'])->name('check.code.voucher');
 
 Route::get('/partner', function () {
     return view('user.component.partner');
@@ -185,6 +183,8 @@ Route::get('/terms', function () {
     return view('user.component.terms');
 });
 
+
+// ADMIN PAGE
 Route::get('/error-403', function () {
     return view('error-403');
 })->name('error-403');
@@ -193,15 +193,17 @@ Route::get('/error-403', function () {
 
 // DASHBOARD
 
-Route::get('/login', [AuthenticateController::class, 'indexlogin'])->name('index-login');
-Route::post('/login', [AuthenticateController::class, 'login'])->name('login');
+Route::get('/login-admin', [AuthenticateController::class, 'indexlogin'])->name('index-login');
+Route::post('/login-admin', [AuthenticateController::class, 'login'])->name('login');
 Route::post('/logout', [AuthenticateController::class, 'logout'])->name('logout');
 
 Route::get('/forgot-password', [AuthenticateController::class, 'forgotPassword'])->name('index-forgotpassword');
 
+
 Route::middleware('auth')->get('/dashboard', [DashboardController::class, 'indexDashboard'])->name('dashboard');
 
 Route::middleware(['auth', 'role:admin,superadmin'])->group(function () {
+    Route::get('/dashboard/get-sales-data', [DashboardController::class, 'getSalesData']);
 
     // product
     Route::get('/product-admin', [ProductController::class, 'indexProductAdmin'])->name('index-product-admin');
@@ -269,36 +271,42 @@ Route::middleware(['auth', 'role:admin,superadmin'])->group(function () {
     Route::get('/create-promo-ongkir', [PromoController::class, 'createPromoOngkir'])->name('create-promo-ongkir');
     Route::post('/create-promo-ongkir', [PromoController::class, 'storePromoOngkir'])->name('store-promo-ongkir');
     
+    Route::get('/promo-diskon', [PromoController::class, 'indexPromoDiskon'])->name('index-promo-diskon');
+    Route::get('/create-promo-diskon', [PromoController::class, 'createPromoDiskon'])->name('create-promo-diskon');
+    Route::post('/create-promo-diskon', [PromoController::class, 'storePromoDiskon'])->name('store-promo-diskon');
+    
     Route::get('/detail-promo/{id}', [PromoController::class, 'detailPromo'])->name('detail-promo');
     Route::put('/update/promo/{id}', [PromoController::class, 'updatePromo'])->name('update-promo');
     
     Route::delete('/delete-promo/{id}', [PromoController::class, 'deletePromo'])->name('delete-promo');
 
     // AFFILIATE
-    Route::get('/affiliate-admin', function () {
-        return view('admin.affiliate.index');
-    });
+    Route::get('/affiliate-admin', [AffiliateController::class, 'indexAffiliateAdmin'])->name('index-affiliate-admin');
+    Route::get('/detail-affiliate-admin/{id}', [AffiliateController::class, 'detailAffiliateAdmin'])->name('detail-affiliate-admin');
 
     Route::get('/chat-admin', function () {
         return view('admin.chat.index');
     });
 
     // user detail
-    Route::get('/user', function () {
-        return view('admin.user.index');
-    });
-
-    Route::get('/user-detail', function () {
-        return view('admin.user.detail');
-    });
+    Route::get('/user-admin', [UserController::class, 'indexUserAdmin'])->name('index-user-admin');
+    Route::get('/user-admin-detail', [UserController::class, 'detailUserAdmin'])->name('detail-user-admin');
 
     // shipping fee
     Route::get('/shipping-fee', function () {
         return view('admin.shippingfee.index');
     });
+
     Route::get('/create-shipping-fee', function () {
         return view('admin.shippingfee.create');
     });
+    
+    Route::get('/contact-us-admin', [ContactusController::class, 'indexContactusAdmin'])->name('index-contactus-admin');
+    Route::get('/contact-us-admin/{id}', [ContactusController::class, 'showContactusAdmin'])->name('show-contactus-admin');
+
+    Route::get('/subscribe-admin', [SubscribeController::class, 'indexSubscribeAdmin'])->name('index-subscribe-admin');
+
+
 });
 
 Route::middleware(['auth', 'role:accounting,superadmin'])->group(function () {

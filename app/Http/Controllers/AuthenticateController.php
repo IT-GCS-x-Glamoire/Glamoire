@@ -38,9 +38,17 @@ class AuthenticateController extends Controller
 
         $credentials = $request->only('name', 'password');
 
+        // if (Auth::attempt($credentials)) {
+        //     // Authentication passed
+        //     return redirect()->intended('dashboard');
+        // }
+
         if (Auth::attempt($credentials)) {
             // Authentication passed
+            Log::info('Login successful for user: ' . $credentials['name']);
             return redirect()->intended('dashboard');
+        } else {
+            Log::warning('Login failed for user: ' . $credentials['name']);
         }
 
         // Authentication failed
@@ -58,7 +66,7 @@ class AuthenticateController extends Controller
     }
 
 
-    
+
     // forgot password
     public function forgotPassword()
     {

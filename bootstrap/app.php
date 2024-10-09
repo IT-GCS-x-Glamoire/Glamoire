@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\Role;
 use App\Http\Middleware\RoleMiddleware;
+use App\Http\Middleware\Costumer;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -18,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // $middleware->append(Role::class); // Menambahkan middleware authenticate
         $middleware->alias([
             'role' => \App\Http\Middleware\Role::class,
+            ''
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

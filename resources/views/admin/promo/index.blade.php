@@ -41,11 +41,11 @@
 
                     <div class="row mb-3">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>All Promo</h3>
+                            <h3>All Promo Event</h3>
                             <nav aria-label="breadcrumb" class="breadcrumb-header me-3">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Promo</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">All Promo</li>
+                                    <li class="breadcrumb-item"><a href="index.html">Promo Event</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">All Promo Event</li>
                                 </ol>
                             </nav>
                         </div>
@@ -58,7 +58,7 @@
                                     <i class="bi bi-plus-circle" style="margin-right: 3px;"></i> Add Data
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item" href="{{ route('create-promo') }}">Promo</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('create-promo') }}">Promo Event</a></li>
                                     <li><a class="dropdown-item" href="{{ route('create-promo-voucher') }}">Voucher</a>
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('create-promo-ongkir') }}">Promo
@@ -71,13 +71,12 @@
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
-                            <h4>List Promo</h4>
+                            <h4>List Promo Event</h4>
                         </div>
                         <div class="card-body">
                             <table class="table" id="table1">
                                 <thead>
                                     <tr>
-                                        <th>Banner</th>
                                         <th>Promo</th>
                                         <th>Type</th>
                                         <th>Start Date Promo</th>
@@ -122,13 +121,12 @@
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
-                            <h4>List Promo Voucher</h4>
+                            <h4>List Voucher</h4>
                         </div>
                         <div class="card-body">
                             <table class="table" id="table1">
                                 <thead>
                                     <tr>
-                                        <th>Banner</th>
                                         <th>Promo</th>
                                         <th>Type</th>
                                         <th>Start Date Promo</th>
@@ -172,13 +170,12 @@
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
-                            <h4>List Promo Ongkir</h4>
+                            <h4>List Diskon</h4>
                         </div>
                         <div class="card-body">
                             <table class="table" id="table1">
                                 <thead>
                                     <tr>
-                                        <th>Banner</th>
                                         <th>Promo</th>
                                         <th>Type</th>
                                         <th>Start Date Promo</th>
@@ -220,17 +217,8 @@
                     </div>
                 </section>
             </div>
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="http://ahmadsaugi.com">A. Saugi</a></p>
-                    </div>
-                </div>
-            </footer>
+            @include('admin.layouts.footer')
+
         </div>
     </div>
 

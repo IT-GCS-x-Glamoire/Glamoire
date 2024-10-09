@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('buynows', function (Blueprint $table) {
+        Schema::create('buy_nows', function (Blueprint $table) {
             $table->id();
             $table->uuid('user_id');
             $table->unsignedBigInteger('product_id');
             $table->integer('quantity');
             $table->bigInteger('price');
             $table->boolean('is_buy');
+            $table->bigInteger('total');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });

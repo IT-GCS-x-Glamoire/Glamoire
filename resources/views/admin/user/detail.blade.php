@@ -23,287 +23,76 @@
         @include('admin.layouts.sidebar')
         @include('admin.layouts.navbar')    
 
-        <div id="main">
+        <div id="main">          
             <div class="page-heading">
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>User Detail</h3>
+                            <h3>User Profile</h3>
+                            <p class="text-subtitle text-muted">A page where users can change profile information</p>
                         </div>
-
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/order-list">User</a></li>
+                                    <li class="breadcrumb-item"><a href="index.html">User</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Detail User</li>
                                 </ol>
                             </nav>
                         </div>
-
                     </div>
                 </div>
-
-                <!-- Basic Horizontal form layout section start -->
-                <section id="multiple-column-form">
-                    <div class="row match-height">
-                        <div class="col-12">
-                            <div class="card">                             
-
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <form class="form">
-                                            <div class="row">
-                                                <!-- Card 1 -->
-                                                <div class="col-md-4 col-12">
-                                                    <a href="{{ url('/detail-product-admin') }}"
-                                                        style="text-decoration: none; color: inherit;">
-                                                        <div class="card"
-                                                            style="border: 1px solid #ccc; border-radius: 8px;">
-                                                            <div class="card-header d-flex align-items-center">
-                                                                <!-- Product Name and Category -->
-                                                                <div class="d-flex align-items-start">
-                                                                    <div class="me-3">
-                                                                        <img src="{{ asset('assets/images/faces/1.jpg') }}"
-                                                                            alt="Product Image"
-                                                                            style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
-                                                                    </div>
-
-                                                                    <div class="d-flex flex-column me-3">
-                                                                        <h4 class="card-title mb-0"
-                                                                            style="margin-top: 1px; font-size: 1.25rem;">
-                                                                            Customer
-                                                                        </h4>
-                                                                        <p class="card-category mb-0"
-                                                                            style="font-size: 0.875rem; color: #6c757d;">
-                                                                            Full Name :
-                                                                        </p>
-                                                                        <p class="card-category mb-0"
-                                                                            style="font-size: 0.875rem; color: #6c757d;">
-                                                                            Email :
-                                                                        </p>
-                                                                        <p class="card-category mb-0"
-                                                                            style="font-size: 0.875rem; color: #6c757d;">
-                                                                            Phone :
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card-content">
-                                                                <div class="card-body">
-                                                                    <form class="form form-horizontal">
-                                                                        <div class="form-body">
-
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-
-                                                <!-- Card 2 -->
-                                                <div class="col-md-4 col-12">
-                                                    <a href="{{ url('/detail-product-admin') }}"
-                                                        style="text-decoration: none; color: inherit;">
-                                                        <div class="card"
-                                                            style="border: 1px solid #ccc; border-radius: 8px;">
-                                                            <div class="card-header d-flex align-items-center">
-                                                                <div class="d-flex align-items-start">
-                                                                    <div class="me-3">
-                                                                        <img src="{{ asset('assets/images/faces/1.jpg') }}"
-                                                                            alt="Product Image"
-                                                                            style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
-                                                                    </div>
-
-                                                                    <div class="d-flex flex-column me-3">
-                                                                        <h4 class="card-title mb-0"
-                                                                            style="margin-top: 1px; font-size: 1.25rem;">
-                                                                            Order Info
-                                                                        </h4>
-                                                                        <p class="card-category mb-0"
-                                                                            style="font-size: 0.875rem; color: #6c757d;">
-                                                                            Shipping :
-                                                                        </p>
-                                                                        <p class="card-category mb-0"
-                                                                            style="font-size: 0.875rem; color: #6c757d;">
-                                                                            Payment Method :
-                                                                        </p>
-                                                                        <p class="card-category mb-0"
-                                                                            style="font-size: 0.875rem; color: #6c757d;">
-                                                                            Status :
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card-content">
-                                                                <div class="card-body">
-                                                                    <form class="form form-horizontal">
-                                                                        <div class="form-body">
-
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-
-                                                <!-- Card 3 -->
-                                                <div class="col-md-4 col-12">
-                                                    <a href="{{ url('/detail-product-admin') }}"
-                                                        style="text-decoration: none; color: inherit;">
-                                                        <div class="card"
-                                                            style="border: 1px solid #ccc; border-radius: 8px;">
-                                                            <div class="card-header d-flex align-items-center">
-                                                                <!-- Image -->
-                                                                <div class="d-flex align-items-start">
-                                                                    <!-- Kolom untuk Deliver to -->
-                                                                    <!-- Gambar -->
-                                                                    <div class="me-3">
-                                                                        <img src="{{ asset('assets/images/faces/1.jpg') }}"
-                                                                            alt="Product Image"
-                                                                            style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
-                                                                    </div>
-
-                                                                    <div class="d-flex flex-column me-3">
-                                                                        <h4 class="card-title mb-0"
-                                                                            style="margin-top: 1px; font-size: 1.25rem;">
-                                                                            Deliver to
-                                                                        </h4>
-                                                                        <p class="card-category mb-0"
-                                                                            style="font-size: 0.875rem; color: #6c757d;">
-                                                                            Address :
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="card-content">
-                                                                <div class="card-body">
-                                                                    <form class="form form-horizontal">
-                                                                        <div class="form-body">
-
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <div class="card"
-                                                        style="border: 1px solid #ccc; border-radius: 8px;">
-                                                        <div class="card-header d-flex align-items-center">
-                                                            <!-- Product Name and Category -->
-                                                            <div class="d-flex align-items-start">
-                                                                <div class="d-flex flex-column me-3">
-                                                                    <h4 class="card-title mb-0"
-                                                                        style="margin-top: 1px; font-size: 1.25rem;">
-                                                                        Payment Info
-                                                                    </h4>
-                                                                    <p class="card-category mb-0"
-                                                                        style="font-size: 0.875rem; color: #6c757d;">
-                                                                        Nama Bank :
-                                                                    </p>
-                                                                    <p class="card-category mb-0"
-                                                                        style="font-size: 0.875rem; color: #6c757d;">
-                                                                        Payment Status :
-                                                                    </p>
-                                                                    <p class="card-category mb-0"
-                                                                        style="font-size: 0.875rem; color: #6c757d;">
-                                                                        No Invoice :
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-content">
-                                                            <div class="card-body">
-                                                                <form class="form form-horizontal">
-                                                                    <div class="form-body">
-
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </form>
+                <section class="section">
+                    <div class="row">
+                        <div class="col-12 col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-center align-items-center flex-column">
+                                        <div class="avatar avatar-2xl">
+                                            <img src="assets/static/images/faces/2.jpg" alt="Avatar">
+                                        </div>
+            
+                                        <h3 class="mt-3">John Doe</h3>
+                                        <p class="text-small">Junior Software Engineer</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-
-                <section class="section">
-                    <div class="row" id="table-head">
-                        <div class="col-12">
+                        <div class="col-12 col-lg-8">
                             <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">History Order</h4>
-                                </div>
-                                <div class="card-content" style="padding: 1rem;">
-                                    <div class="table-responsive">
-                                        <table class="table mb-0">
-                                            <thead class="thead-dark">
-                                                <tr>
-                                                    <th>Product</th>
-                                                    <th>Order ID</th>
-                                                    <th>Date</th>
-                                                    <th>Customer Name</th>
-                                                    <th>Status</th>
-                                                    <th>Amount</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-bold-500">Bedak Bubuk</td>
-                                                    <td>Implora</td>
-                                                    <td>#12313131</td>
-                                                    <td class="text-bold-500">12</td>
-                                                    <td>Rp. 200.000</td>
-                                                    <td>Rp. 200.000</td>
-                                                    <td><a href="#"><i
-                                                                class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                                data-feather="mail"></i></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-bold-500">Bedak Bubuk</td>
-                                                    <td>Implora</td>
-                                                    <td>#19191919</td>
-                                                    <td class="text-bold-500">12</td>
-                                                    <td>Rp. 200.000</td>
-                                                    <td>Rp. 200.000</td>
-                                                    <td><a href="#"><i
-                                                                class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                                data-feather="mail"></i></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-bold-500">Bedak Bubuk</td>
-                                                    <td>Implora</td>
-                                                    <td>#1010101919</td>
-                                                    <td class="text-bold-500">12</td>
-                                                    <td>Rp. 200.000</td>
-                                                    <td>Rp. 200.000</td>
-                                                    <td><a href="#"><i
-                                                                class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                                data-feather="mail"></i></a></td>
-                                                </tr>
-                                            </tbody>                                           
-                                        </table>
-                                    </div>                                
+                                <div class="card-body">
+                                    <form action="#" method="get">
+                                        <div class="form-group">
+                                            <label for="name" class="form-label">Name</label>
+                                            <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" value="John Doe">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="text" name="email" id="email" class="form-control" placeholder="Your Email" value="john.doe@example.net">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone" class="form-label">Phone</label>
+                                            <input type="text" name="phone" id="phone" class="form-control" placeholder="Your Phone" value="083xxxxxxxxx">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="birthday" class="form-label">Birthday</label>
+                                            <input type="date" name="birthday" id="birthday" class="form-control" placeholder="Your Birthday">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="gender" class="form-label">Gender</label>
+                                            <select name="gender" id="gender" class="form-control">
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-
-
-
             </div>
 
             <footer>

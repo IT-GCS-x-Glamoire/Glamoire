@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Partner extends Model
 {
     use HasFactory;
-
+    protected $table = 'partner';  // Tambahkan baris ini
     protected $fillable = [
         'id',
         'fullname',
@@ -25,4 +25,14 @@ class Partner extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function fileCompany()
+    {
+        return $this->hasOne(File::class, 'id', 'file_company')->where('type', 'company');
+    }
+
+    public function fileBpom()
+    {
+        return $this->hasOne(File::class, 'id', 'file_bpom')->where('type', 'bpom');
+    }
 }

@@ -5,131 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Mazer Admin Dashboard</title>
-
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
-
     <link rel="stylesheet" href="assets/vendors/toastify/toastify.css">
-
     <link rel="stylesheet" href="assets/vendors/iconly/bold.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="assets/vendors/sweetalert2/sweetalert2.min.css">
-
     <link rel="stylesheet" href="{{ asset('assets/vendors/select2/select2.min.css') }}">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
     <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/product/createproduct.css">
 
-    <style>
-        .upload__img-wrap {
-            display: flex;
-            flex-wrap: wrap;
-            margin: 0 -10px;
-        }
-
-        .upload__img-box-multiple {
-            width: 195px;
-            padding: 0 10px;
-            margin-bottom: 12px;
-            position: relative;
-        }
-
-        .upload__img-box-single {
-            width: 450px;
-            padding: 0 10px;
-            margin-bottom: 12px;
-            position: relative;
-        }
-
-        .upload__img-close {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background-color: rgba(0, 0, 0, 0.5);
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            text-align: center;
-            line-height: 24px;
-            z-index: 1;
-            cursor: pointer;
-        }
-
-        .upload__img-close:after {
-            content: '\2716';
-            font-size: 14px;
-            color: white;
-        }
-
-        .img-bg {
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-            position: relative;
-            padding-bottom: 100%;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .video-upload-wrap {
-            border: 2px dashed #ddd;
-            border-radius: 4px;
-            padding: 20px;
-            width: 100%;
-            box-sizing: border-box;
-            position: relative;
-            background: #f8f8f8;
-            margin-bottom: 15px;
-            height: auto;
-        }
-
-
-        .file-upload-content {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .upload__video-box {
-            position: relative;
-            margin: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            overflow: hidden;
-            padding: 5px;
-        }
-
-        .upload__video-close {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background-color: rgba(0, 0, 0, 0.5);
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            text-align: center;
-            line-height: 24px;
-            z-index: 1;
-            cursor: pointer;
-        }
-
-        .upload__video-close:after {
-            content: '\2716';
-            /* Unicode character for 'X' */
-            font-size: 14px;
-            color: white;
-        }
-
-        /* Atur ukuran input type color agar sesuai dengan input type text */
-        .input-color-size {
-            height: calc(2.25rem + 2px);
-            /* Sesuaikan tinggi input color dengan tinggi input text */
-            padding: 0.375rem 0.75rem;
-            /* Sesuaikan padding */
-        }
-    </style>
 </head>
 
 <body>
@@ -191,7 +81,7 @@
                                                                     style="color: red">*</span></label>
                                                             <div class="form-group">
                                                                 <select
-                                                                    class="form-control select2 {{ $errors->has('category_product_id') ? 'is-invalid' : '' }}"
+                                                                    class="form-control select2-basic-category {{ $errors->has('category_product_id') ? 'is-invalid' : '' }}"
                                                                     name="category_product_id">
                                                                     <option value="" disabled selected>Select
                                                                         Category</option> <!-- Placeholder -->
@@ -208,7 +98,7 @@
                                                                     style="color: red">*</span></label>
                                                             <div class="form-group">
                                                                 <select
-                                                                    class="form-control select2 {{ $errors->has('brand_id') ? 'is-invalid' : '' }}"
+                                                                    class="form-control select2-basic-brand {{ $errors->has('brand_id') ? 'is-invalid' : '' }}"
                                                                     name="brand_id">
                                                                     <option value="" disabled selected>Select
                                                                         Brand</option> <!-- Placeholder -->
@@ -264,7 +154,7 @@
                                                                     id="regular-price" name="regular_price">
 
                                                                 <div class="form-control-icon">
-                                                                    <i class="bi bi-credit-card-2-front"></i>
+                                                                    <i class="bi bi-cash-stack"></i>
                                                                 </div>
                                                             </div>
                                                             @if ($errors->has('regular_price'))
@@ -273,57 +163,113 @@
                                                             @endif
                                                         </div>
 
+                                                        <label for="">Weight Product</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Weight Product" name="weight_product">
+                                                            <span class="input-group-text"
+                                                                id="basic-addon2">gram</span>
+                                                        </div>
+
+                                                        <label for="">Dimension Product</label>
+                                                        <div class="row mb-3">
+                                                            <div class="col">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="Length" name="length">
+                                                                    <span class="input-group-text"
+                                                                        id="basic-addon1">cm</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="Width" name="width">
+                                                                    <span class="input-group-text"
+                                                                        id="basic-addon2">cm</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="Height" name="height">
+                                                                    <span class="input-group-text"
+                                                                        id="basic-addon3">cm</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- <div class="form-group mb-3">
+                                                            <label for="product-color">Product Color</label>
+                                                            <div class="d-flex align-items-center">
+                                                                <!-- Input Text untuk Warna -->
+                                                                <div class="d-flex flex-column me-3">
+                                                                    <span style="font-size: 3.6mm;">Enter color
+                                                                        name</span>
+                                                                    <input type="text"
+                                                                        class="form-control {{ $errors->has('color_text') ? 'is-invalid' : '' }}"
+                                                                        id="product-color-text" name="color_text"
+                                                                        placeholder="Enter color name">
+                                                                </div>
+
+                                                                <!-- Input Picker Warna -->
+                                                                <div class="d-flex flex-column">
+                                                                    <span style="font-size: 3.6mm;">Or Select color
+                                                                    </span>
+                                                                    <input type="color"
+                                                                        class="form-control {{ $errors->has('color') ? 'is-invalid' : '' }} input-color-size"
+                                                                        id="product-color" name="color"
+                                                                        value="#ffffff">
+                                                                </div>
+                                                            </div>
+                                                        </div> --}}
+
+                                                        <div class="mt-4">
+                                                            <h4 class="card-title">Variant Product</h4>
+                                                            <p class="card-subtitle">Add variants so that buyers can
+                                                                choose the right product! You can enter up to 2 types of
+                                                                variants.</p>
+                                                        </div>
+
+                                                        <div class="mt-3">
+                                                            <div id="variant-container">
+                                                                <div class="variant-type mb-4 p-3 border rounded">
+                                                                    <label>Tipe Variant</label>
+                                                                    <div class="d-flex align-items-center mb-2">
+                                                                        <select
+                                                                            class="select2-add-option form-select me-2"
+                                                                            name="variant_type[]">
+                                                                            <option value="rasa">Rasa</option>
+                                                                            <option value="ukuran">Ukuran</option>
+                                                                            <option value="warna">Warna</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <label class="form-label">Variant Values</label>
+                                                                    <div class="variant-values">
+                                                                        <select
+                                                                            class="select2 form-select multiple-remove"
+                                                                            name="variant_values[0][]"
+                                                                            multiple="multiple"></select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Area untuk upload gambar yang tersembunyi awalnya -->
+                                                            <div class="variant-images mt-3" style="display: none;">
+                                                                <input type="file"
+                                                                    class="form-control variant-image-upload"
+                                                                    accept="image/*">
+                                                            </div>
+                                                            <button type="button" class="btn btn-outline-primary"
+                                                                id="addVariantType">+ Add Product Variant</button>
+                                                        </div>
+
                                                     </div>
 
                                                     <div class="col-md-6">
-
-                                                        <div class="form-group mb-3">
-                                                            <label for="product-unit">Product Unit <span
-                                                                    style="color: red">*</span></label>
-                                                            <div class="position-relative">
-                                                                <select
-                                                                    class="form-control {{ $errors->has('unit') ? 'is-invalid' : '' }}"
-                                                                    id="product-unit" name="unit">
-                                                                    <option value="" disabled selected>Select
-                                                                        Unit</option>
-                                                                    <option value="kg">Kg</option>
-                                                                    <option value="pcs">Pcs</option>
-                                                                    <option value="litre">Litre</option>
-                                                                    <option value="box">Box</option>
-                                                                    <!-- Tambahkan opsi lain jika diperlukan -->
-                                                                </select>
-                                                            </div>
-                                                            @if ($errors->has('unit'))
-                                                                <p style="color: red">{{ $errors->first('unit') }}
-                                                                </p>
-                                                            @endif
-                                                        </div>
-
-                                                        <div class="form-group mb-3">
-                                                            <label for="product-color">Product Color</label>
-                                                            <div class="position-relative">
-                                                                <!-- Input Text untuk Warna -->
-                                                                <span style="font-size: 3.6mm;">Input color
-                                                                    text</span>
-                                                                <input type="text"
-                                                                    class="form-control mb-3 {{ $errors->has('color_text') ? 'is-invalid' : '' }}"
-                                                                    id="product-color-text" name="color_text"
-                                                                    placeholder="Enter color in hex code or name">
-
-                                                                <!-- Input Picker Warna -->
-                                                                <span style="font-size: 3.6mm;">Select color
-                                                                    text</span>
-                                                                <input type="color"
-                                                                    class="form-control {{ $errors->has('color') ? 'is-invalid' : '' }} input-color-size"
-                                                                    id="product-color" name="color"
-                                                                    value="#ffffff">
-                                                            </div>
-                                                        </div>
-
                                                         {{-- single image --}}
                                                         <div class="card">
                                                             <label for="first-name-icon">Product Thumbnail<span
-                                                                    style="color: red">*</span></label>
+                                                                    style="color: red"> *</span></label>
                                                             <div class="image-upload-wrap"
                                                                 id="single-image-upload-wrap"
                                                                 style="border: 2px dashed #ddd; border-radius: 4px; padding: 20px; width: 100%; box-sizing: border-box; position: relative; background: #f8f8f8; margin-bottom: 15px; height: auto;">
@@ -406,14 +352,44 @@
                                                         </div>
 
                                                     </div>
-                                               
+
+                                                    <div class="col-12">
+
+                                                        <div class="mt-5">
+                                                            <h4 class="card-title">Table Variant</h4>
+                                                            <p class="card-subtitle">Manage variant details including
+                                                                price, stock, SKU, weight, and status for each variant.
+                                                            </p>
+
+                                                            <div class="table-responsive">
+                                                                <table class="table table-bordered variant-table">
+                                                                    <thead class="table-light">
+                                                                        <tr>
+                                                                            <th>Image</th>
+                                                                            <th>Type Variant</th>
+                                                                            <th>Price</th>
+                                                                            <th>Stock</th>
+                                                                            <th>SKU</th>
+                                                                            <th>Weight (grams)</th>
+                                                                            <th>Status</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="variant-table-body">
+                                                                        <!-- Additional rows will be dynamically added here -->
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
                                                     <div class="col-12 d-flex justify-content-end">
-                                                        <button type="submit"
-                                                            class="btn btn-sm btn-primary me-1 mb-1"
-                                                            style="border-radius: 8px;">Submit</button>
                                                         <button type="reset"
-                                                            class="btn btn-sm btn-light-secondary me-1 mb-1"
-                                                            style="border-radius: 8px;">Reset</button>
+                                                            class="btn  btn-light-secondary me-3 mb-1"
+                                                            style="border-radius: 5px;">Reset</button>
+                                                        <button type="submit" class="btn  btn-primary me-1 mb-1"
+                                                            style="border-radius: 5px;">Submit</button>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -427,20 +403,8 @@
                 </section>
             </div>
 
-            <!-- Area to add new forms dynamically -->
-            <div id="new-forms"></div>
+            @include('admin.layouts.footer')
 
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="http://ahmadsaugi.com">A. Saugi</a></p>
-                    </div>
-                </div>
-            </footer>
         </div>
     </div>
 
@@ -449,11 +413,342 @@
     <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.select2').select2();
+    <script src="assets/js/product/createproduct.js"></script>
+
+    {{-- product variant input bisa kurang drag and drop proses belum bisa simpan --}}
+    {{-- <script>
+        function initializeSelect2Basic(selectElement, placeholderText) {
+            $(selectElement).select2({
+                placeholder: placeholderText,
+                width: '100%',
+                allowClear: true
+            });
+        }
+
+        // Function to initialize Select2 with the ability to add new tags
+        function initializeSelect2(selectElement) {
+            $(selectElement).select2({
+                tags: true,
+                placeholder: "Select or add variants",
+                tokenSeparators: [',', ' '],
+                width: '100%',
+                allowClear: true,
+                closeOnSelect: false
+            });
+
+            $(selectElement).on('select2:unselect', function(e) {
+                const value = e.params.data.id;
+                $(this).find(`option[value='${value}']`).remove();
+            });
+        }
+
+        // Initialize Select2 for both variant types and values
+        initializeSelect2('.select2');
+        initializeSelect2('.select2-variant-type');
+
+        // Initialize Select2 for category and brand with unique classes
+        initializeSelect2Basic('.select2-category', 'Select Category');
+        initializeSelect2Basic('.select2-brand', 'Select Brand');
+
+        document.addEventListener('DOMContentLoaded', function() {
+            let variantTypes = 0;
+            const variantContainer = document.getElementById('variant-container');
+            const addVariantTypeBtn = document.getElementById('addVariantType');
+
+            const variantOptions = {
+                rasa: [{
+                        value: 'vanilla',
+                        label: 'Vanilla'
+                    },
+                    {
+                        value: 'coklat',
+                        label: 'Coklat'
+                    },
+                    {
+                        value: 'strawberry',
+                        label: 'Strawberry'
+                    },
+                    {
+                        value: 'matcha',
+                        label: 'Matcha'
+                    }
+                ],
+                ukuran: [{
+                        value: 'S',
+                        label: 'Small'
+                    },
+                    {
+                        value: 'M',
+                        label: 'Medium'
+                    },
+                    {
+                        value: 'L',
+                        label: 'Large'
+                    },
+                    {
+                        value: 'XL',
+                        label: 'Extra Large'
+                    }
+                ],
+                warna: [{
+                        value: 'merah',
+                        label: 'Merah'
+                    },
+                    {
+                        value: 'hijau',
+                        label: 'Hijau'
+                    },
+                    {
+                        value: 'biru',
+                        label: 'Biru'
+                    },
+                    {
+                        value: 'ungu',
+                        label: 'Ungu'
+                    },
+                    {
+                        value: 'putih',
+                        label: 'Putih'
+                    },
+                    {
+                        value: 'kuning',
+                        label: 'Kuning'
+                    },
+                    {
+                        value: 'pink',
+                        label: 'Pink'
+                    },
+                    {
+                        value: 'hitam',
+                        label: 'Hitam'
+                    }
+                ]
+            };
+
+            // Menambahkan event listener pada perubahan tipe varian
+            $(document).on('change', '.select2-variant-type', function() {
+                updateVariantValues(this);
+            });
+
+            function updateVariantValues(selectElement) {
+                const selectedVariantType = selectElement.value;
+                const variantValuesSelect = selectElement.closest('.variant-type').querySelector(
+                    '.variant-values select');
+
+                variantValuesSelect.innerHTML = '';
+                const options = variantOptions[selectedVariantType] || [];
+                options.forEach(option => {
+                    const newOption = document.createElement('option');
+                    newOption.value = option.value;
+                    newOption.textContent = option.label;
+                    variantValuesSelect.appendChild(newOption);
+                });
+
+                // Reinitialize Select2
+                initializeSelect2(variantValuesSelect); // Reinitialize Select2 for the updated select
+            }
+
+            addVariantTypeBtn.addEventListener('click', function() {
+                // Allow only one additional variant
+                if (variantTypes < 1) {
+                    // Create and initialize new variant type dropdown
+                    const newVariantType = document.createElement('div');
+                    newVariantType.className = 'variant-type mb-3';
+                    newVariantType.innerHTML = `
+                <div class="variant-type mb-4 p-3 border rounded">
+                    <label>Tipe Variant ${variantTypes + 2}</label>
+                    <div class="d-flex align-items-center mb-2">
+                        <select class="select2-variant-type form-select me-2" name="variant_type[]">
+                            <option value="rasa">Rasa</option>
+                            <option value="ukuran">Ukuran</option>
+                            <option value="warna">Warna</option>
+                        </select>
+                    </div>
+                    <label class="form-label">Variant Values</label>
+                    <div class="variant-values">
+                        <select class="select2 form-select multiple-remove" name="variant_values[${variantTypes}][]" multiple="multiple"></select>
+                    </div>
+                    <div class="form-check form-switch mt-3">
+                        <input class="form-check-input use-variant-image" type="checkbox" id="useVariantImage${variantTypes}" name="use_variant_image[]" value="1">
+                        <label class="form-check-label" for="useVariantImage${variantTypes}">Use Variant Image</label>
+                    </div>
+                    <div class="variant-images mt-2" style="display: none;"></div>
+                </div>
+                `;
+                    variantContainer.appendChild(newVariantType);
+
+                    // Initialize Select2 for the new variant type and values
+                    const newVariantTypeSelect = newVariantType.querySelector('.select2-variant-type');
+                    initializeSelect2(newVariantTypeSelect);
+
+                    const variantValuesSelect = newVariantType.querySelector('.variant-values select');
+                    initializeSelect2(variantValuesSelect);
+
+                    // Update variant values for the new variant type
+                    updateVariantValues(newVariantTypeSelect);
+
+                    variantTypes++;
+
+                    // Disable button if maximum variants reached
+                    if (variantTypes >= 2) {
+                        addVariantTypeBtn.disabled = true;
+                        addVariantTypeBtn.classList.add(
+                            'disabled'); // Optional: Add a disabled class for styling
+                    }
+                }
+            });
+
+
+            function updateVariantImages(checkbox) {
+                const variantType = checkbox.closest('.variant-type');
+                const variantImages = variantType.querySelector('.variant-images');
+                const variantValues = variantType.querySelector('.variant-values select');
+                const variantIndex = Array.from(variantType.parentNode.children).indexOf(variantType);
+
+                if (checkbox.checked) {
+                    variantImages.style.display = 'flex';
+                    const values = Array.from(variantValues.selectedOptions).map(option => option.value);
+                    variantImages.innerHTML = values.map((value, index) => `
+                        <div class="variant-image-item">
+                            <div class="drag-drop-area" data-variant="${value}">
+                                <input type="file" class="file-input" name="variant_images[${variantIndex}][${value}]" accept="image/*" style="display: none;">
+                                <i class="bi bi-card-image upload-icon"></i>
+                            </div>
+                            <div class="variant-label">${value}</div>
+                        </div>
+                    `).join('');
+                    initDragDrop(variantImages);
+                } else {
+                    variantImages.style.display = 'none';
+                    variantImages.innerHTML = '';
+                }
+            }
+
+            function addNewVariantType() {
+                if (variantTypes < 1) {
+                    variantTypes++;
+                    const newVariantType = document.createElement('div');
+                    newVariantType.className = 'variant-type mb-3';
+                    newVariantType.innerHTML = `
+                            <label>Tipe Varian ${variantTypes}</label>
+                            <div class="d-flex align-items-center mb-2">
+                                <select class="form-select me-2" name="variant_type[]">
+                                    <option value="rasa">Rasa</option>
+                                    <option value="ukuran">Ukuran</option>
+                                    <option value="warna">Warna</option>
+                                </select>
+                            </div>
+                            <div class="variant-values">
+                                <select class="select2 form-select multiple-remove" name="variant_values[${variantTypes - 1}][]" multiple="multiple"></select>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input use-variant-image" type="checkbox" id="useVariantImage${variantTypes - 1}" name="use_variant_image[]" value="1">
+                                <label class="form-check-label" for="useVariantImage${variantTypes - 1}">Gunakan foto varian</label>
+                            </div>
+                            <div class="variant-images mt-2" style="display: none;"></div>
+                        `;
+                    variantContainer.appendChild(newVariantType);
+
+                    // Initialize the new select elements
+                    const newVariantTypeSelect = newVariantType.querySelector('select[name="variant_type[]"]');
+                    updateVariantValues(newVariantTypeSelect);
+
+                    // Initialize Select2 for the new variant values select
+                    $(newVariantType.querySelector('.variant-values select')).select2();
+
+                    // Initialize drag-and-drop for the new variant type
+                    const checkbox = newVariantType.querySelector('.use-variant-image');
+                    checkbox.addEventListener('change', function() {
+                        updateVariantImages(this);
+                    });
+                }
+            }
+
+            function initDragDrop(container) {
+                const dragDropAreas = container.querySelectorAll('.drag-drop-area');
+                dragDropAreas.forEach(area => {
+                    const fileInput = area.querySelector('.file-input');
+
+                    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                        area.addEventListener(eventName, preventDefaults, false);
+                    });
+
+                    ['dragenter', 'dragover'].forEach(eventName => {
+                        area.addEventListener(eventName, highlight, false);
+                    });
+
+                    ['dragleave', 'drop'].forEach(eventName => {
+                        area.addEventListener(eventName, unhighlight, false);
+                    });
+
+                    area.addEventListener('drop', handleDrop, false);
+                    fileInput.addEventListener('change', handleFiles, false);
+                    area.addEventListener('click', () => fileInput.click());
+
+                    function preventDefaults(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+
+                    function highlight(e) {
+                        area.classList.add('highlight');
+                    }
+
+                    function unhighlight(e) {
+                        area.classList.remove('highlight');
+                    }
+
+                    function handleDrop(e) {
+                        const dt = e.dataTransfer;
+                        const files = dt.files;
+                        handleFiles({
+                            target: {
+                                files: files
+                            }
+                        });
+                    }
+
+                    function handleFiles(e) {
+                        const files = e.target.files;
+                        if (files.length > 0) {
+                            const file = files[0];
+                            if (file.type.startsWith('image/')) {
+                                const reader = new FileReader();
+                                reader.onload = function(e) {
+                                    area.innerHTML =
+                                        `<img src="${e.target.result}" alt="Uploaded image">`;
+                                    area.appendChild(fileInput);
+                                }
+                                reader.readAsDataURL(file);
+                            } else {
+                                alert('Please upload an image file');
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Event delegation for variant type changes
+            variantContainer.addEventListener('change', function(e) {
+                if (e.target.name === 'variant_type[]') {
+                    updateVariantValues(e.target);
+                }
+            });
+
+            // Event delegation for use variant image checkbox changes
+            variantContainer.addEventListener('change', function(e) {
+                if (e.target.classList.contains('use-variant-image')) {
+                    updateVariantImages(e.target);
+                }
+            });
+
+            // Event listener for adding new variant type
+            addVariantTypeBtn.addEventListener('click', addNewVariantType);
+
+            // Initialize the first variant type
+            updateVariantValues(document.querySelector('select[name="variant_type[]"]'));
         });
-    </script>
+    </script> --}}
 
     {{-- Auto Format Rupiah --}}
     <script>
@@ -669,11 +964,8 @@
         }
     </script>
 
-
-    {{-- multi form --}}
-    
-
     <script src="assets/js/main.js"></script>
+    <!-- Include Choices JavaScript -->
 
 </body>
 

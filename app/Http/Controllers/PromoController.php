@@ -20,7 +20,7 @@ class PromoController extends Controller
             'promo' => $promo,
             'products' => $products,
             'brands' => $brands,
-            
+
         ]);
     }
 
@@ -85,7 +85,7 @@ class PromoController extends Controller
             'promo' => $promo,
             'products' => $products,
             'brands' => $brands,
-            
+
         ]);
     }
 
@@ -155,7 +155,7 @@ class PromoController extends Controller
             'promo' => $promo,
             'products' => $products,
             'brands' => $brands,
-            
+
         ]);
     }
 
@@ -250,4 +250,70 @@ class PromoController extends Controller
             'message' => 'Promo deleted successfully.'
         ]);
     }
+
+    // PROMO DISKON
+    public function indexPromoDiskon()
+    {
+        $promo = Promo::all();
+        $products = Product::all();
+        $brands = Brand::all();
+        return view('admin.promo.diskon.index', [
+            'promo' => $promo,
+            'products' => $products,
+            'brands' => $brands,
+
+        ]);
+    }
+
+    public function createPromoDiskon()
+    {
+        $products = Product::all(); // Pastikan kamu menggunakan model Product
+        return view('admin.promo.diskon.create', compact('products'));
+    }
+
+
+    public function storePromoDiskon(Request $request)
+    {
+        try {
+
+            $request->validate([
+                'promo_name' => 'required|string|max:255',
+                'start_date' => 'required',
+                'end_date' => 'required',
+                'diskon' => 'required|numeric|min:0|max:100',
+                'product_ids' => 'required|array',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            ]);
+
+            // Simpan single image
+            $image = null;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('uploads/promo'), $imageName);
+                $imagePath = 'uploads/promo/' . $imageName;
+            }
+
+            // Simpan data promo
+            $promo = Promo::create([
+                'promo_name' => $request->promo_name,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+                'diskon' => $request->diskon,
+                'image' => $imagePath ?? null,
+                'type' => $request->type, // Isi field 'type' dari input tersembunyi
+            ]);
+
+            // Simpan produk yang dipilih ke pivot table
+            $promo->products()->attach($request->product_ids);
+
+            // Redirect dengan pesan sukses
+            return redirect()->route('index-promo-diskon')->with('success', 'Promo Diskon created successfully!');
+        } catch (\Exception $e) {
+            // Tangani error
+            Log::error($e->getMessage()); // Tulis log
+            return back()->withErrors(['error' => 'Something went wrong: ' . $e->getMessage()]);
+        }
+    }
+
 }

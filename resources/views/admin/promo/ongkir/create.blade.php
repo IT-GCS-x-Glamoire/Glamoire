@@ -96,7 +96,8 @@
                         <div class="col-12 col-md-6 d-flex justify-content-md-end align-items-center">
                             <nav aria-label="breadcrumb" class="breadcrumb-header" style="margin-bottom: 20px;">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="{{ route('index-promo-ongkir') }}">Promo Ongkir</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('index-promo-ongkir') }}">Promo
+                                            Ongkir</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Add Promo Free Ongkir</li>
                                 </ol>
                             </nav>
@@ -119,13 +120,13 @@
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group has-icon-left">
+                                                        <div class="form-group has-icon-left"  style="margin-bottom: 20px;">
                                                             <label for="first-name-icon">Voucher Name <span
                                                                     style="color: red">*</span></label>
                                                             <div class="position-relative">
                                                                 <input type="text"
                                                                     class="form-control {{ $errors->has('promo_name') ? 'is-invalid' : '' }}"
-                                                                    placeholder="Enter Product Name"
+                                                                    placeholder="Enter Voucher Name"
                                                                     id="first-name-icon" name="promo_name">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-bag"></i>
@@ -146,7 +147,7 @@
                                                                     placeholder="Enter Code Product"
                                                                     id="first-name-icon" name="start_date">
                                                                 <div class="form-control-icon">
-                                                                    <i class="bi bi-receipt"></i>
+                                                                    <i class="bi bi-calendar"></i>
                                                                 </div>
                                                             </div>
                                                             @if ($errors->has('start_date'))
@@ -163,7 +164,7 @@
                                                                     placeholder="Enter Minimum Transaction"
                                                                     id="first-name-icon" name="min_transaction">
                                                                 <div class="form-control-icon">
-                                                                    <i class="bi bi-cart"></i>
+                                                                    <i class="bi bi-cash-stack"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -176,7 +177,7 @@
                                                                     placeholder="Enter Promo Code"
                                                                     id="first-name-icon" name="promo_code">
                                                                 <div class="form-control-icon">
-                                                                    <i class="bi bi-cart"></i>
+                                                                    <i class="bi bi-upc"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -202,45 +203,47 @@
                                                                     placeholder="Enter Terms & Conditions"
                                                                     id="first-name-icon" name="terms_conditions">
                                                                 <div class="form-control-icon">
-                                                                    <i class="bi bi-cart"></i>
+                                                                    <i class="bi bi-ui-radios-grid"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-6">
-                                                        <div class="form-group has-icon-left">
+                                                        <div class="form-group has-icon-left"
+                                                            style="margin-bottom: 20px;">
                                                             <label for="first-name-icon">Diskon <span
                                                                     style="color: red">*</span></label>
                                                             <div class="position-relative">
                                                                 <input type="text"
                                                                     class="form-control {{ $errors->has('diskon') ? 'is-invalid' : '' }}"
-                                                                    placeholder="Enter Code Product"
-                                                                    id="first-name-icon" name="diskon">
+                                                                    placeholder="Enter Diskon" id="first-name-icon"
+                                                                    name="diskon">
                                                                 <div class="form-control-icon">
-                                                                    <i class="bi bi-receipt"></i>
+                                                                    <i class="bi bi-percent"></i>
                                                                 </div>
                                                             </div>
                                                             @if ($errors->has('diskon'))
-                                                                <p style="color: red">
-                                                                    {{ $errors->first('diskon') }}</p>
+                                                                <p style="color: red">{{ $errors->first('diskon') }}
+                                                                </p>
                                                             @endif
                                                         </div>
-
-                                                        <div class="form-group has-icon-left">
+                                                        <div class="form-group has-icon-left"
+                                                            style="margin-bottom: 20px;">
                                                             <label for="first-name-icon">End Date <span
                                                                     style="color: red">*</span></label>
                                                             <div class="position-relative">
                                                                 <input type="date"
                                                                     class="form-control {{ $errors->has('end_date') ? 'is-invalid' : '' }}"
+                                                                    placeholder="Enter Code Product"
                                                                     id="first-name-icon" name="end_date">
                                                                 <div class="form-control-icon">
-                                                                    <i class="bi bi-receipt"></i>
+                                                                    <i class="bi bi-calendar"></i>
                                                                 </div>
                                                             </div>
                                                             @if ($errors->has('end_date'))
-                                                                <p style="color: red">
-                                                                    {{ $errors->first('end_date') }}</p>
+                                                                <p style="color: red">{{ $errors->first('end_date') }}
+                                                                </p>
                                                             @endif
                                                         </div>
 
@@ -287,17 +290,8 @@
                 </section>
             </div>
 
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="http://ahmadsaugi.com">A. Saugi</a></p>
-                    </div>
-                </div>
-            </footer>
+            @include('admin.layouts.footer')
+
         </div>
     </div>
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>

@@ -8,20 +8,21 @@ use App\Models\Subscribe;
 use App\Models\Question;
 use App\Models\Partner;
 use App\Models\File;
+use Exception;
 
 class FormController extends Controller
 {
     public function checkEmailSubscribe(Request $request)
     {
         $emailExists = Subscribe::where('email', $request->email)->exists();
-        
+
         return response()->json(['exists' => $emailExists]);
     }
 
     public function checkEmailVoucher(Request $request)
     {
         $emailExists = User::where('email', $request->email)->exists();
-        
+
         return response()->json(['exists' => $emailExists]);
     }
 
@@ -34,13 +35,12 @@ class FormController extends Controller
                 'question'   => $request->question,
                 'created_at' => now(),
             ]);
-            
+
             return response()->json([
-                'success' => true, 
+                'success' => true,
                 'message' => 'Pertanyaan Anda Sudah Kami Terima. 
                 Tunggu Balasan Email Dari Kami Yaa'
             ]);
-
         } catch (Exception $err) {
             dd($err);
         }
@@ -62,7 +62,7 @@ class FormController extends Controller
                     'type' => 'company', // Pastikan type diisi
                 ]);
             }
-            
+
             if ($request->hasFile('file_bpom')) {
                 // Simpan file ke direktori penyimpanan
                 $fileBpom = $request->file('file_bpom');
@@ -87,8 +87,8 @@ class FormController extends Controller
                 'distributor'       => $request->distributor == "yes" ? TRUE : FALSE,
                 'reached_email'     => $request->receive_email == "yes" ? TRUE : FALSE,
                 'category_product'  => $request->category_product,
-                'file_company'      => $companyFile->id,
-                'file_bpom'         => $bpomFile->id,
+                'file_company'      => isset($companyFile) ? $companyFile->id : null,
+                'file_bpom'         => isset($bpomFile) ? $bpomFile->id : null,
             ]);
 
             session()->flash('send_success');
@@ -111,4 +111,3 @@ class FormController extends Controller
         }
     }
 }
-

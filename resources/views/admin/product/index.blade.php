@@ -70,24 +70,18 @@
 
         <div id="main">
             <div class="page-heading">
-                <div class="page-title" style="margin-bottom: 20px;">
+                <div class="page-title">
                     <div class="row">
-                        <div class="col-12 col-md-6 order-md-1 order-last">
+                        <div class="col-12 col-md-6">
                             <h3>All Products</h3>
-                            <nav aria-label="breadcrumb" class="breadcrumb-header me-3">
+                        </div>
+                        <div class="col-12 col-md-6 d-flex justify-content-md-end align-items-center">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header" style="margin-bottom: 20px;">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="{{ route('index-product-admin') }}">Product</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">All Product</li>
+                                    <li class="breadcrumb-item"><a href="/brand-admin">Products</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">All Products</li>
                                 </ol>
                             </nav>
-                        </div>
-                        <div
-                            class="col-12 col-md-6 d-flex justify-content-md-end align-items-center order-md-2 order-first">
-                            <a href="{{ route('create-product-admin') }}" type="submit"
-                                class="btn btn-sm btn-primary d-flex align-items-center" style="border-radius: 8px;">
-                                <i class="bi bi-plus-circle" style="margin-right: 3px;"></i> Add Product
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -95,7 +89,18 @@
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
-                            <h4>List Product</h4>
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <h4>List Products</h4>
+                                </div>
+                                <div class="col-12 col-md-6 d-flex justify-content-md-end align-items-center">
+                                    <a href="{{ route('create-product-admin') }}" type="submit"
+                                        class="btn btn-sm btn-primary d-flex align-items-center"
+                                        style="border-radius: 8px;">
+                                        <i class="bi bi-plus-circle" style="margin-right: 3px;"></i> Add Product
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <table class="table" id="table1">
@@ -114,9 +119,14 @@
                                             <td>
                                                 <div class="product-item-container">
                                                     <!-- Image -->
-                                                    <img src="{{ asset($item->main_image) }}" class="lazyload"
+                                                    {{-- <img src="{{ asset($item->main_image) }}" class="lazyload"
                                                         alt="Product Image"
-                                                        onclick="openImageInNewTab('{{ asset($item->main_image) }}')">
+                                                        onclick="openImageInNewTab('{{ asset($item->main_image) }}')"> --}}
+
+                                                    <img src="{{ Storage::url($item->main_image) }}" alt="Product Image"
+                                                        class="lazyload"
+                                                        style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;"
+                                                        onclick="openImageInNewTab('{{ Storage::url($item->main_image) }}')">
 
                                                     <!-- Product Details -->
                                                     <div>
@@ -132,7 +142,7 @@
                                                         <!-- Display color_text if it exists -->
                                                         @if ($item->color_text)
                                                             <span style="font-size: 3.6mm;">
-                                                               Color : {{ $item->color_text }}
+                                                                Color : {{ $item->color_text }}
                                                             </span><br>
                                                         @endif
 
@@ -152,11 +162,14 @@
                                             <td>Rp. {{ number_format($item->regular_price, 0, ',', '.') }}</td>
 
                                             <td class="action-buttons">
-                                                <a href="{{ url('detail-product-admin/' . $item->id) }}"><span class="badge bg-info">
-                                                    View</span></a>
-                                                <a href="{{ url('edit-product-admin/' . $item->id) }}"><span class="badge bg-warning">Edit</span></a>
+                                                <a href="{{ url('detail-product-admin/' . $item->id) }}"><span
+                                                        class="badge bg-info">
+                                                        View</span></a>
+                                                <a href="{{ url('edit-product-admin/' . $item->id) }}"><span
+                                                        class="badge bg-warning">Edit</span></a>
                                                 <a href="javascript:void(0);" class="delete-product"
-                                                    data-id="{{ $item->id }}"><span class="badge bg-danger">Delete</span></a>
+                                                    data-id="{{ $item->id }}"><span
+                                                        class="badge bg-danger">Delete</span></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -175,20 +188,10 @@
                         </div>
                     </div>
                 </section>
-
             </div>
 
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="http://ahmadsaugi.com">A. Saugi</a></p>
-                    </div>
-                </div>
-            </footer>
+            @include('admin.layouts.footer')
+
         </div>
     </div>
 

@@ -5,18 +5,18 @@
 
 @php
   $shippingAddresses = $profile->shippingAddress;
-  $whishlist         = $profile->whislist;
+  $wishlist          = $profile->wishlist;
 @endphp
 
 <div class="md:px-20 lg:px-24 xl:px-24 py-2">
   <div class="container-fluid">
-    <div class="py-2 py-md-3">
-      <div class="d-flex gap-2 mb-2 mb-md-4">
-        <a href="/home" class="text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Home</a>
+    <div class="shadow-sm border border-black rounded-md py-2 py-md-3 my-2 my-md-3">
+      <div class="d-flex gap-2 pl-2">
+        <a href="/" class="text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Beranda</a>
         <p class="text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]"> > </p>
-        <a href="/home" class="text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Manage Account</a>
+        <a href="#" class="text-black text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]">Profil Saya</a>
       </div>
-    </div>  
+    </div>
   </div>
 
   <div class="container-fluid pb-2 pb-md-4">
@@ -25,7 +25,7 @@
           <a class="nav-item nav-link text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" data-toggle="tab" href="#my-profile">Profilku</a>
           <a class="nav-item nav-link text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" data-toggle="tab" href="#shipping-address">Alamat Pengiriman</a>
           <a class="nav-item nav-link text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" data-toggle="tab" href="#my-order">Orderanku</a>
-          <a class="nav-item nav-link text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" data-toggle="tab" href="#my-whislist">Produk Favorit</a>
+          <a class="nav-item nav-link text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" data-toggle="tab" href="#my-wishlist">Produk Favorit</a>
           <a class="nav-item nav-link text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" data-toggle="tab" href="#payment-waiting">Menunggu Pembayaran</a>
       </div>
     </nav>
@@ -182,9 +182,7 @@
                           <i aria-hidden="true" class="fas fa-solid fa-trash" title="Hapus Alamat"></i>
                       </button>
                       
-                      
-                     
-
+                    
                       <!-- <button data-id="{{ $sa->id }}" name="deleteAddress" type="submit" class="btn border w-fit rounded-sm text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px]" style="background-color: #ffffff">
                         <i aria-hidden="true" class="fas fa-solid fa-trash" title="Hapus Alamat"></i>
                       </button> -->
@@ -373,41 +371,41 @@
       <!-- END MY ORDER -->
 
       <!-- WHISHLIST -->
-      <div class="tab-pane fade" id="my-whislist" style="min-height:80vh;">
+      <div class="tab-pane fade" id="my-wishlist" style="min-height:80vh;">
         <div class="col-12">
           <div class="row">
             @foreach ($profile->wishlist as $wp)
             <div class="col-lg-2 col-md-3 col-6 p-1">
               <div class="bg-white rounded-lg shadow-sm overflow-hidden product-item border border-xl">
-                  <a href="/detail" class="text-decoration-none">
-                      <div class="position-relative overflow-hidden bg-transparent p-0">
-                          <img class="img-fluid w-100 rounded-sm pb-1 md:pb-2 lg:pb-2 xl:pb-2" src="images/produk.png" alt="">
-                      </div>
-                      <div class="grid gap-1 text-left p-2">
-                          <div class="flex justify-content-start gap-1">
-                              <i class="text-decoration-none fas fa-star text-[12px] md:text-[14px] lg:text-[16px] xl:text-[16px]" style="color:orange;"></i>
-                              <p class="text-decoration-none text-black text-[12px] md:text-[12px] lg:text-[14px] xl:text-[14px]">5</p>
-                          </div>
-                          <h1 class="text-[10px] md:text-[10px] lg:text-[12px] xl:text-[14px] product-title" id="product{{$wp->product_id}}">Everlaskin 2in1 {{ $wp->product_id }}</h1>
-                          <div class="flex justify-content-start gap-1">
-                              <p class="text-decoration-none text-black text-[10px] md:text-[10px] lg:text-[10px] xl:text-[12px] text-primary">Rp519.000</p>
-                              <!-- <p class="text-muted text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px]"><del>Rp810.000</del></p> -->
-                          </div>
-                      </div>
-                      <div class="flex justify-content-between">
-                          <a href="/detail" class="col-4 text-decoration-none text-[#183018] p-0 text-[10px] md:text-[10px] lg:text-[10px] xl:text-[12px] grid hover-red text-center">
-                            <i class="fas fa-eye"></i>
-                            Detail
-                          </a>
-                          <a href="javascript:void(0);" class="col-4 text-decoration-none text-[#183018] p-0 text-[10px] md:text-[12px] lg:text-[10px] xl:text-[12px] grid hover-red text-center" onclick="addToCart({{$wp->product_id}})">
-                            <i class="fas fa-shopping-cart"></i>
+                <a href="/{{ $wp->product->product_code }}_product" class="text-decoration-none">
+                    <div class="position-relative overflow-hidden bg-transparent p-0">
+                        <img class="img-fluid w-100 rounded-md pb-1 md:pb-2 lg:pb-2 xl:pb-2" src="{{ Storage::url($wp->product->main_image) }}" alt="{{ $wp->product->product_name}}">
+                    </div>
+                    <div class="grid gap-1 text-left p-2">
+                        <div class="flex">
+                            <div class="flex gap-1">
+                                <i class="text-decoration-none fas fa-star text-[8px] md:text-[14px] lg:text-[16px] xl:text-[16px]" style="color:orange;"></i>
+                                <p class="text-decoration-none text-black text-[8px] md:text-[12px] lg:text-[14px] xl:text-[14px]">5</p>
+                            </div>
+                            <div class="ml-auto">
+                              <a href="javascript:void(0);" class="col-4 text-decoration-none text-[#183018] p-0 text-[10px] md:text-[12px] lg:text-[10px] xl:text-[12px] grid hover-[#183018] text-center" onclick="removeFromWishlist({{$wp->product->id}})">
+                                <i class="fas fa-heart"></i> Hapus
+                              </a>
+                            </div>
+                        </div>
+                        <h1 class="text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px] product-title" id="product{{$wp->product->id}}">{{ Str::limit($wp->product->product_name, 42) }}</h1>
+                        <div class="flex justify-content-start gap-1">
+                            <p class="text-decoration-none text-black text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px] text-primary">Rp {{ number_format($wp->product->regular_price, 0, ',', '.') }}</p>
+                            <!-- <p class="text-muted text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px]"><del>Rp810.000</del></p> -->
+                        </div>
+                    </div>
+                    <div class="flex justify-content-between px-2">
+                        <a href="javascript:void(0);" class="mb-2 py-2 rounded-sm border border-[#183018] hover:border-white shadow-sm w-full hover:bg-[#183018] text-decoration-none text-[#183018] hover:text-white p-0 text-[7px] md:text-[12px] lg:text-[10px] xl:text-[12px] flex gap-1 align-items-center justify-content-center hover-red" onclick="addToCart({{$wp->product->id}})">
+                            + <i class="fas fa-shopping-cart"></i>
                             Keranjang
-                          </a>
-                          <a href="javascript:void(0);" class="col-4 text-decoration-none text-[#183018] p-0 text-[10px] md:text-[12px] lg:text-[10px] xl:text-[12px] grid hover-[#183018] text-center" onclick="removeFromWishlist({{$wp->product_id}})">
-                            <i class="fas fa-heart"></i> Hapus
-                          </a>
-                      </div>
-                  </a>
+                        </a>
+                    </div>
+                </a>
               </div>
             </div>
             @endforeach

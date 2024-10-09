@@ -39,102 +39,37 @@
 
         <div id="main">
             <div class="page-heading">
-                <div class="page-title" style="margin-bottom: 20px;">
+                <div class="page-title">
                     <div class="row">
-                        <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>Brands</h3>
-                            <nav aria-label="breadcrumb" class="breadcrumb-header me-3">
+                        <div class="col-12 col-md-6">
+                            <h3>All Brand</h3>
+                        </div>
+                        <div class="col-12 col-md-6 d-flex justify-content-md-end align-items-center">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header" style="margin-bottom: 20px;">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Brand</a></li>
+                                    <li class="breadcrumb-item"><a href="/brand-admin">Brand</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">All Brand</li>
                                 </ol>
                             </nav>
                         </div>
-                        <div
-                            class="col-12 col-md-6 d-flex justify-content-md-end align-items-center order-md-2 order-first">
-
-                            <a href="/create-brand" type="submit"
-                                class="btn btn-sm btn-primary d-flex align-items-center" style="border-radius: 8px;">
-                                <i class="bi bi-plus-circle" style="margin-right: 3px;"></i> Add Brand
-                            </a>
-                        </div>
                     </div>
                 </div>
-
-                <!-- Basic Horizontal form layout section start -->
-                {{-- <section id="basic-horizontal-layouts">
-                    <div class="row match-height">
-                        <!-- Form 1 -->
-                        @foreach ($brands as $brand)
-                            <div class="col-md-4 col-12">
-                                <a href="{{ url('/detail-brand/' . $brand->id) }}"
-                                    style="text-decoration: none; color: inherit; display: block;">
-                                    <div class="card">
-                                        <div class="card-header d-flex align-items-center">
-                                            <!-- Image -->
-                                            <div class="me-3">
-                                                <img src="{{ asset($brand->brand_logo) }}" alt="{{ $brand->name }}"
-                                                    class="lazyload"
-                                                    style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
-                                            </div>
-                                            <!-- Product Name and Category -->
-                                            <h4 class="card-title mb-0"
-                                                style="margin-top: 1px; font-size: 1.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                {{ Str::limit($brand->name, 20, '...') }}
-                                            </h4>
-                                        </div>
-                                        <div class="card-content">
-                                            <div class="card-body">
-                                                <div class="form-body">
-                                                    <div class="row">
-                                                        <!-- brand Name Field -->
-                                                        <div
-                                                            class="col-md-12 d-flex justify-content-between align-items-center">
-                                                            <div>                                                              
-                                                                <p class="card-price"
-                                                                    style="font-size: 1rem; font-weight: bold; color: black; margin-top: -35px;">
-                                                                    Summary
-                                                                </p>
-                                                                <p class="card-price" style="color: black; ">
-                                                                    {{ Str::limit($brand->description, 100, '...') }}
-
-                                                                    <label>Product</label>
-                                                            </div>
-                                                            <div class="ms-auto">
-                                                                <a href="javascript:void(0);"
-                                                                    class="text-danger delete-brand"
-                                                                    data-id="{{ $brand->id }}">
-                                                                    <i class="bi bi-trash"
-                                                                        style="font-size: 1.25rem;"></i>
-                                                                </a>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
-                        <div class="d-flex justify-content-between mt-4 px-3">
-                            <div class="mb-3">
-                                Showing {{ $brands->firstItem() }} to {{ $brands->lastItem() }} of
-                                {{ $brands->total() }} results
-                            </div>
-                            <div class="pagination-container">
-                                {{ $brands->appends(['search' => request('search')])->links('pagination::bootstrap-4') }}
-                            </div>
-                        </div>
-
-                    </div>
-                </section>         --}}
 
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Brands</h4>
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <h4>List Brands</h4>
+                                </div>
+                                <div class="col-12 col-md-6 d-flex justify-content-md-end align-items-center">
+                                    <a href="{{ route('create-brand-admin') }}" type="submit"
+                                        class="btn btn-sm btn-primary d-flex align-items-center"
+                                        style="border-radius: 8px;">
+                                        <i class="bi bi-plus-circle" style="margin-right: 3px;"></i> Add Brand
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <table class="table" id="table1">
@@ -144,7 +79,6 @@
                                         <th>Brand Code</th>
                                         <th>Name</th>
                                         <th>Total Product</th>
-                                        <th>Description</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -152,27 +86,27 @@
                                     @foreach ($brands as $brand)
                                         <tr id="brand-item-{{ $brand->id }}">
                                             <td>
-                                                <img src="{{ asset($brand->brand_logo) }}" alt="{{ $brand->name }}"
-                                                    class="lazyload"
+                                                <img src="{{ Storage::url($brand->brand_logo) }}"
+                                                    alt="{{ $brand->name }}" class="lazyload"
                                                     style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;"
-                                                    onclick="openImageInNewTab('{{ asset($brand->brand_logo) }}')">
+                                                    onclick="openImageInNewTab('{{ Storage::url($brand->brand_logo) }}')">
                                             </td>
+
                                             <td>{{ $brand->brand_code }}</td>
                                             <td>{{ Str::limit($brand->name, 20, '...') }}</td>
                                             <td>
                                                 <span class="badge bg-light-success">{{ $brand->products_count }}</span>
                                                 <!-- Menampilkan total produk -->
                                             </td>
-                                            <td>{{ Str::limit($brand->description, 100, '...') }}</td>
                                             <td class="action-buttons">
                                                 <a href="{{ url('/detail-brand/' . $brand->id) }}">
-                                                    Details
+                                                    <span class="badge bg-warning">Details</span>
                                                 </a>
                                                 <a href="javascript:void(0);" class="delete-brand"
                                                     data-id="{{ $brand->id }}">
-                                                    Delete
+                                                    <span class="badge bg-danger">Delete</span>
                                                 </a>
-                                            </td>                                      
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -191,17 +125,8 @@
                 </section>
             </div>
 
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="http://ahmadsaugi.com">A. Saugi</a></p>
-                    </div>
-                </div>
-            </footer>
+            @include('admin.layouts.footer')
+
         </div>
     </div>
 

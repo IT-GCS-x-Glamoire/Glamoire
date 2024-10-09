@@ -24,16 +24,16 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-        
+
         // Cek apakah email terdaftar di database
         $user = User::where('email', $credentials['email'])->first();
-    
+
         if ($user) {
             // Email ditemukan, sekarang cek apakah password cocok
             if (Hash::check($credentials['password'], $user->password)) {
                 // Jika password benar, lakukan autentikasi
                 Auth::login($user);
-                
+
                 session()->put([
                     'id_user' => $user['id'],
                     'username' => $user['fullname'],
@@ -53,15 +53,17 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         try {
-            
+
             if (User::where('email', $request->email)->exists()) {
                 return response()->json(['error' => true, 'message' => 'Email Sudah Terdaftar']);
-            } if (User::where('handphone', $request->handphone)->exists()) {
+            }
+            if (User::where('handphone', $request->handphone)->exists()) {
                 return response()->json(['error' => true, 'message' => 'Handphone Sudah Terdaftar']);
             }
-        
-            $role = Role::where('name', 'user')->value('id');
-            
+
+            // Set nilai role secara langsung
+            $role = 'user';  // Kamu bisa mengubah ini sesuai kebutuhan
+
             $user = User::create([
                 'fullname'   => $request->fullname,
                 'email'      => $request->email,
@@ -98,7 +100,6 @@ class AuthController extends Controller
 
                 Auth::login($userLogin);
 
-
                 $data = [
                     'code' => $codeUser,
                     'fullname' => $userLogin->fullname,
@@ -131,14 +132,14 @@ class AuthController extends Controller
     public function checkEmail(Request $request)
     {
         $emailExists = User::where('email', $request->email)->exists();
-        
+
         return response()->json(['exists' => $emailExists]);
     }
 
     public function checkHandphone(Request $request)
     {
         $handphoneExists = User::where('handphone', $request->handphone)->exists();
-        
+
         return response()->json(['exists' => $handphoneExists]);
     }
 
@@ -163,4 +164,3 @@ class AuthController extends Controller
         }
     }
 }
-

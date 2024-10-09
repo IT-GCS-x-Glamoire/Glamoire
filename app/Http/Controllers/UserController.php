@@ -10,6 +10,7 @@ use App\Models\Cart;
 use App\Models\Cart_item;
 use App\Models\Wishlist;
 use App\Models\Buynow;
+use App\Models\Product;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,14 +18,15 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     // Mengambil data User
-    public function account($user){
+    public function account($user)
+    {
         try {
             $id      = session('id_user');
             $profile = User::with([
-                'shippingAddress' => function($query) {
+                'shippingAddress' => function ($query) {
                     $query->orderBy('is_main', 'DESC'); // Mengurutkan shippingAddress berdasarkan is_main
                 },
-                'wishlist', 
+                'wishlist.product', 
                 'cart.cartItems'
             ])->where('id', $id)->first();
 
@@ -35,8 +37,8 @@ class UserController extends Controller
             // get();
 
             // dd($shippingAddress);
-            
-            // dd($profile);
+
+            // dd($profile->wishlist);
             return view('user.component.account')->with('profile', $profile);
         } catch (Exception $err) {
             dd($err);
@@ -44,9 +46,10 @@ class UserController extends Controller
     }
 
     // Action Tambah Shipping Address
-    public function actionAddShippingAddress(Request $request){
+    public function actionAddShippingAddress(Request $request)
+    {
         try {
-            
+
             $id = User::where('id', session('id_user'))->value('id');
             $checkMainAddress = Shipping_address::where('user_id', $id)->where('is_main', true)->first();
             $checkUseAddress = Shipping_address::where('user_id', $id)->where('is_use', true)->first();
@@ -70,13 +73,13 @@ class UserController extends Controller
 
             session()->flash('after_add_address');
             return redirect()->back();
-
         } catch (Exception $err) {
             dd($err);
         }
     }
 
-    public function addToChart(Request $request){
+    public function addToChart(Request $request)
+    {
         try {
             $userId = session('id_user');
             
@@ -94,47 +97,52 @@ class UserController extends Controller
                         ->where('product_id', $request->product_id)->first();
                         $itemPrice = $cartItem->price; 
                         $itemQuantity = $cartItem->quantity;
-    
+
                         // Tingkatkan kuantitas item dengan 1
                         $newQuantity = $itemQuantity + 1;
-    
+
                         // Hitung total harga baru berdasarkan harga satuan dan kuantitas baru
                         $newPrice = $itemPrice * $newQuantity;
-    
+
                         // Update kuantitas dan harga di database
                         $cartItem->update([
                             'quantity' => $newQuantity,
-                            'total'    => $newPrice, 
+                            'total'    => $newPrice,
                         ]);
                     }
                     // JIKA PRODUK BELUM ADA DI CART USER
                     else{
                         $cartId = Cart::where('user_id', session('id_user'))->value('id');
+                        $product = Product::where('id', $request->product_id)->first();
+                        $total = $product->regular_price;
+
                         Cart_item::create([
                             'cart_id'    => $cartId,
                             'product_id' => $request->product_id,
                             'quantity'   =>  1,
                             'is_choose'  => TRUE,
-                            'price'      => 10000,
-                            'total'      => 10000,
+                            'price'      => $product->regular_price,
+                            'total'      => $total,
                         ]);
                     }
 
-                // JIKA BARU PERTAMA KALI MENAMBAHKAN CART ITEM
-                }else{
+                    // JIKA BARU PERTAMA KALI MENAMBAHKAN CART ITEM
+                } else {
                     $cart = Cart::create([
                         'user_id' => $userId,
                     ]);
                     
                     $cartId = Cart::where('user_id', session('id_user'))->value('id');
+                    $product = Product::where('id', $request->product_id)->first();
+                    $total = $product->regular_price;
 
                     Cart_item::create([
                         'cart_id'    => $cart->id,
                         'product_id' => $request->product_id,
                         'quantity'   =>  1,
                         'is_choose'  => TRUE,
-                        'price'      => 10000,
-                        'total'      => 10000,
+                        'price'      => $product->regular_price,
+                        'total'      => $total,
                     ]);
                     
                 }
@@ -168,13 +176,13 @@ class UserController extends Controller
 
                         $itemPrice = $cartItem->price; 
                         $itemQuantity = $cartItem->quantity;
-    
+
                         // Tingkatkan kuantitas item dengan 1
                         $newQuantity = $itemQuantity + $request->quantity;
     
                         // Hitung total harga baru berdasarkan harga satuan dan kuantitas baru
                         $newPrice = $itemPrice * $newQuantity;
-    
+
                         // Update kuantitas dan harga di database
                         $cartItem->update([
                             'quantity' => $newQuantity,
@@ -212,7 +220,7 @@ class UserController extends Controller
                     ]);
                     
                 }
-                
+
                 return response()->json(['success' => true, 'message' => 'Berhasil Menambahkan Produk ke Keranjang']);
             }
             return response()->json(['success' => false, 'message' => 'Masuk/Daftar Terlebih Dahulu Yaa']);
@@ -236,14 +244,13 @@ class UserController extends Controller
                 return response()->json(['success' => true, 'message' => 'Berhasil Menambahkan Produk ke Favoritmu']);
             }
             return response()->json(['success' => false, 'message' => 'Masuk/Daftar Terlebih Dahulu Yaa']);
-
-
         } catch (Exception $err) {
             dd($err);
         }
     }
 
-    public function removeFromWishlist(Request $request){
+    public function removeFromWishlist(Request $request)
+    {
         try {
             if (session('id_user')) {
                 $userId = session('id_user');
@@ -255,19 +262,18 @@ class UserController extends Controller
                 return response()->json(['success' => true, 'message' => 'Berhasil Menghapus Barang Dari Wishlist']);
             }
             return response()->json(['success' => false, 'message' => 'Masuk/Daftar Terlebih Dahulu Yaa']);
-        
         } catch (\Throwable $th) {
             //throw $th;
         }
     }
 
-    public function updateProfile(Request $request){
+    public function updateProfile(Request $request)
+    {
         try {
             $user = User::find(session('id_user'));
             if (!$user) {
                 return response()->json(['success' => false, 'message' => 'User Tidak Ditemukan']);
-            }
-            else {
+            } else {
                 $user->update($request->all());
                 session()->put([
                     'username' => $request->fullname,
@@ -276,7 +282,6 @@ class UserController extends Controller
 
             session()->flash('after_update_profile');
             return redirect()->back();
-
         } catch (Exception $err) {
             dd($err);
         }
@@ -285,11 +290,10 @@ class UserController extends Controller
     public function updateShippingAddress(Request $request)
     {
         $address = Shipping_address::find($request->input('address-id'));
-        
+
         if (!$address) {
             return response()->json(['success' => false, 'message' => 'Address not found.']);
-        }
-        else {
+        } else {
             $address->update($request->all());
         }
 
@@ -298,18 +302,19 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function deleteShippingAddress(Request $request){
+    public function deleteShippingAddress(Request $request)
+    {
         try {
             $address = Shipping_address::where('id', $request->input('address_id'))->delete();
             // session()->flash('after_delete_address');
             return response()->json(['success' => true, 'message' => 'Berhasil Menghapus Alamat Pengiriman']);
-
         } catch (Exception $err) {
             dd($err);
         }
     }
 
-    public function setMainAddress(Request $request){
+    public function setMainAddress(Request $request)
+    {
         try {
             DB::beginTransaction();
 
@@ -362,13 +367,14 @@ class UserController extends Controller
             // Commit transaction jika semua update berhasil
             DB::commit();
 
-        return response()->json(['success' => true, 'message' => 'Berhasil Mengubah Alamat Pengiriman']);
+            return response()->json(['success' => true, 'message' => 'Berhasil Mengubah Alamat Pengiriman']);
         } catch (Exception $err) {
             dd($err);
         }
     }
 
-    public function useAddress(Request $request){
+    public function useAddress(Request $request)
+    {
         try {
             // Ambil alamat utama saat ini (jika ada)
             $currentUseAddress = Shipping_address::where('user_id', session('id_user'))
@@ -399,106 +405,9 @@ class UserController extends Controller
         }
     }
 
-    public function addProductBuyNow(Request $request)
-    {
-        try {
-            $userId = session('id_user');
-            
-            if ($userId) {
-                $checkBuyNow = Buynow::where('user_id', $userId)->exists();
-
-                // Periksa apakah user sudah memiliki data di tabel Buynow
-                if ($checkBuyNow) {
-                    $buynow = Buynow::where('user_id', $userId)->first();
-                    $buynow->update([
-                        'user_id'    => $userId,
-                        'product_id' => $request->product_id,
-                        'quantity'   => $request->quantity,
-                        'price'      => 23000, // Kamu bisa mengganti harga ini secara dinamis
-                        'total'      => $request->quantity * 23000,
-                        'is_buy'     => 0,    
-                    ]);
-                } else {
-                    Buynow::create([
-                        'user_id'    => $userId,
-                        'product_id' => $request->product_id,
-                        'quantity'   => $request->quantity,
-                        'price'      => 10000, // Harga default, bisa diganti dinamis
-                        'total'      => $request->quantity * 10000,
-                        'is_buy'     => 0,
-                    ]);
-                }
-
-                // Return response success jika proses berhasil
-                return response()->json(['success' => true, 'message' => 'Produk berhasil ditambahkan ke Buy Now']);
-            } else {
-                return response()->json(['success' => false, 'message' => 'Masuk/Daftar Terlebih Dahulu']);
-            }
-        } catch (Exception $err) {
-            // Return error dengan pesan yang lebih spesifik
-            return response()->json(['success' => false, 'message' => $err->getMessage()]);
-        }
-    }
-
-    public function updateCartQuantityBuyNow(Request $request)
-    {
-        // Find the product in the cart or wherever the quantity is stored
-        $productBuyNow = Buynow::where('user_id', session('id_user'))->first();
-
-        if ($productBuyNow) {
-            $productBuyNow->update([
-                'quantity' => $request->quantity,
-                'total'    => ($request->quantity)*($productBuyNow->price),
-            ]);
-
-            return response()->json(['success' => true, 'message' => 'Quantity updated successfully']);
-        }
-
-        return response()->json(['success' => false, 'message' => 'Terjadi Masalah Dengan Sistem']);
-    }
-
-
-    public function buyNow(){
-        try {
-            $userId = session('id_user');
-    
-            if ($userId) {
-                $product = Buynow::where('user_id', $userId)
-                ->get();
-
-                $address = Shipping_address::where('user_id', session('id_user'))
-                ->orderBy('is_main', 'DESC')
-                ->get();
-
-                $totalProduct = $product->sum('quantity');
-                // Hitung total harga
-                $totalPrice = $product->sum('total');
-
-
-                $data = [
-                    'product'       => $product,
-                    'address'       => $address,
-                    'totalProduct'  => $totalProduct,
-                    'totalPrice'    => $totalPrice,
-                ];
-                
-                // dd($data);
-                // dd($cartItem);
-
-                // dd($address);
-                return view('user.component.buynow')->with('data', $data);
-            }
-            else {
-                return redirect()->back();
-            }
-
-        } catch (Exception $err) {
-            error(404);
-        }
-    }
-
     // SUBSCRIBE
-    public function subscribe(Request $request){
+    public function subscribe(Request $request)
+    {
         try {
             Subscribe::create([
                 'email'      => $request->email,
@@ -530,4 +439,17 @@ class UserController extends Controller
         return response()->json(['success' => true]);
     }
 
+    // ADMIN PAGE
+    public function indexUserAdmin()
+    {
+        $users = User::where('role', 'user')->get();
+
+        return view('admin.user.index', compact('users'));
+    }
+
+
+    public function detailUserAdmin()
+    {
+        return view('admin.user.detail');
+    }
 }

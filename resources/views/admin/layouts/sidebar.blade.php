@@ -62,10 +62,13 @@
                                 <a href="/promo">Promo</a>
                             </li>
                             <li class="submenu-item {{ Request::is('promo-voucher') ? 'active' : '' }}">
-                                <a href="/promo-voucher">Promo Voucher</a>
+                                <a href="/promo-voucher">Voucher</a>
                             </li>
                             <li class="submenu-item {{ Request::is('promo-ongkir') ? 'active' : '' }}">
-                                <a href="/promo-ongkir">Promo Ongkir</a>
+                                <a href="/promo-ongkir">Ongkir</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('promo-diskon') ? 'active' : '' }}">
+                                <a href="/promo-diskon">Diskon</a>
                             </li>
                         </ul>
 
@@ -78,8 +81,8 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item {{ Request::is('user') ? 'active' : '' }}">
-                        <a href="/user" class='sidebar-link'>
+                    <li class="sidebar-item {{ Request::is('user-admin') ? 'active' : '' }}">
+                        <a href="/user-admin" class='sidebar-link'>
                             <i class="bi bi-people-fill"></i>
                             <span>User</span>
                         </a>
@@ -103,6 +106,20 @@
                         <a href="/chat-admin" class='sidebar-link'>
                             <i class="bi bi-chat-dots-fill"></i>
                             <span>Chat</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item {{ Request::is('contact-us-admin') ? 'active' : '' }}">
+                        <a href="/contact-us-admin" class='sidebar-link'>
+                            <i class="bi bi-patch-question"></i>
+                            <span>Contact Us</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item {{ Request::is('subscribe-admin') ? 'active' : '' }}">
+                        <a href="/subscribe-admin" class='sidebar-link'>
+                            <i class="bi bi-person-plus-fill"></i>
+                            <span>Subscribe</span>
                         </a>
                     </li>
                 @endif
@@ -155,5 +172,7 @@
                 @endif
             </ul>
         </div>
+        <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+
     </div>
 </div>
