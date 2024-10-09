@@ -10,6 +10,7 @@ use App\Models\Cart;
 use App\Models\Cart_item;
 use App\Models\Wishlist;
 use App\Models\Buynow;
+use App\Models\Product;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +26,7 @@ class UserController extends Controller
                 'shippingAddress' => function ($query) {
                     $query->orderBy('is_main', 'DESC'); // Mengurutkan shippingAddress berdasarkan is_main
                 },
-                'wishlist', 
+                'wishlist.product', 
                 'cart.cartItems'
             ])->where('id', $id)->first();
 
@@ -37,7 +38,7 @@ class UserController extends Controller
 
             // dd($shippingAddress);
 
-            // dd($profile);
+            // dd($profile->wishlist);
             return view('user.component.account')->with('profile', $profile);
         } catch (Exception $err) {
             dd($err);
@@ -112,13 +113,16 @@ class UserController extends Controller
                     // JIKA PRODUK BELUM ADA DI CART USER
                     else{
                         $cartId = Cart::where('user_id', session('id_user'))->value('id');
+                        $product = Product::where('id', $request->product_id)->first();
+                        $total = $product->regular_price;
+
                         Cart_item::create([
                             'cart_id'    => $cartId,
                             'product_id' => $request->product_id,
                             'quantity'   =>  1,
                             'is_choose'  => TRUE,
-                            'price'      => 10000,
-                            'total'      => 10000,
+                            'price'      => $product->regular_price,
+                            'total'      => $total,
                         ]);
                     }
 
@@ -129,14 +133,16 @@ class UserController extends Controller
                     ]);
                     
                     $cartId = Cart::where('user_id', session('id_user'))->value('id');
+                    $product = Product::where('id', $request->product_id)->first();
+                    $total = $product->regular_price;
 
                     Cart_item::create([
                         'cart_id'    => $cart->id,
                         'product_id' => $request->product_id,
                         'quantity'   =>  1,
                         'is_choose'  => TRUE,
-                        'price'      => 10000,
-                        'total'      => 10000,
+                        'price'      => $product->regular_price,
+                        'total'      => $total,
                     ]);
                     
                 }
@@ -396,104 +402,6 @@ class UserController extends Controller
             return response()->json(['success' => true, 'message' => 'Berhasil Mengubah Alamat Pengiriman']);
         } catch (Exception $err) {
             dd($err);
-        }
-    }
-
-    public function addProductBuyNow(Request $request)
-    {
-        try {
-            $userId = session('id_user');
-            
-            if ($userId) {
-                $checkBuyNow = Buynow::where('user_id', $userId)->exists();
-
-                // Periksa apakah user sudah memiliki data di tabel Buynow
-                if ($checkBuyNow) {
-                    $buynow = Buynow::where('user_id', $userId)->first();
-                    $buynow->update([
-                        'user_id'    => $userId,
-                        'product_id' => $request->product_id,
-                        'quantity'   => $request->quantity,
-                        'price'      => 23000, // Kamu bisa mengganti harga ini secara dinamis
-                        'total'      => $request->quantity * 23000,
-                        'is_buy'     => 0,    
-                    ]);
-                } else {
-                    Buynow::create([
-                        'user_id'    => $userId,
-                        'product_id' => $request->product_id,
-                        'quantity'   => $request->quantity,
-                        'price'      => 10000, // Harga default, bisa diganti dinamis
-                        'total'      => $request->quantity * 10000,
-                        'is_buy'     => 0,
-                    ]);
-                }
-
-                // Return response success jika proses berhasil
-                return response()->json(['success' => true, 'message' => 'Produk berhasil ditambahkan ke Buy Now']);
-            } else {
-                return response()->json(['success' => false, 'message' => 'Masuk/Daftar Terlebih Dahulu']);
-            }
-        } catch (Exception $err) {
-            // Return error dengan pesan yang lebih spesifik
-            return response()->json(['success' => false, 'message' => $err->getMessage()]);
-        }
-    }
-
-    public function updateCartQuantityBuyNow(Request $request)
-    {
-        // Find the product in the cart or wherever the quantity is stored
-        $productBuyNow = Buynow::where('user_id', session('id_user'))->first();
-
-        if ($productBuyNow) {
-            $productBuyNow->update([
-                'quantity' => $request->quantity,
-                'total'    => ($request->quantity)*($productBuyNow->price),
-            ]);
-
-            return response()->json(['success' => true, 'message' => 'Quantity updated successfully']);
-        }
-
-        return response()->json(['success' => false, 'message' => 'Terjadi Masalah Dengan Sistem']);
-    }
-
-
-    public function buyNow(){
-        try {
-            $userId = session('id_user');
-    
-            if ($userId) {
-                $product = Buynow::where('user_id', $userId)
-                ->get();
-
-                $address = Shipping_address::where('user_id', session('id_user'))
-                ->orderBy('is_main', 'DESC')
-                ->get();
-
-                $totalProduct = $product->sum('quantity');
-                // Hitung total harga
-                $totalPrice = $product->sum('total');
-
-
-                $data = [
-                    'product'       => $product,
-                    'address'       => $address,
-                    'totalProduct'  => $totalProduct,
-                    'totalPrice'    => $totalPrice,
-                ];
-                
-                // dd($data);
-                // dd($cartItem);
-
-                // dd($address);
-                return view('user.component.buynow')->with('data', $data);
-            }
-            else {
-                return redirect()->back();
-            }
-
-        } catch (Exception $err) {
-            error(404);
         }
     }
 

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('partner', function (Blueprint $table) {
+        Schema::create('partners', function (Blueprint $table) {
             $table->id();
             $table->string('fullname');
             $table->string('handphone');
@@ -23,9 +23,9 @@ return new class extends Migration
             $table->boolean('reached_email');
             $table->string('category_product');
             $table->unsignedBigInteger('file_company');
-            $table->foreign('file_company')->references('id')->on('file_partner')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('file_company')->references('id')->on('file_partners')->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedBigInteger('file_bpom');
-            $table->foreign('file_bpom')->references('id')->on('file_partner')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('file_bpom')->references('id')->on('file_partners')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

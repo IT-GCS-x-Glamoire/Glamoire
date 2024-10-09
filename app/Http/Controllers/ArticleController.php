@@ -76,4 +76,27 @@ class ArticleController extends Controller
     public function updateArticle() {}
 
     public function deleteArticle() {}
+
+
+    // USER
+    public function articleUser(){
+        $articles = Article::all();
+        $categoryArticles = CategoryArticle::with(['categoryArticles'])
+        ->get();
+
+        // dd(count($categoryArticles));
+
+        return view('user.component.newsletter', [
+            'articles' => $articles,
+            'categoryArticles' => $categoryArticles,
+        ]);
+    }
+
+    public function detailArticle($name){
+        $article = Article::where('name', $name)->first();
+
+        return view('user.component.blog', [
+            'artcile' => $article,
+        ]);
+    }
 }

@@ -9,7 +9,8 @@ use App\Models\Product;
 use App\Models\Partner;
 use App\Models\ProductVariations;
 use App\Models\User;
-use Exception;
+use App\Models\Wishlist;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
@@ -25,14 +26,28 @@ class ProductController extends Controller
 
             // dd($userId);
             if ($userId) {
-                $data = User::with(['wishlist'])
-                    ->where('id', $userId)
+                $data = User::where('id', $userId)
                     ->first();
 
+                $wishlist = Wishlist::where('id', $userId)
+                    ->get();
+
+                $product = Product::get();
+
+                $data = [
+                    'wishlist' => $wishlist,
+                    'product'  => $product,
+                ];
+
+                // dd(count($data['wishlist']));
                 // dd($data);
                 return view('user.component.home')->with('data', $data);
-            } else {
-                return view('user.component.home');
+            }
+            else {
+                $product = Product::get();
+
+                // dd($product);
+                return view('user.component.home')->with('data', $product);
             }
 
             // dd($data->whislist);
@@ -44,38 +59,21 @@ class ProductController extends Controller
         }
     }
 
-    // public function index()
-    // {
-    //     try {
-    //         // Ambil user_id dari session
-    //         $userId = session('id_user');
-
-    //         if ($userId) {
-    //             // Cari pengguna berdasarkan user_id dari session, termasuk wishlist
-    //             $data = User::with('wishlist')->where('id', $userId)->first();
-
-    //             // Render halaman, biarkan tampil meskipun wishlist-nya null
-    //             return view('user.component.home')->with('data', $data);
-    //         } else {
-    //             // Jika userId tidak ada dalam session, tetap render halaman tanpa data pengguna
-    //             return view('user.component.home');
-    //         }
-    //     } catch (Exception $err) {
-    //         // Jika ada error, tampilkan exception untuk debugging
-    //         dd($err);
-    //     }
-    // }
-
-
-
-
-    public function detail($id)
-    {
+    public function detail($code){
         try {
 
-            $data = $id;
+            $product = Product::where('product_code', $code)->first();
+            $youlike = Product::get();
 
-            return view('user.component.detail')->with('data', $data);
+
+            $product->images = json_decode($product->images, true);
+            $product->dimensions = json_decode($product->dimensions, true);
+
+            return view('user.component.detail', [
+                'product' => $product,
+                'youlike' => $youlike,
+            ]);
+
         } catch (Exception $err) {
             dd($err);
         }

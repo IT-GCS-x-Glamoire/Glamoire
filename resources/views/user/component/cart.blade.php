@@ -28,11 +28,11 @@
                             <div class="d-flex">
                                 <div class="col-lg-2 col-md-4 col-4 pl-1">
                                     <input class="form-check-input item-checkbox" type="checkbox" value="{{ $product->total }}" id="produk_{{ $product->product_id }}" data-price="{{ $product->price }}" onchange="calculateTotal()" {{ $product->is_choose == TRUE ? "checked" : "" }}>
-                                    <img src="images/produk1.png" alt="nama produk" class="img-fluid w-100 border border-[#183018] rounded-md">
+                                    <img src="{{ Storage::url($product->product->main_image) }}" alt="nama produk" class="img-fluid w-100 border border-[#183018] rounded-md">
                                 </div>
                                 <div class="col-lg-10 col-md-8 col-8 p-0 p-md-2 d-flex flex-column">
-                                    <h1 class="text-[12px] md:text-[12px] lg:text-[14px] xl:text-[16px]">Nama Produk {{ $product->product_id }}</h1>
-                                    <h1 class="text-[12px] md:text-[12px] lg:text-[14px] xl:text-[16px]">{{ 'Rp' . number_format($product->price, 0, ',', '.') }}</h1>
+                                    <h1 class="text-[12px] md:text-[12px] lg:text-[14px] xl:text-[16px]">{{ $product->product->product_name }}</h1>
+                                    <h1 class="text-[12px] md:text-[12px] lg:text-[14px] xl:text-[16px]">{{ 'Rp' . number_format($product->product->regular_price, 0, ',', '.') }}</h1>
                                     <!-- BUTTON PLUS & MINUS & DELETE -->
                                     <div class="d-flex mt-auto bottom">
                                         <div class="d-flex ml-auto">
@@ -40,7 +40,7 @@
                                                 <i class="fas fa-trash text-[12px] md:text-[12px] lg:text-[14px] xl:text-[16px]"></i>
                                             </button>
     
-                                            <div class="input-group quantity rounded-sm shadow-sm max-w-[100px] md:max-w-[115px]">
+                                            <!-- <div class="input-group quantity rounded-sm shadow-sm max-w-[100px] md:max-w-[115px]">
                                                 <div class="input-group-btn">
                                                     <button class="btn btn-minus" data-id="{{$product->product_id}}" data-quantity="{{$product->quantity}}" style="height: 32px; width: 32px; display: flex; justify-content: center; align-items: center;" id="minus-btn-product-cart">
                                                         <i class="fa fa-minus text-xs"></i>
@@ -49,6 +49,29 @@
                                                 <input type="text" name="total_product" class="text-xs form-control bg-secondary text-center" id="product-quantity-{{ $product->product_id }}" value="{{ $product->quantity }}">
                                                 <div class="input-group-btn">
                                                     <button class="btn btn-plus" data-id="{{$product->product_id}}" data-quantity="{{$product->quantity}}" style="height: 32px; width: 32px; display: flex; justify-content: center; align-items: center;" id="plus-btn-product-cart">
+                                                        <i class="fa fa-plus text-xs"></i>
+                                                    </button>
+                                                </div>
+                                            </div> -->
+                                            <div class="input-group quantity-detail-produk rounded-sm shadow-sm" style="width: 130px;">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-minus" data-id="{{$product->product_id}}" data-quantity="{{$product->product->stock_quantity}}" style="height: 32px; width: 32px; display: flex; justify-content: center; align-items: center;" id="minus-btn-product-cart-{{$product->product_id}}">
+                                                        <i class="fa fa-minus text-xs"></i>
+                                                    </button>
+                                                </div>
+
+                                                <input type="number" 
+                                                    id="product-quantity-{{ $product->product->id }}" 
+                                                    value="{{ $product->quantity }}"
+                                                    name="total_product"
+                                                    class="text-xs form-control bg-secondary text-center" 
+                                                    min="1" 
+                                                    max="{{ $product->product->stock_quantity}}" 
+                                                    oninput="validateInput(this, {{ $product->product->stock_quantity }})">
+
+                                                    
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-plus" data-id="{{$product->product_id}}" data-quantity="{{$product->product->stock_quantity}}" style="height: 32px; width: 32px; display: flex; justify-content: center; align-items: center;" id="plus-btn-product-cart-{{$product->product_id}}">
                                                         <i class="fa fa-plus text-xs"></i>
                                                     </button>
                                                 </div>
@@ -291,43 +314,10 @@
         }
     });
 </script>
-
 <!-- END FUNCTION FOR DATABASE -->
 
 
-<!-- CALCULATE ALL CHOOSE PRODUCT & -->
-<!-- <script>
-    function calculateTotal() {
-        let total = 0;
-        let itemCount = 0;
-        // Mengambil semua checkbox yang dicentang
-        const checkboxes = document.querySelectorAll('.item-checkbox:checked');
-        checkboxes.forEach((checkbox) => {
-            // Menambahkan harga produk yang dicentang
-            total += parseFloat(checkbox.value);
-            itemCount++;
-        });
-        
-        // Menampilkan jumlah barang
-        document.getElementById('paynowmobile').innerText = 'Beli (' + itemCount.toString() + ')';
-        // Menampilkan total harga
-        document.getElementById('totalPrice').innerText = 'Rp' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        document.getElementById('totalPriceMobile').innerText = 'Rp' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-        // Mengaktifkan atau menonaktifkan tombol "Bayar Sekarang"
-        document.getElementById('paynow').disabled = total === 0;
-        document.getElementById('paynowmobile').disabled = total === 0;
-    }
-
-    function toggleCheckboxes(source) {
-        const checkboxes = document.querySelectorAll('.item-checkbox');
-        checkboxes.forEach((checkbox) => {
-            checkbox.checked = source.checked;
-        });
-        calculateTotal(); // Menghitung total saat checkbox "Pilih Semua" dicentang
-    }
-</script> -->
-
+<!-- MENGHITUNG TOTAL HARGA -->
 <script>
     // Fungsi untuk menghitung total harga
     function calculateTotal() {
@@ -429,7 +419,64 @@
         });
         calculateTotal(); // Menghitung total saat checkbox "Pilih Semua" dicentang
     }
+
+    // Product Quantity
+    $(".quantity-detail-produk button").on("click", function () {
+    var button = $(this);
+    var input = button.parent().parent().find("input");
+    var oldValue = parseFloat(input.val());
+    var maxQuantity = parseFloat(button.data("quantity")); // Ambil nilai max quantity dari data attribute
+    var newVal;
+
+    if (button.hasClass("btn-plus")) {
+        if (oldValue < maxQuantity) {
+            newVal = oldValue + 1;
+        } else {
+            newVal = maxQuantity; // Jika sudah mencapai maksimum, tetap pada max
+        }
+    } else {
+        newVal = (oldValue > 1) ? oldValue - 1 : 1;
+    }
+
+    // Set nilai baru ke input field
+    input.val(newVal);
+    
+    // Panggil checkMaxQuantity untuk memeriksa batas
+        checkMaxQuantity(input[0], maxQuantity);
+    });
+
+    // Fungsi untuk memeriksa apakah sudah mencapai max quantity
+    function checkMaxQuantity(input, maxQuantity) {
+        var value = parseFloat(input.value);
+        var warningElement = document.getElementById("quantity-warning-" + input.id.split('-').pop());
+        var plusButton = document.getElementById("plus-btn-product-cart-" + input.id.split('-').pop());
+
+        if (value > maxQuantity) {
+            plusButton.disabled = true; // Disable tombol plus ketika sudah mencapai stok maksimum
+            if (warningElement) {
+                warningElement.innerText = "Batas untuk pembelian produk terpenuhi";
+            }
+        } else {
+            plusButton.disabled = false; // Enable tombol plus jika belum mencapai stok maksimum
+            if (warningElement) {
+                warningElement.innerText = "";
+            }
+        }
+    }
+
+    function validateInput(input, maxQuantity) {
+        var value = parseFloat(input.value);
+
+        if (value > maxQuantity) {
+            input.value = maxQuantity; // Jangan biarkan lebih dari stok
+        } else if (value < 1) {
+            input.value = 1; // Jangan biarkan di bawah 1
+        }
+        checkMaxQuantity(input, maxQuantity); // Update status tombol
+    }
 </script>
+
+
 
 
 

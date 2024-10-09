@@ -16,23 +16,27 @@
     <div class="col">
       <nav class="tabbable custom-scroll">
         <div class="nav nav-tabs mb-2 mb-md-4" id="nav-tab" role="tablist">
+          @foreach ($categoryArticles as $categoryArticle)
+            
+          @endforeach
           <a class="nav-item nav-link active text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px]" data-toggle="tab" href="#all">All</a>
           <a class="nav-item nav-link text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]" data-toggle="tab" href="#newest">Newest</a>
-          <a class="nav-item nav-link text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]" data-toggle="tab" href="#beauty">Beauty</a>
+          <!-- <a class="nav-item nav-link text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]" data-toggle="tab" href="#beauty">Beauty</a>
           <a class="nav-item nav-link text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]" data-toggle="tab" href="#skincare">Skincare</a>
           <a class="nav-item nav-link text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]" data-toggle="tab" href="#dailyroutine">Daily Tips</a>
-          <a class="nav-item nav-link text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]" data-toggle="tab" href="#dailyroutine">Daily Tips</a>
+          <a class="nav-item nav-link text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px]" data-toggle="tab" href="#dailyroutine">Daily Tips</a> -->
         </div>
       </nav>
 
       <div class="tab-content p-1 md:p-4 lg:md-4 xl:md-4 m-0">
-        <div class="tab-pane fade show active" id="all">
+        <div class="tab-pane fade show active" id="all" style="min-height:80vh;">
           <div class="container-fluid">
             <div class="row">
               <!-- Card Items -->
-              @for ($i=1; $i <= 7; $i++)
+              @if (count($articles) !== 0)
+                @foreach ($articles as $article)
                 <div class="col-md-3 p-1 p-md-2 col-6">
-                  <a href="/blog">
+                  <a href="{{ $article->title }}">
                     <div class="bg-white rounded-lg shadow-smproduct-item mb-2 md:mb-4 lg:mb-4 xl:mb-4 border-xl">
                       <div class="position-relative bg-transparent p-0">
                         <img class="img-fluid w-full rounded-md pb-1 md:pb-2 lg:pb-2 xl:pb-2" src="images/produk.png" alt="">
@@ -45,51 +49,42 @@
                     </div>
                   </a>
                 </div>
-              @endfor
+                @endforeach
+              @else
+                <div class="flex justify-center items-center content-center">
+                  <p class="text-center">Oops.. Belum Ada Artikel</p>
+                </div>
+              @endif
               <!-- End Card Items -->
             </div>
           </div>
         </div>
 
-        <div class="tab-pane fade" id="newest">
+        <div class="tab-pane fade" id="newest" style="min-height:80vh;">
           <div class="row">
             <!-- Card Items -->
-            <div class="col-lg-4 col-md-4 p-1 p-md-2 col-6">
-              <div class="bg-white rounded-lg shadow-smproduct-item mb-2 md:mb-4 lg:mb-4 xl:mb-4 border-xl">
-                <div class="position-relative bg-transparent p-0">
-                    <img class="img-fluid w-full rounded-md pb-1 md:pb-2 lg:pb-2 xl:pb-2" src="images/produk.png" alt="">
+              @if (count($articles) !== 0)
+                @foreach ($articles as $article)
+                <div class="col-md-3 p-1 p-md-2 col-6">
+                  <a href="{{ $article->title }}">
+                    <div class="bg-white rounded-lg shadow-smproduct-item mb-2 md:mb-4 lg:mb-4 xl:mb-4 border-xl">
+                      <div class="position-relative bg-transparent p-0">
+                        <img class="img-fluid w-full rounded-md pb-1 md:pb-2 lg:pb-2 xl:pb-2" src="images/produk.png" alt="">
+                      </div>
+                      <div class="text-left p-2 md:p-2 lg:p-2 xl:p-2 md:pt-4 lg:pt-4 md:pb-3 lg:pb-3">
+                        <p class="text-[6px] md:text-[12px] lg:text-[12px] xl:text-[14px]">CATEGORY | 29 Agustus 2024</p>
+                        <h1 class="text-black font-bold text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px] py-2 md:py-3 lg:py-3 xl:py-3">Experts: Apakah Sampo Non SLS Bisa Bikin Rambut Kering & Kulit Kepala Gatal?</h1>
+                        <p class="text-decoration-none text-[6px] md:text-[10px] lg:text-[12px] xl:text-[12px]">by <a href="/blog class="font-bold">Admin Glamoire</a></p>
+                      </div>
+                    </div>
+                  </a>
                 </div>
-                <div class="text-left p-2 md:p-2 lg:p-2 xl:p-2 md:pt-4 lg:pt-4 md:pb-3 lg:pb-3">
-                  <p class="text-[6px] md:text-[12px] lg:text-[12px] xl:text-[14px]">CATEGORY | 29 Agustus 2024</p>
-                  <h1 class="text-black font-bold text-[8px] md:text-[14px] lg:text-[16px] xl:text-[18px] py-2 md:py-3 lg:py-3 xl:py-3">Experts: Apakah Sampo Non SLS Bisa Bikin Rambut Kering & Kulit Kepala Gatal?</h1>
-                  <p class="text-[6px] md:text-[10px] lg:text-[12px] xl:text-[12px]">by <a class="font-bold">Admin Glamoire</a></p>
+                @endforeach
+              @else
+                <div class="flex justify-center items-center content-center">
+                  <p class="text-center">Oops.. Belum Ada Artikel</p>
                 </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-4 p-1 p-md-2 col-6">
-              <div class="bg-white rounded-lg shadow-smproduct-item md:mb-4 lg:mb-4 xl:mb-4 border-xl">
-                <div class="position-relative bg-transparent p-0">
-                    <img class="img-fluid w-full rounded-md pb-1 md:pb-2 lg:pb-2 xl:pb-2" src="images/produk.png" alt="">
-                </div>
-                <div class="text-left p-2 md:p-2 lg:p-2 xl:p-2 md:pt-4 lg:pt-4 md:pb-3 lg:pb-3">
-                  <p class="text-[6px] md:text-[12px] lg:text-[12px] xl:text-[14px]">CATEGORY | 29 Agustus 2024</p>
-                  <h1 class="text-black font-bold text-[8px] md:text-[14px] lg:text-[16px] xl:text-[18px] py-2 md:py-3 lg:py-3 xl:py-3">Experts: Apakah Sampo Non SLS Bisa Bikin Rambut Kering & Kulit Kepala Gatal?</h1>
-                  <p class="text-[6px] md:text-[10px] lg:text-[12px] xl:text-[12px]">by <a class="font-bold">Admin Glamoire</a></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-4 p-1 p-md-2 col-6">
-              <div class="bg-white rounded-lg shadow-smproduct-item md:mb-4 lg:mb-4 xl:mb-4 border-xl">
-                <div class="position-relative bg-transparent p-0">
-                    <img class="img-fluid w-full rounded-md pb-1 md:pb-2 lg:pb-2 xl:pb-2" src="images/produk.png" alt="">
-                </div>
-                <div class="text-left p-2 md:p-2 lg:p-2 xl:p-2 md:pt-4 lg:pt-4 md:pb-3 lg:pb-3">
-                  <p class="text-[6px] md:text-[12px] lg:text-[12px] xl:text-[14px]">CATEGORY | 29 Agustus 2024</p>
-                  <h1 class="text-black font-bold text-[8px] md:text-[14px] lg:text-[16px] xl:text-[18px] py-2 md:py-3 lg:py-3 xl:py-3">Experts: Apakah Sampo Non SLS Bisa Bikin Rambut Kering & Kulit Kepala Gatal?</h1>
-                  <p class="text-[6px] md:text-[10px] lg:text-[12px] xl:text-[12px]">by <a class="font-bold">Admin Glamoire</a></p>
-                </div>
-              </div>
-            </div>
+              @endif
             <!-- End Card Items -->
           </div>
         </div>

@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\Role;
 use App\Http\Middleware\RoleMiddleware;
+use App\Http\Middleware\Costumer;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;

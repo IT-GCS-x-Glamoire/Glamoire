@@ -22,7 +22,7 @@ return new class extends Migration
             $table->date('date')->nullable();
             $table->string('handphone')->unique()->nullable();
             $table->string('gender')->nullable();
-            $table->rememberToken();
+            $table->rememberToken()->nullable();
             $table->timestamps();         
         });
 

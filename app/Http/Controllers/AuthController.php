@@ -100,7 +100,6 @@ class AuthController extends Controller
 
                 Auth::login($userLogin);
 
-
                 $data = [
                     'code' => $codeUser,
                     'fullname' => $userLogin->fullname,

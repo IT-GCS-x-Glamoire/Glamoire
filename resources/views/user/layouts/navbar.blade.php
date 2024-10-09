@@ -18,24 +18,12 @@
               <div class="col-2 w-fit px-0 min-h-[77vh] overflow-y-auto custom-scroll max-h-[75vh]">
                 <nav class="tabbable border-none">
                   <div class="nav grid nav-tabs border-none mb-2 mb-md-4 w-full" id="nav-tab" role="tablist">
-                    @for ($i=1;$i <= 13;$i++)
-                      @if ($i == 1)
-                        <a class="text-decoration-none nav-item flex py-3 gap-1 align-items-center active categories text-md px-3 text-[#183018] active:font-bold" data-toggle="tab" href="#kategori{{$i}}">
-                          <img src="images/produk1.png" class="w-5 h-5 rounded-circle" alt="">
-                          KATEGORI {{ $i }}
-                        </a>  
-                      @elseif ($i == 13)
-                        <a class="text-decoration-none nav-item flex py-3 gap-1 align-items-center border-none text-md px-3 text-[#183018] active:font-bold" data-toggle="tab" href="#kategori{{$i}}">
-                          <img src="images/produk1.png" class="w-5 h-5 rounded-circle" alt="">
-                          KATEGORI {{ $i }}
-                        </a>  
-                      @else
-                        <a class="text-decoration-none nav-item flex py-3 gap-1 align-items-center border-top border-bottom text-md px-3 text-[#183018] active:font-bold" data-toggle="tab" href="#kategori{{$i}}">
-                          <img src="images/produk1.png" class="w-5 h-5 rounded-circle" alt="">
-                          KATEGORI {{ $i }}
-                        </a>  
-                      @endif
-                    @endfor
+                    @foreach ($categories as $index => $category)
+                    <a class="text-decoration-none nav-item flex py-3 gap-1 align-items-center {{ $index == 0 ? 'active' : '' }} categories text-md px-3 text-[#183018] active:font-bold" data-toggle="tab" href="#kategori{{ $category->id }}">
+                        <img src="{{ asset('storage/' . $category->image) }}" class="w-5 h-5 rounded-circle" alt="{{ $category->name }}">
+                        {{ strtoupper($category->name) }}
+                    </a>
+                    @endforeach
                   </div>
                 </nav>
               </div>
@@ -87,11 +75,11 @@
             </div> -->
             <div class="flex container mt-3 p-0 bg-white custom-shadow rounded-md overflow-y-auto custom-scroll border-white border-8" style="min-height: 50vh;max-height:50vh; min-width: 40vw;">
               <div class="grid-container-brands h-fit p-3">
-                @for ($i=1;$i <= 19;$i++)
-                  <a href="/brand" class="rounded-sm border border-white hover:border-white hover:shadow-xl bg-[#183018]">
-                    <img src="images/glamoire.png" class="img-fluid" alt="glamoire" title="Glamoire">
+                @foreach ($brands as $brand)
+                  <a href="/{{ $brand->name }}_brand" class="rounded-sm border border-white hover:border-white hover:shadow-xl bg-[#183018]">
+                    <img src="{{ Storage::url($brand->brand_logo) }}" class="img-fluid" alt="{{ $brand->name }}" title="{{ $brand->name }}">
                   </a>
-                @endfor
+                @endforeach
               </div>
             </div>
           </ul>

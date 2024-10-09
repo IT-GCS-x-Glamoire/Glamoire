@@ -68,7 +68,7 @@
                 <img src="images/l-1.png" alt="logo glamoire" class="w-1/4">
               </div>
               
-              <form class="px-0 px-md-4 grid" id="register-form">
+              <form class="px-0 px-md-4 grid" id="register-user-form">
                 @csrf
                 <div class="col-12 mb-2">
                   <div>
@@ -132,7 +132,7 @@
                   </div>
                 </div>
               </form>
-             
+              
             </div>
           </div>
 
@@ -302,7 +302,6 @@
     </script>
     <!--  -->
 
-     
 
     <!-- UNTUK MENGATUR SWIPER CARD PADA HALAMAN DETAIL PRODUCT -->
     <script>
@@ -559,6 +558,9 @@
         e.preventDefault();
 
         let fullname = $("#register_fullname").val();
+
+        console.log(fullname);
+
         let email = $("#register_email").val();
         let password = $("#register_password").val();
         let handphone = $("#register_handphone").val();
@@ -639,8 +641,6 @@
                 Swal.close();
                 let errorMessage = "";
                 
-                
-
                 if (response.responseJSON) {
                     if (response.responseJSON.message) {
                         errorMessage = response.responseJSON.message; // Pesan error dari Laravel
@@ -674,8 +674,6 @@
                         if (content) content.style.color = '#ffffff'; // Ubah warna konten
                     }
                 });
-                
-                
             },
         });
       });
@@ -688,6 +686,8 @@
 
         let email = $("#login_email").val();
         let password = $("#login_password").val();
+
+        console.log(email);
 
         Swal.fire({
           title: "Sedang Mengakses Akunmu",
@@ -1031,6 +1031,8 @@
           });
       });
     </script>
+
+    
 
     @if (session('register_or_login_first'))
       <script>

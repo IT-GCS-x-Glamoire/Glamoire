@@ -16,7 +16,7 @@ class CartController extends Controller
 
         if ($userId) {
             $data = Cart::where('user_id', $userId)
-                ->with('cartItems')
+                ->with('cartItems.product')
                 ->get();
             
             $total = $data->sum(function($cart) {
@@ -28,54 +28,11 @@ class CartController extends Controller
             return redirect()->back();
         }
 
-        return view('user.component.cart')->with('data', $data)->with('total', $total);
-    }
-
-    public function checkout(){
-        try {
-            $userId = session('id_user');
-    
-            if ($userId) {
-                $data = Cart::where('user_id', $userId)
-                ->with('cartItems')
-                ->get();
-
-                
-                $address = Shipping_address::where('user_id', session('id_user'))
-                ->orderBy('is_main', 'DESC')
-                ->get();
-
-                $cartId = Cart::where('user_id', session('id_user'))->value('id');
-
-                $cartItems = Cart_item::where('cart_id', $cartId)
-                ->where('is_choose', TRUE)
-                ->get();
-
-                $totalProduct = $cartItems->sum('quantity');
-                // Hitung total harga
-                $totalPrice = $cartItems->sum('total');
-
-
-                $data = [
-                    'address'       => $address,
-                    'cartItems'     => $cartItems,
-                    'totalProduct'  => $totalProduct,
-                    'totalPrice'    => $totalPrice,
-                ];
-                
-                // dd($data);
-                // dd($cartItem);
-
-                // dd($address);
-                return view('user.component.checkout')->with('data', $data);
-            }
-            else {
-                session()->flash('register_or_login_first');
-                return redirect()->back();
-            }
-        } catch (Exception $err) {
-            dd($err);
-        }
+        // dd($data);
+        return view('user.component.cart', [
+            'data' => $data,
+            'total' => $total,
+        ]);
     }
 
     // DELETE PRODUCT ITEM IN CART
