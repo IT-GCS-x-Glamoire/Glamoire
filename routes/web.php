@@ -607,6 +607,7 @@ Route::middleware(['auth', 'role:admin,superadmin'])->group(function () {
 
     // subscribe
     Route::get('/subscribe-admin', [SubscribeController::class, 'indexSubscribeAdmin'])->name('index-subscribe-admin');
+    Route::post('/admin/subscribe/send-email', [SubscribeController::class, 'sendEmail'])->name('subscribe.send.email');
 });
 
 // ACCOUNTING
