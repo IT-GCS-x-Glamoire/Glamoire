@@ -44,10 +44,10 @@ class SubscribeController extends Controller
         ]);
 
         try {
-            // Eksekusi pengiriman email (akan masuk ke antrean/queue)
+            // Eksekusi pengiriman email SECARA LANGSUNG (Synchronous)
             Mail::to($request->email)->send(new PromoMail($request->subject, $request->message));
 
-            Log::info("Email queued for: {$request->email} | Subject: {$request->subject}");
+            Log::info("Email sukses terkirim ke: {$request->email} | Subject: {$request->subject}");
 
             return response()->json([
                 'success' => true,
