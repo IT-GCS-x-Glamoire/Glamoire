@@ -33,6 +33,6 @@ class PromoMail extends Mailable
     {
         // Mengarahkan ke template blade email
         return $this->subject($this->subjectText)
-                    ->view('emails.promo');
+                    ->view('email.promo');
     }
 }
