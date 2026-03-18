@@ -23,6 +23,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Subscribe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail; // WAJIB DI-IMPORT
+use App\Mail\PromoMail; // WAJIB DI-IMPORT
 
 class SubscribeController extends Controller
 {
@@ -42,15 +44,14 @@ class SubscribeController extends Controller
         ]);
 
         try {
-            // TODO: Implementasi Laravel Mail di sini
-            // Mail::to($request->email)->send(new \App\Mail\PromoMail($request->subject, $request->message));
+            // Eksekusi pengiriman email (akan masuk ke antrean/queue)
+            Mail::to($request->email)->send(new PromoMail($request->subject, $request->message));
 
-            // Simulasi sukses untuk saat ini
-            Log::info("Email sent to: {$request->email} | Subject: {$request->subject}");
+            Log::info("Email queued for: {$request->email} | Subject: {$request->subject}");
 
             return response()->json([
                 'success' => true,
-                'message' => 'Email berhasil dikirim ke ' . $request->email
+                'message' => 'Email berhasil dimasukkan ke antrean dan akan segera dikirim ke ' . $request->email
             ]);
         } catch (\Exception $e) {
             Log::error('Gagal mengirim email subscribe: ' . $e->getMessage());
